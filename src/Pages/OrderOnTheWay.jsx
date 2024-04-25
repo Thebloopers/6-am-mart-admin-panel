@@ -1,41 +1,32 @@
-import React from "react";
-import SearchExportForm from "../Components/SearchExportForm";
-import withAuth from "../HOC/withAuth";
+import React from 'react'
 
-const tableData = [
-  {
-    sl: 1,
-    orderId: 100089,
-    deliveryDate: "09 Mar 2023",
-    deliveryTime: "01:21 PM",
-    customerInfo: "+8**********",
-    Store: "Family supermarket",
-    IteamQuanaty: "1",
-    orderStatus: " Canceled",
-    orderType: " Home Delivery",
-  },
-];
-
-function Canceled() {
+const OrderOnTheWay = () => {
+    const tableData = [
+        {
+          sl: 1,
+          orderId: 100089,
+          deliveryDate: "09 Mar 2023",
+          deliveryTime: "01:21 PM",
+          customerInfo: "+8**********",
+          branch: "Branch 2",
+          totalAmount: "299.87$",
+          orderStatus: "done",
+          orderType: "Delivery",
+        },
+        {
+          sl: 2,
+          orderId: 100089,
+          deliveryDate: "09 Mar 2023",
+          deliveryTime: "01:21 PM",
+          customerInfo: "+8**********",
+          branch: "Branch 2",
+          totalAmount: "299.87$",
+          orderStatus: "done",
+          orderType: "Delivery",
+        },
+      ];
   return (
     <div>
-      <h1 className="page-header-title capitalize m-0 flex text-2xl gap-3 font-extrabold">
-        <span className="page-header-icon">
-          <img
-            src="https://6ammart-admin.6amtech.com/public/assets/admin/img/order.png"
-            className="w-26"
-            alt=""
-          />
-        </span>
-        <span>
-          Canceled Orders
-          <span className="badge badge-soft-dark ml-2 text-sm bg-slate-300 p-1">
-            1
-          </span>
-        </span>
-      </h1>
-      <SearchExportForm />
-
       <div className="overflow-x-auto max-w-[340px] md:max-w-full">
         <table className="table-auto min-w-full border-collapse border border-gray-200">
           <thead className="bg-gray-100">
@@ -126,7 +117,8 @@ function Canceled() {
         </table>
       </div>
     </div>
-  );
+  
+  )
 }
 
-export default withAuth(Canceled);
+export default OrderOnTheWay

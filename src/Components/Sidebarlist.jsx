@@ -117,7 +117,7 @@ function Sidebarlist({ drawer, setDrawer }) {
           </ListItemButton>
         </ListItem>
         <Collapse in={Isopen.Dropdown1} timeout={"auto"} unmountOnExit>
-          <Link onClick={() => setDrawer(!drawer)} to={""}>
+          <Link onClick={() => setDrawer(!drawer)} to={"/OrderAll"}>
             <ListItemButton>
               <ListItemIcon
                 sx={{
@@ -138,7 +138,7 @@ function Sidebarlist({ drawer, setDrawer }) {
             </ListItemButton>
           </Link>
 
-          <Link onClick={() => setDrawer(!drawer)} to={""}>
+          <Link onClick={() => setDrawer(!drawer)} to={"/Scheduled"}>
             <ListItemButton>
               <ListItemIcon
                 sx={{
@@ -159,7 +159,7 @@ function Sidebarlist({ drawer, setDrawer }) {
             </ListItemButton>
           </Link>
 
-          <Link onClick={() => setDrawer(!drawer)} to={""}>
+          <Link onClick={() => setDrawer(!drawer)} to={"/Pending"}>
             <ListItemButton>
               <ListItemIcon
                 sx={{
@@ -176,7 +176,7 @@ function Sidebarlist({ drawer, setDrawer }) {
               <ListItemText primary="Pending" sx={{ opacity: open ? 1 : 0 }} />
             </ListItemButton>
           </Link>
-          <Link onClick={() => setDrawer(!drawer)} to={""}>
+          <Link onClick={() => setDrawer(!drawer)} to={"/Accepted"}>
             <ListItemButton>
               <ListItemIcon
                 sx={{
@@ -194,7 +194,7 @@ function Sidebarlist({ drawer, setDrawer }) {
             </ListItemButton>
           </Link>
 
-          <Link onClick={() => setDrawer(!drawer)} to={""}>
+          <Link onClick={() => setDrawer(!drawer)} to={"/order/processing"}>
             <ListItemButton>
               <ListItemIcon
                 sx={{
@@ -214,7 +214,7 @@ function Sidebarlist({ drawer, setDrawer }) {
               />
             </ListItemButton>
           </Link>
-          <Link onClick={() => setDrawer(!drawer)} to={""}>
+          {/* <Link onClick={() => setDrawer(!drawer)} to={""}>
             <ListItemButton>
               <ListItemIcon
                 sx={{
@@ -233,8 +233,8 @@ function Sidebarlist({ drawer, setDrawer }) {
                 sx={{ opacity: open ? 1 : 0 }}
               />
             </ListItemButton>
-          </Link>
-          <Link onClick={() => setDrawer(!drawer)} to={""}>
+          </Link> */}
+          <Link onClick={() => setDrawer(!drawer)} to={"order/list/item_on_the_way"}>
             <ListItemButton>
               <ListItemIcon
                 sx={{
@@ -254,7 +254,7 @@ function Sidebarlist({ drawer, setDrawer }) {
               />
             </ListItemButton>
           </Link>
-          <Link onClick={() => setDrawer(!drawer)} to={""}>
+          <Link onClick={() => setDrawer(!drawer)} to={"/Delivered"}>
             <ListItemButton>
               <ListItemIcon
                 sx={{
@@ -271,7 +271,7 @@ function Sidebarlist({ drawer, setDrawer }) {
               <ListItemText primary="Deliverd" sx={{ opacity: open ? 1 : 0 }} />
             </ListItemButton>
           </Link>
-          <Link onClick={() => setDrawer(!drawer)} to={""}>
+          <Link onClick={() => setDrawer(!drawer)} to={"/Canceled"}>
             <ListItemButton>
               <ListItemIcon
                 sx={{
@@ -288,7 +288,7 @@ function Sidebarlist({ drawer, setDrawer }) {
               <ListItemText primary="Canceled" sx={{ opacity: open ? 1 : 0 }} />
             </ListItemButton>
           </Link>
-          <Link onClick={() => setDrawer(!drawer)} to={""}>
+          <Link onClick={() => setDrawer(!drawer)} to={"admin/order/list/failed"}>
             <ListItemButton>
               <ListItemIcon
                 sx={{
@@ -308,7 +308,7 @@ function Sidebarlist({ drawer, setDrawer }) {
               />
             </ListItemButton>
           </Link>
-          <Link onClick={() => setDrawer(!drawer)} to={""}>
+          <Link onClick={() => setDrawer(!drawer)} to={"/Refunded"}>
             <ListItemButton>
               <ListItemIcon
                 sx={{
@@ -325,7 +325,7 @@ function Sidebarlist({ drawer, setDrawer }) {
               <ListItemText primary="Refunded" sx={{ opacity: open ? 1 : 0 }} />
             </ListItemButton>
           </Link>
-          <Link onClick={() => setDrawer(!drawer)} to={""}>
+          <Link onClick={() => setDrawer(!drawer)} to={"/OfflinePayments"}>
             <ListItemButton>
               <ListItemIcon
                 sx={{

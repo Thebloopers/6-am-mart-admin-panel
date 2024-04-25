@@ -3,6 +3,31 @@ import SearchExportForm from "../Components/SearchExportForm";
 import withAuth from "../HOC/withAuth";
 
 function Refunded() {
+  const tableData = [
+    {
+      sl: 1,
+      orderId: 100089,
+      deliveryDate: "09 Mar 2023",
+      deliveryTime: "01:21 PM",
+      customerInfo: "+8**********",
+      branch: "Branch 2",
+      totalAmount: "299.87$",
+      orderStatus: "done",
+      orderType: "Delivery",
+    },
+    {
+      sl: 2,
+      orderId: 100089,
+      deliveryDate: "09 Mar 2023",
+      deliveryTime: "01:21 PM",
+      customerInfo: "+8**********",
+      branch: "Branch 2",
+      totalAmount: "299.87$",
+      orderStatus: "done",
+      orderType: "Delivery",
+    },
+  ];
+  
   return (
     <div className=" border-gray-300 max-w-screen m-2">
       <h1 className="page-header-title capitalize m-0 flex text-2xl gap-3 font-extrabold">
@@ -23,16 +48,8 @@ function Refunded() {
 
       <SearchExportForm />
 
-      <div className="empty-data flex flex-col items-center justify-center border p-6 shadow-md">
-        <img
-          src="https://6ammart-admin.6amtech.com/public/assets/admin/svg/illustrations/sorry.svg"
-          alt="public"
-          className="w-48 h-48 mb-4"
-        />
-        <h5 className="text-center font-bold text-gray-600">No data found</h5>
-      </div>
 
-      {/* 
+      
       <div className='overflow-x-auto '>
        <div className="max-w-screen">
           <table className="table-auto border-collapse border min-w-[500px] w-full border-gray-200">
@@ -101,7 +118,7 @@ function Refunded() {
           </table>
         </div>
        </div>
-       */}
+      
     </div>
   );
 }

@@ -4,6 +4,7 @@ import { IoFilterOutline } from "react-icons/io5";
 import { FaSearch } from "react-icons/fa";
 import SearchExportForm from "../Components/SearchExportForm";
 import withAuth from "../HOC/withAuth";
+
 const tableData = [
   {
     sl: 1,
@@ -55,14 +56,98 @@ function Scheduled() {
         </span>
       </h1>
       <SearchExportForm />
-      <div className="empty-data flex flex-col items-center justify-center border p-6">
-        <img
-          src="https://6ammart-admin.6amtech.com/public/assets/admin/svg/illustrations/sorry.svg"
-          alt="public"
-          className="w-48 h-48 mb-4"
-        />
-        <h5 className="text-center font-bold text-gray-600">No data found</h5>
+      <div className="overflow-x-auto max-w-[340px] md:max-w-full">
+        <table className="table-auto min-w-full border-collapse border border-gray-200">
+          <thead className="bg-gray-100">
+            <tr>
+              <th className="px-4 py-2 text-left">SL</th>
+              <th className="px-4 py-2 text-left">Order ID</th>
+              <th className="px-4 py-2 text-left">Delivery Date</th>
+              <th className="px-4 py-2 text-left">Customer Info</th>
+              <th className="px-4 py-2 text-left">Branch</th>
+              <th className="px-4 py-2 text-left">Total Amount</th>
+              <th className="px-4 py-2 text-left">Order Status</th>
+              <th className="px-4 py-2 text-left">Order Type</th>
+              <th className="px-4 py-2 text-center">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {tableData.map((data) => (
+              <tr>
+                <td className="px-4 py-2">{data.sl}</td>
+                <td className="px-4 py-2">
+                  <a
+                    href=""
+                    className="text-blue-500 hover:text-blue-700"
+                  >
+                    {data.orderId}
+                  </a>
+                </td>
+                <td className="px-2 py-2">
+                  <div>{data.deliveryDate}</div>
+                  <div>{data.deliveryTime}</div>
+                </td>
+                <td className="px-2 py-2">
+                  <h6 className="text-capitalize mb-1">
+                    <a
+                      href=""
+                      className="text-blue-500 hover:text-blue-700"
+                    >
+                      Sir Moba
+                    </a>
+                  </h6>
+                  <a
+                    href="tel:+8801112223336"
+                    className="text-blue-500 hover:text-blue-700"
+                  >
+                    {data.customerInfo}
+                  </a>
+                </td>
+                <td className="px-4 py-2">
+                  <span className="inline-block bg-blue-200 text-blue-800 px-2 py-1 rounded">
+                    {data.branch}
+                  </span>
+                </td>
+                <td className="px-4 py-2">
+                  <div>{data.totalAmount}</div>
+                  <span className="text-green-600"> $58.00</span>
+                  <p className="text-red-600"> Unpaid</p>
+                </td>
+                <td className="px-4 py-2 text-capitalize">
+                  <span className="inline-block bg-red-200 text-red-800 px-2 py-1 rounded">
+                    {data?.orderStatus}
+                  </span>
+                </td>
+                <td className="px-4 py-2">
+                  <span className="inline-block bg-green-200 text-green-800 px-2 py-1 rounded">
+                    {data?.orderType}
+                  </span>
+                </td>
+                <td className="px-4 py-2 text-center">
+                  <div className="flex justify-center items-center gap-2">
+                    <a
+                      href=""
+                      className="btn btn-sm btn-outline-primary rounded-full p-2 hover:bg-blue-500 hover:text-white transition duration-300"
+                    >
+                      <i className="fa-solid fa-eye"></i>
+                    </a>
+                    <a
+                      href=""
+                      className="btn btn-sm btn-outline-success rounded-full p-2 hover:bg-green-500 hover:text-white transition duration-300"
+                      target="_blank"
+                    >
+                      <i className="fa-solid fa-floppy-disk"></i>
+                    </a>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
+
+
+      
       {/*
       <div className='overflow-x-auto '>
        <div className="max-w-screen">

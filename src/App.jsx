@@ -32,7 +32,7 @@ import ZoneSettings from "./Pages/ZoneSettings";
 import SocialSettings from "./Pages/SocialSettings";
 import PaymentGatewaySetup from "./Pages/PaymentGatewaySetup";
 import ReactSiteSetup from "./Pages/ReactSiteSetup";
-import PrivacyPolicy from "./Pages/PrivacyPolicy";
+// import PrivacyPolicy from "./Pages/PrivacyPolicy";
 import TermsAndConditions from "./Pages/TermsAndConditions";
 import OrderSettings from "./Components/OrderSettings";
 import OrderCancellation from "./Components/OrderCancellation";
@@ -94,6 +94,11 @@ import OfflinePayments from "./Pages/OfflinePayments";
 import Refunded from "./Pages/Refunded";
 import OrderAll from "./Pages/OrderAll";
 import Scheduled from "./Pages/Scheduled";
+import Processing from "./Pages/Processing";
+import UpdateCampaingsedit from "./Pages/UpdateCampaingsedit";
+import UpdateItemCampaignsEdite from "./Pages/UpdateItemCampaignsEdite";
+import OrderOnTheWay from "./Pages/OrderOnTheWay";
+import PaymentFailed from "./Pages/PaymentFailed";
 
 function App() {
   return (
@@ -106,6 +111,8 @@ function App() {
         <Route path="/FlashSale" element={<FlashSale />}></Route>
         <Route path="/BasicCampaigns" element={<BasicCampaigns />}></Route>
         <Route path="/ItemCampaigns" element={<ItemBasicCampaigns />}></Route>
+        <Route path="/admin/campaign/basic/edit/6" element={<UpdateCampaingsedit/>}></Route>
+        <Route path="/admin/campaign/item/edit/12" element={<UpdateItemCampaignsEdite/>}></Route>
         <Route path="/Banners" element={<Banners />}></Route>
         <Route path="/OtherBanners" element={<OtherBanners />}></Route>
         <Route path="/Coupons" element={<Coupons />}></Route>
@@ -146,8 +153,11 @@ function App() {
         <Route path="/Delivered" element={<Delivered />}></Route>
         <Route path="/Canceled" element={<Canceled />}></Route>
         <Route path="/Refunded" element={<Refunded />}></Route>
+        <Route path="/order/processing" element={<Processing/>}></Route>
         <Route path="/OfflinePayments" element={<OfflinePayments />}></Route>
-        <Route path="/OrderAll" element={<OrderAll />}></Route>
+        <Route path="/OrderAll" element={<OrderAll/>}></Route>
+        <Route path="order/list/item_on_the_way" element={<OrderOnTheWay/>}></Route>
+        <Route path="admin/order/list/failed" element={<PaymentFailed/>}></Route>
         {/* Order Routes */}
 
         <Route path="Users">
@@ -293,7 +303,7 @@ function App() {
           element={<PaymentGatewaySetup />}
         ></Route>
         <Route path="/react_site_setup" element={<ReactSiteSetup />}></Route>
-        <Route path="/privacy_policy" element={<PrivacyPolicy />}></Route>
+        {/* <Route path="/privacy_policy" element={<PrivacyPolicy />}></Route> */}
         <Route
           path="/terms_and_conditions"
           element={<TermsAndConditions />}
