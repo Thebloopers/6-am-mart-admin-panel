@@ -606,14 +606,15 @@ function AddNew() {
               type="reset"
               id="reset_btn"
               className=" px-8 p-2 mr-4 bg-[#f3f4f5] hover:bg-[#DBDCDC] rounded-md"
-              disabled={loading}
+              
             >
               Reset
             </button>
             <button
               type="submit"
               id="submitButton"
-              className=" px-8 p-2 mr-4 bg-[#24BAC3] hover:bg-[#20A7AF] text-white rounded-md "
+              className=" px-8 p-2 mr-4 bg-[#24BAC3] hover:bg-[#20A7AF] text-white rounded-md"
+              disabled={loading}
             >
               <span
                 className={`${

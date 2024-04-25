@@ -872,7 +872,7 @@ function Sidebarlist({ drawer, setDrawer }) {
         </div>
 
         <div>
-          <List>
+          {/* <List>
             <Link to="/NewStore" onClick={() => setDrawer(!drawer)}>
               <ListItem disablePadding>
                 <ListItemButton>
@@ -881,7 +881,7 @@ function Sidebarlist({ drawer, setDrawer }) {
                 </ListItemButton>
               </ListItem>
             </Link>
-          </List>
+          </List> */}
           <List style={{ marginTop: "-14px" }}>
             <Link to="/AddStore" onClick={() => setDrawer(!drawer)}>
               <ListItem disablePadding>

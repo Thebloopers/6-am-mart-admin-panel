@@ -126,7 +126,7 @@ function App() {
         <Route path="/ProductGallery" element={<ProductGallery />}></Route>
         <Route path="/NewItemReqeust" element={<NewItemRequest />}></Route>
         <Route path="/Review" element={<Review />}></Route>
-        <Route path="/NewStore" element={<NewStore />}></Route>
+        {/* <Route path="/NewStore" element={<NewStore />}></Route> */}
         <Route path="/AddStore" element={<AddStore />}></Route>
         <Route path="/StoreList" element={<StoreList />}></Route>
         <Route path="/RecommendedStore" element={<Recommended />}></Route>
