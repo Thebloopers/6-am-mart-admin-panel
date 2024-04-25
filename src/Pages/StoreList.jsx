@@ -10,7 +10,7 @@ import {
   AiOutlineTable,
 } from "react-icons/ai";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import { IoMdStar } from "react-icons/io";
@@ -24,6 +24,7 @@ import { useMutation, useQueries, useQuery } from "react-query";
 import { getAdminStores, handleVisibilityChange } from "../helpers/store";
 import { useCookies } from "react-cookie";
 import Swal from "sweetalert2";
+import { signout } from "../helpers/auth";
 
 const top100Films = [
   { label: "All Zones", year: 1994 },
@@ -62,8 +63,9 @@ const TransactionItem = ({ iconClass, textClass, icon, title, amount }) => {
 };
 
 function StoreList() {
+  const navigate = useNavigate();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [cookies, setCookie] = useCookies(["admin"]);
+  const [cookies, setCookie, removeCookie] = useCookies(["admin"]);
 
   const {
     isError: isError1,
@@ -326,73 +328,78 @@ function StoreList() {
               <th className=" px-4 py-2  text-center">Action</th>
             </tr>
           </thead>
-          <tbody id="set-rows  ">
-            {isLoading1
-              ? "No stores found"
-              : data1?.store?.length > 0 &&
-                data1?.store?.map((item, index) => (
-                  <tr key={index}>
-                    <td>
-                      <span className="ml-5">{index + 1}</span>
-                    </td>
-                    <td>
-                      <div className="flex items-center gap-3 ml-5">
-                        <div>
-                          <img
-                            className=" circle w-10"
-                            data-onerror-image="https://6ammart-admin.6amtech.com/public/assets/admin/img/160x160/img1.jpg"
-                            src={item.storeLogo[0]}
-                          />
-                        </div>
+          <tbody id="set-rows">
+            {isLoading1 ? (
+              <span className="text-center">No Stores found</span>
+            ) : data1?.error === "Token has expired" ||
+              data1?.error === "Invalid token" ? (
+              signout(removeCookie, () => {
+                navigate("/login");
+                return null;
+              })
+            ) : (
+              data1?.store?.length > 0 &&
+              data1?.store?.map((item, index) => (
+                <tr key={index}>
+                  <td>
+                    <span className="ml-5">{index + 1}</span>
+                  </td>
+                  <td>
+                    <div className="flex items-center gap-3 ml-5">
+                      <div>
+                        <img
+                          className=" circle w-10"
+                          data-onerror-image="https://6ammart-admin.6amtech.com/public/assets/admin/img/160x160/img1.jpg"
+                          src={`https://rent-karoo.s3.ap-south-1.amazonaws.com/${item.storeLogo[0]}`}
+                        />
+                      </div>
 
-                        <div className="   ">
-                          <div className="text-sm text-center ">
-                            {item.storeName}
-                          </div>
-                          <div className="font-light text-sm">
-                            Id: {index + 1}
-                          </div>
+                      <div className="   ">
+                        <div className="text-sm text-center ">
+                          {item.storeName}
+                        </div>
+                        <div className="font-light text-sm">
+                          Id: {index + 1}
                         </div>
                       </div>
-                    </td>
+                    </div>
+                  </td>
 
-                    <td className="flex text-center gap-1 items-center ml-5 p-3">
-                      <div className=" text-center l-5 p-3 ">{item.phone}</div>
-                      <div>{} </div>
-                    </td>
-                    <td className=" text-center text-sm font-light">
-                      {item.Zone}
-                    </td>
-                    <td className="text-center">
-                      <i>
-                        {" "}
-                        <Switch {...label} />
-                      </i>{" "}
-                    </td>
-                    <td className="">
-                      <i>
-                        {" "}
-                        <Switch
-                          {...label}
-                          checked={item?.isVisible ? true : false}
-                          onChange={() => handleStatusChange(item)}
-                        />
-                      </i>
-                      {/* <label className="toggle-switch flex justify-center items-center toggle-switch-sm  " htmlFor={`publishCheckbox${item.id}`}>
-                            <ToggleButton id={`publishCheckbox${item.id}`} checked={item.statusChecked} />
-                        </label> */}
-                    </td>
+                  <td className="flex text-center gap-1 items-center ml-5 p-3">
+                    <div className=" text-center l-5 p-3 ">{item.phone}</div>
+                    <div>{} </div>
+                  </td>
+                  <td className=" text-center text-sm font-light">
+                    {item.Zone}
+                  </td>
+                  <td className="text-center">
+                    <i>
+                      {" "}
+                      <Switch {...label} />
+                    </i>{" "}
+                  </td>
+                  <td className="">
+                    <i>
+                      {" "}
+                      <Switch
+                        {...label}
+                        checked={item?.isVisible ? true : false}
+                        onChange={() => handleStatusChange(item)}
+                      />
+                    </i>
+                  </td>
 
-                    <td className="py-3 px-2 m-2 flex items-center justify-center ">
-                      <button className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-1 px-3 rounded md:mr-2">
-                        <EditIcon />
-                      </button>
-                      <button className="bg-red-500 hover:bg-red-600 text-white font-semibold py-1 px-3  rounded">
-                        <DeleteIcon />
-                      </button>
-                    </td>
-                  </tr>
-                ))}
+                  <td className="py-3 px-2 m-2 flex items-center justify-center ">
+                    <button className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-1 px-3 rounded md:mr-2">
+                      <EditIcon />
+                    </button>
+                    <button className="bg-red-500 hover:bg-red-600 text-white font-semibold py-1 px-3  rounded">
+                      <DeleteIcon />
+                    </button>
+                  </td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       </div>

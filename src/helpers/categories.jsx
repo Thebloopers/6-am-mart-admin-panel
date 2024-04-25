@@ -119,3 +119,18 @@ export const handleSubCategoryVisibilityChange = ({
     return response.json();
   });
 };
+
+export const handleDeleteCategory = ({ storeId, cookies }) => {
+  const { token } = isAuthenticated(cookies);
+
+  return fetch(`${import.meta.env.VITE_SERVER_URL}/category/${storeId}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({}),
+  }).then((response) => {
+    return response.json();
+  });
+};

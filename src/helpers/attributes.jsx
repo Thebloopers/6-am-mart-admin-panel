@@ -31,3 +31,18 @@ export const getAdminAttributes = (cookies) => {
     return response.json();
   });
 };
+
+export const handleDeleteAttribute = ({ attributeId, cookies }) => {
+  const { token } = isAuthenticated(cookies);
+
+  return fetch(`${import.meta.env.VITE_SERVER_URL}/attribute/${attributeId}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({}),
+  }).then((response) => {
+    return response.json();
+  });
+};

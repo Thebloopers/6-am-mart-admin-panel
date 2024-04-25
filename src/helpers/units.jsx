@@ -28,3 +28,18 @@ export const getAdminUnits = (cookies) => {
     return response.json();
   });
 };
+
+export const handleDeleteUnit = ({ unitId, cookies }) => {
+  const { token } = isAuthenticated(cookies);
+
+  return fetch(`${import.meta.env.VITE_SERVER_URL}/unit/${unitId}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({}),
+  }).then((response) => {
+    return response.json();
+  });
+};
