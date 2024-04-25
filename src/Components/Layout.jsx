@@ -34,6 +34,7 @@ import SettingSidebar from "./SettingSidebar";
 import TransactionsReportSideBaar from "./TransactionsReportSideBaar";
 import DispatchSidebaar from "./DispatchSidebaar";
 import withAuth from "../HOC/withAuth";
+import { IoClose } from "react-icons/io5";
 
 //searchbaar
 const Search = styled("div")(({ theme }) => ({
@@ -138,6 +139,7 @@ function Layout(props) {
       <div className="bg-white flex items-center justify-center">
         <img className=" object-cover h-10 " src={logo} />
         <Toolbar className="bg-white" />
+        <IoClose className="fill-black text-[2.5vh]" onClick={() => console.log("helloooo")} />
       </div>
       <Divider />
 

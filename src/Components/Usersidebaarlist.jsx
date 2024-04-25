@@ -67,7 +67,7 @@ function Usersidebaarlist({ drawer, setDrawer }) {
                 <ListItemIcon>
                   <GoHome className="text-white" />
                 </ListItemIcon>
-                <ListItemText className="-mx-6" primary="User Overview" />
+                <ListItemText  primaryTypographyProps={{fontSize: '1.9vh'}} className="-mx-6" primary="User Overview" />
               </ListItemButton>
             </ListItem>
           </Link>
@@ -80,7 +80,7 @@ function Usersidebaarlist({ drawer, setDrawer }) {
               <ListItemIcon>
               <FaCarSide/>
               </ListItemIcon>
-              <ListItemText className='-mx-3' primary="Vehicles Category" />
+              <ListItemText  primaryTypographyProps={{fontSize: '1.9vh'}} className='-mx-3' primary="Vehicles Category" />
             </ListItemButton>
           </ListItem>
         </Link>
@@ -90,7 +90,7 @@ function Usersidebaarlist({ drawer, setDrawer }) {
               <ListItemIcon>
               <IoIosAddCircleOutline/>
               </ListItemIcon>
-              <ListItemText className='-mx-3' primary="Add Delivery Man" />
+              <ListItemText  primaryTypographyProps={{fontSize: '1.9vh'}} className='-mx-3' primary="Add Delivery Man" />
             </ListItemButton>
           </ListItem>
         </Link>
@@ -100,7 +100,7 @@ function Usersidebaarlist({ drawer, setDrawer }) {
               <ListItemIcon>
               <IoMan/>
               </ListItemIcon>
-              <ListItemText className='-mx-3' primary="New Delivery Man" />
+              <ListItemText  primaryTypographyProps={{fontSize: '1.9vh'}} className='-mx-3' primary="New Delivery Man" />
             </ListItemButton>
           </ListItem>
         </Link>
@@ -110,7 +110,7 @@ function Usersidebaarlist({ drawer, setDrawer }) {
               <ListItemIcon>
               <TbTruckDelivery/>
               </ListItemIcon>
-              <ListItemText className='-mx-3' primary="Deliveryman List" />
+              <ListItemText  primaryTypographyProps={{fontSize: '1.9vh'}} className='-mx-3' primary="Deliveryman List" />
             </ListItemButton>
           </ListItem>
         </Link>
@@ -120,7 +120,7 @@ function Usersidebaarlist({ drawer, setDrawer }) {
               <ListItemIcon>
               <MdReviews/>
               </ListItemIcon>
-              <ListItemText className='-mx-3' primary="Reviews" />
+              <ListItemText  primaryTypographyProps={{fontSize: '1.9vh'}} className='-mx-3' primary="Reviews" />
             </ListItemButton>
           </ListItem>
         </Link> */}
@@ -134,12 +134,12 @@ function Usersidebaarlist({ drawer, setDrawer }) {
               <ListItemIcon>
                 <IoIosContacts className="text-white" />
               </ListItemIcon>
-              <ListItemText className="-mx-6" primary="Customers" />
+              <ListItemText  primaryTypographyProps={{fontSize: '1.9vh'}} className="-mx-6" primary="Customers" />
             </ListItemButton>
           </ListItem>
         </Link>
-        <ListItem disablePadding sx={{ display: "block" }}>
-          <ListItemButton
+        <ListItem style={{ marginTop: "-8px" }} disablePadding sx={{ display: "block" }}>
+          <ListItemButton 
             onClick={() => toggleDropdown("Dropdown1")}
             sx={{
               minHeight: 20,
@@ -157,7 +157,7 @@ function Usersidebaarlist({ drawer, setDrawer }) {
             >
               <CiWallet className="text-white" />
             </ListItemIcon>
-            <ListItemText
+            <ListItemText  primaryTypographyProps={{fontSize: '1.9vh'}}
               className="-mx-3"
               primary="Customer Wallet"
               sx={{ opacity: open ? 1 : 0 }}
@@ -168,7 +168,7 @@ function Usersidebaarlist({ drawer, setDrawer }) {
         <Collapse in={Isopen.Dropdown1} timeout={"auto"} unmountOnExit>
           {CustomerWallet.map((link, index) => (
             <Link key={index} to={link.to} onClick={() => setDrawer(!drawer)}>
-              <ListItemButton>
+              <ListItemButton style={{ marginTop: "-8px" }}>
                 <ListItemIcon
                   sx={{
                     minWidth: 0,
@@ -184,7 +184,7 @@ function Usersidebaarlist({ drawer, setDrawer }) {
                     }}
                   />
                 </ListItemIcon>
-                <ListItemText
+                <ListItemText  primaryTypographyProps={{fontSize: '1.9vh'}}
                   primary={link.label}
                   sx={{ opacity: open ? 1 : 0 }}
                 />
@@ -193,7 +193,7 @@ function Usersidebaarlist({ drawer, setDrawer }) {
           ))}
         </Collapse>
 
-        <ListItem disablePadding sx={{ display: "block" }}>
+        <ListItem  style={{ marginTop: "-8px" }} disablePadding sx={{ display: "block" }}>
           <ListItemButton
             onClick={() => toggleDropdown("Dropdown2")}
             sx={{
@@ -212,7 +212,7 @@ function Usersidebaarlist({ drawer, setDrawer }) {
             >
               <MdLoyalty className="text-white" />
             </ListItemIcon>
-            <ListItemText
+            <ListItemText  primaryTypographyProps={{fontSize: '1.9vh'}}
               className="-mx-3"
               primary="Customer Loyalty Point"
               sx={{ opacity: open ? 1 : 0 }}
@@ -223,7 +223,7 @@ function Usersidebaarlist({ drawer, setDrawer }) {
         <Collapse in={Isopen.Dropdown2} timeout={"auto"} unmountOnExit>
           {CustomerLoyaltyPoint.map((link, index) => (
             <Link key={index} to={link.to} onClick={() => setDrawer(!drawer)}>
-              <ListItemButton>
+              <ListItemButton style={{ marginTop: "-8px" }}>
                 <ListItemIcon
                   sx={{
                     minWidth: 0,
@@ -239,7 +239,7 @@ function Usersidebaarlist({ drawer, setDrawer }) {
                     }}
                   />
                 </ListItemIcon>
-                <ListItemText
+                <ListItemText  primaryTypographyProps={{fontSize: '1.9vh'}}
                   primary={link.label}
                   sx={{ opacity: open ? 1 : 0 }}
                 />
@@ -251,12 +251,12 @@ function Usersidebaarlist({ drawer, setDrawer }) {
           onClick={() => setDrawer(!drawer)}
           to="/Users/customer/subscribed"
         >
-          <ListItem disablePadding>
+          <ListItem disablePadding style={{ marginTop: "-8px" }}>
             <ListItemButton>
               <ListItemIcon>
                 <CiMail className="text-white" />
               </ListItemIcon>
-              <ListItemText className="-mx-6" primary="Subscribed Mail List" />
+              <ListItemText  primaryTypographyProps={{fontSize: '1.9vh'}} className="-mx-6" primary="Subscribed Mail List" />
             </ListItemButton>
           </ListItem>
         </Link>
@@ -264,16 +264,16 @@ function Usersidebaarlist({ drawer, setDrawer }) {
           onClick={() => setDrawer(!drawer)}
           to="/Users/contact/contact-list"
         >
-          <ListItem disablePadding>
+          <ListItem disablePadding style={{ marginTop: "-8px" }}>
             <ListItemButton>
               <ListItemIcon>
                 <IoIosContact className="text-white" />
               </ListItemIcon>
-              <ListItemText className="-mx-6" primary="Contact Messages" />
+              <ListItemText  primaryTypographyProps={{fontSize: '1.9vh'}} className="-mx-6" primary="Contact Messages" />
             </ListItemButton>
           </ListItem>
         </Link>
-        <div className="flex justify-start items-center mx-3 text-sm mt-5 mb-2">
+        <div className="flex justify-start items-center mx-3 text-sm mt-5 mb-2 text-[#99A7BA]">
           EMPLOYEE MANAGEMENT
         </div>
 
@@ -281,13 +281,13 @@ function Usersidebaarlist({ drawer, setDrawer }) {
           <ListItem disablePadding>
             <ListItemButton>
               <ListItemIcon>
-                <BadgeIcon className="text-white" />
+                <BadgeIcon style={{fontSize: "18px"}} className="text-white" />
               </ListItemIcon>
-              <ListItemText className="-mx-6 " primary="Employee Role" />
+              <ListItemText  primaryTypographyProps={{fontSize: '1.8vh'}} className="-mx-6 " primary="Employee Role" />
             </ListItemButton>
           </ListItem>
         </Link>
-        <ListItem disablePadding sx={{ display: "block" }}>
+        <ListItem style={{ marginTop: "-8px" }} disablePadding sx={{ display: "block" }}>
           <ListItemButton
             onClick={() => toggleDropdown("Dropdown3")}
             sx={{
@@ -306,7 +306,7 @@ function Usersidebaarlist({ drawer, setDrawer }) {
             >
               <RiTeamLine className="text-white" />
             </ListItemIcon>
-            <ListItemText
+            <ListItemText  primaryTypographyProps={{fontSize: '1.9vh'}}
               className="-mx-2"
               primary="Employee"
               sx={{ opacity: open ? 1 : 0 }}
@@ -318,7 +318,7 @@ function Usersidebaarlist({ drawer, setDrawer }) {
         <Collapse in={Isopen.Dropdown3} timeout={"auto"} unmountOnExit>
           {employee.map((link, index) => (
             <Link key={index} to={link.to} onClick={() => setDrawer(!drawer)}>
-              <ListItemButton>
+              <ListItemButton style={{ marginTop: "-8px" }}>
                 <ListItemIcon
                   sx={{
                     minWidth: 0,
@@ -334,7 +334,7 @@ function Usersidebaarlist({ drawer, setDrawer }) {
                     }}
                   />
                 </ListItemIcon>
-                <ListItemText
+                <ListItemText  primaryTypographyProps={{fontSize: '1.9vh'}}
                   className=""
                   primary={link.label}
                   sx={{ opacity: open ? 1 : 0 }}
