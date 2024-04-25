@@ -33,7 +33,7 @@ const transactionsReportSideBaar = ({ drawer, setDrawer }) => {
         BUSINESS MANAGEMENT
       </div>
       <List className="overflow-x-hidden text-sm space-y-[-25px]">
-        <List>
+        <List >
           <Link
             to="/transactions/store/withdraw_list"
             onClick={() => setDrawer(!drawer)}
@@ -43,7 +43,7 @@ const transactionsReportSideBaar = ({ drawer, setDrawer }) => {
                 <ListItemIcon>
                   <GoHome className="text-white" />
                 </ListItemIcon>
-                <ListItemText className="-mx-6" primary="Withdrawal Requests" />
+                <ListItemText primaryTypographyProps={{fontSize: '1.9vh'}} className="-mx-6" primary="Withdrawal Requests" />
               </ListItemButton>
             </ListItem>
           </Link>
@@ -58,7 +58,7 @@ const transactionsReportSideBaar = ({ drawer, setDrawer }) => {
                 <ListItemIcon>
                   <GoHome className="text-white" />
                 </ListItemIcon>
-                <ListItemText className="-mx-6 " primary="Store Disbursement" />
+                <ListItemText primaryTypographyProps={{fontSize: '1.9vh'}} className="-mx-6 " primary="Store Disbursement" />
               </ListItemButton>
             </ListItem>
           </Link>
@@ -73,7 +73,7 @@ const transactionsReportSideBaar = ({ drawer, setDrawer }) => {
                 <ListItemIcon>
                   <GoHome className="text-white" />
                 </ListItemIcon>
-                <ListItemText
+                <ListItemText primaryTypographyProps={{fontSize: '1.9vh'}}
                   className="-mx-6 "
                   primary="Delivery Man Disbursement"
                 />
@@ -91,7 +91,7 @@ const transactionsReportSideBaar = ({ drawer, setDrawer }) => {
                 <ListItemIcon>
                   <GoHome className="text-white" />
                 </ListItemIcon>
-                <ListItemText className="-mx-6 " primary="Collect Cash" />
+                <ListItemText primaryTypographyProps={{fontSize: '1.9vh'}} className="-mx-6 " primary="Collect Cash" />
               </ListItemButton>
             </ListItem>
           </Link>
@@ -106,7 +106,7 @@ const transactionsReportSideBaar = ({ drawer, setDrawer }) => {
                 <ListItemIcon>
                   <GoHome className="text-white" />
                 </ListItemIcon>
-                <ListItemText
+                <ListItemText primaryTypographyProps={{fontSize: '1.9vh'}}
                   className="-mx-6 "
                   primary="Delivery Man Payments"
                 />
@@ -124,7 +124,7 @@ const transactionsReportSideBaar = ({ drawer, setDrawer }) => {
                 <ListItemIcon>
                   <GoHome className="text-white" />
                 </ListItemIcon>
-                <ListItemText className="-mx-6 " primary="Withdrawal Method" />
+                <ListItemText primaryTypographyProps={{fontSize: '1.9vh'}} className="-mx-6 " primary="Withdrawal Method" />
               </ListItemButton>
             </ListItem>
           </Link>
@@ -146,7 +146,7 @@ const transactionsReportSideBaar = ({ drawer, setDrawer }) => {
                 <ListItemIcon>
                   <GoHome className="text-white" />
                 </ListItemIcon>
-                <ListItemText className="-mx-6 " primary="Transection Report" />
+                <ListItemText primaryTypographyProps={{fontSize: '1.9vh'}} className="-mx-6 " primary="Transection Report" />
               </ListItemButton>
             </ListItem>
           </Link>
@@ -161,7 +161,7 @@ const transactionsReportSideBaar = ({ drawer, setDrawer }) => {
                 <ListItemIcon>
                   <GoHome className="text-white" />
                 </ListItemIcon>
-                <ListItemText className="-mx-6 " primary="Item Report" />
+                <ListItemText primaryTypographyProps={{fontSize: '1.9vh'}} className="-mx-6 " primary="Item Report" />
               </ListItemButton>
             </ListItem>
           </Link>
@@ -176,7 +176,7 @@ const transactionsReportSideBaar = ({ drawer, setDrawer }) => {
                 <ListItemIcon>
                   <GoHome className="text-white" />
                 </ListItemIcon>
-                <ListItemText className="-mx-6 " primary="Expense Report" />
+                <ListItemText primaryTypographyProps={{fontSize: '1.9vh'}} className="-mx-6 " primary="Expense Report" />
               </ListItemButton>
             </ListItem>
           </Link>
@@ -191,7 +191,7 @@ const transactionsReportSideBaar = ({ drawer, setDrawer }) => {
                 <ListItemIcon>
                   <GoHome className="text-white" />
                 </ListItemIcon>
-                <ListItemText
+                <ListItemText primaryTypographyProps={{fontSize: '1.9vh'}}
                   className="-mx-6 "
                   primary="Disbursement Report"
                 />
@@ -209,7 +209,7 @@ const transactionsReportSideBaar = ({ drawer, setDrawer }) => {
                 <ListItemIcon>
                   <GoHome className="text-white" />
                 </ListItemIcon>
-                <ListItemText
+                <ListItemText primaryTypographyProps={{fontSize: '1.9vh'}}
                   className="-mx-6 "
                   primary="Limited Stock Item  "
                 />
@@ -227,7 +227,7 @@ const transactionsReportSideBaar = ({ drawer, setDrawer }) => {
                 <ListItemIcon>
                   <GoHome className="text-white" />
                 </ListItemIcon>
-                <ListItemText className="-mx-6 " primary="Order Report" />
+                <ListItemText primaryTypographyProps={{fontSize: '1.9vh'}} className="-mx-6 " primary="Order Report" />
               </ListItemButton>
             </ListItem>
           </Link>
