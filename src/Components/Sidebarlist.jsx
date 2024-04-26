@@ -66,7 +66,11 @@ function Sidebarlist({ drawer, setDrawer }) {
                 <ListItemIcon>
                   <MdDashboard className="text-white" />
                 </ListItemIcon>
-                <ListItemText primaryTypographyProps={{fontSize: '1.9vh'}} className="-mx-6"   primary="Dashboard" />
+                <ListItemText
+                  primaryTypographyProps={{ fontSize: "1.9vh" }}
+                  className="-mx-6"
+                  primary="Dashboard"
+                />
               </ListItemButton>
             </ListItem>
           </Link>
@@ -81,7 +85,11 @@ function Sidebarlist({ drawer, setDrawer }) {
                 <ListItemIcon>
                   <MdOutlineNewLabel className="text-white" />
                 </ListItemIcon>
-                <ListItemText primaryTypographyProps={{fontSize: '1.9vh'}} className="-mx-6" primary="New Sale" />
+                <ListItemText
+                  primaryTypographyProps={{ fontSize: "1.9vh" }}
+                  className="-mx-6"
+                  primary="New Sale"
+                />
               </ListItemButton>
             </ListItem>
           </Link>
@@ -108,7 +116,8 @@ function Sidebarlist({ drawer, setDrawer }) {
             >
               <FaShoppingCart className="text-white" />
             </ListItemIcon>
-            <ListItemText primaryTypographyProps={{fontSize: '1.9vh'}}
+            <ListItemText
+              primaryTypographyProps={{ fontSize: "1.9vh" }}
               className="-mx-3"
               primary="Orders"
               sx={{ opacity: open ? 1 : 0 }}
@@ -131,7 +140,11 @@ function Sidebarlist({ drawer, setDrawer }) {
                 />
               </ListItemIcon>
 
-              <ListItemText primaryTypographyProps={{fontSize: '1.9vh'}} primary="All" sx={{ opacity: open ? 1 : 0 }} />
+              <ListItemText
+                primaryTypographyProps={{ fontSize: "1.9vh" }}
+                primary="All"
+                sx={{ opacity: open ? 1 : 0 }}
+              />
               <span className="ml-auto bg-blue-500 text-white rounded-full px-2 py-1 text-xs">
                 {30}
               </span>
@@ -152,7 +165,8 @@ function Sidebarlist({ drawer, setDrawer }) {
                 />
               </ListItemIcon>
 
-              <ListItemText primaryTypographyProps={{fontSize: '1.9vh'}}
+              <ListItemText
+                primaryTypographyProps={{ fontSize: "1.9vh" }}
                 primary="Scheduled"
                 sx={{ opacity: open ? 1 : 0 }}
               />
@@ -173,7 +187,11 @@ function Sidebarlist({ drawer, setDrawer }) {
                 />
               </ListItemIcon>
 
-              <ListItemText primaryTypographyProps={{fontSize: '1.9vh'}} primary="Pending" sx={{ opacity: open ? 1 : 0 }} />
+              <ListItemText
+                primaryTypographyProps={{ fontSize: "1.9vh" }}
+                primary="Pending"
+                sx={{ opacity: open ? 1 : 0 }}
+              />
             </ListItemButton>
           </Link>
           <Link onClick={() => setDrawer(!drawer)} to={"/Accepted"}>
@@ -190,7 +208,11 @@ function Sidebarlist({ drawer, setDrawer }) {
                 />
               </ListItemIcon>
 
-              <ListItemText primaryTypographyProps={{fontSize: '1.9vh'}} primary="Accepted" sx={{ opacity: open ? 1 : 0 }} />
+              <ListItemText
+                primaryTypographyProps={{ fontSize: "1.9vh" }}
+                primary="Accepted"
+                sx={{ opacity: open ? 1 : 0 }}
+              />
             </ListItemButton>
           </Link>
 
@@ -208,7 +230,8 @@ function Sidebarlist({ drawer, setDrawer }) {
                 />
               </ListItemIcon>
 
-              <ListItemText primaryTypographyProps={{fontSize: '1.9vh'}}
+              <ListItemText
+                primaryTypographyProps={{ fontSize: "1.9vh" }}
                 primary="Processing"
                 sx={{ opacity: open ? 1 : 0 }}
               />
@@ -234,7 +257,10 @@ function Sidebarlist({ drawer, setDrawer }) {
               />
             </ListItemButton>
           </Link> */}
-          <Link onClick={() => setDrawer(!drawer)} to={"order/list/item_on_the_way"}>
+          <Link
+            onClick={() => setDrawer(!drawer)}
+            to={"order/list/item_on_the_way"}
+          >
             <ListItemButton>
               <ListItemIcon
                 sx={{
@@ -248,7 +274,8 @@ function Sidebarlist({ drawer, setDrawer }) {
                 />
               </ListItemIcon>
 
-              <ListItemText primaryTypographyProps={{fontSize: '1.9vh'}}
+              <ListItemText
+                primaryTypographyProps={{ fontSize: "1.9vh" }}
                 primary="Order On The Way"
                 sx={{ opacity: open ? 1 : 0 }}
               />
@@ -268,7 +295,11 @@ function Sidebarlist({ drawer, setDrawer }) {
                 />
               </ListItemIcon>
 
-              <ListItemText primaryTypographyProps={{fontSize: '1.9vh'}} primary="Deliverd" sx={{ opacity: open ? 1 : 0 }} />
+              <ListItemText
+                primaryTypographyProps={{ fontSize: "1.9vh" }}
+                primary="Deliverd"
+                sx={{ opacity: open ? 1 : 0 }}
+              />
             </ListItemButton>
           </Link>
           <Link onClick={() => setDrawer(!drawer)} to={"/Canceled"}>
@@ -285,10 +316,17 @@ function Sidebarlist({ drawer, setDrawer }) {
                 />
               </ListItemIcon>
 
-              <ListItemText primaryTypographyProps={{fontSize: '1.9vh'}} primary="Canceled" sx={{ opacity: open ? 1 : 0 }} />
+              <ListItemText
+                primaryTypographyProps={{ fontSize: "1.9vh" }}
+                primary="Canceled"
+                sx={{ opacity: open ? 1 : 0 }}
+              />
             </ListItemButton>
           </Link>
-          <Link onClick={() => setDrawer(!drawer)} to={"admin/order/list/failed"}>
+          <Link
+            onClick={() => setDrawer(!drawer)}
+            to={"admin/order/list/failed"}
+          >
             <ListItemButton>
               <ListItemIcon
                 sx={{
@@ -302,7 +340,8 @@ function Sidebarlist({ drawer, setDrawer }) {
                 />
               </ListItemIcon>
 
-              <ListItemText primaryTypographyProps={{fontSize: '1.9vh'}}
+              <ListItemText
+                primaryTypographyProps={{ fontSize: "1.9vh" }}
                 primary="Payment Failed"
                 sx={{ opacity: open ? 1 : 0 }}
               />
@@ -322,7 +361,11 @@ function Sidebarlist({ drawer, setDrawer }) {
                 />
               </ListItemIcon>
 
-              <ListItemText primaryTypographyProps={{fontSize: '1.9vh'}} primary="Refunded" sx={{ opacity: open ? 1 : 0 }} />
+              <ListItemText
+                primaryTypographyProps={{ fontSize: "1.9vh" }}
+                primary="Refunded"
+                sx={{ opacity: open ? 1 : 0 }}
+              />
             </ListItemButton>
           </Link>
           <Link onClick={() => setDrawer(!drawer)} to={"/OfflinePayments"}>
@@ -339,7 +382,8 @@ function Sidebarlist({ drawer, setDrawer }) {
                 />
               </ListItemIcon>
 
-              <ListItemText primaryTypographyProps={{fontSize: '1.9vh'}}
+              <ListItemText
+                primaryTypographyProps={{ fontSize: "1.9vh" }}
                 primary="Ofline Payments"
                 sx={{ opacity: open ? 1 : 0 }}
               />
@@ -366,7 +410,8 @@ function Sidebarlist({ drawer, setDrawer }) {
             >
               <RiRefund2Line className="text-white" />
             </ListItemIcon>
-            <ListItemText primaryTypographyProps={{fontSize: '1.9vh'}}
+            <ListItemText
+              primaryTypographyProps={{ fontSize: "1.9vh" }}
               className="-mx-3"
               primary="Order Refunds"
               sx={{ opacity: open ? 1 : 0 }}
@@ -389,7 +434,8 @@ function Sidebarlist({ drawer, setDrawer }) {
                 />
               </ListItemIcon>
 
-              <ListItemText primaryTypographyProps={{fontSize: '1.9vh'}}
+              <ListItemText
+                primaryTypographyProps={{ fontSize: "1.9vh" }}
                 primary="Refund Requests"
                 sx={{ opacity: open ? 1 : 0 }}
               />
@@ -406,7 +452,11 @@ function Sidebarlist({ drawer, setDrawer }) {
                 <ListItemIcon>
                   <IoIosFlash className="text-white" />
                 </ListItemIcon>
-                <ListItemText primaryTypographyProps={{fontSize: '1.9vh'}} className="-mx-6" primary="Flash Sales" />
+                <ListItemText
+                  primaryTypographyProps={{ fontSize: "1.9vh" }}
+                  className="-mx-6"
+                  primary="Flash Sales"
+                />
               </ListItemButton>
             </ListItem>
           </Link>
@@ -433,7 +483,8 @@ function Sidebarlist({ drawer, setDrawer }) {
             >
               <SiCampaignmonitor className="text-white" />
             </ListItemIcon>
-            <ListItemText primaryTypographyProps={{fontSize: '1.9vh'}}
+            <ListItemText
+              primaryTypographyProps={{ fontSize: "1.9vh" }}
               className="-mx-2"
               primary="Campaigns"
               sx={{ opacity: open ? 1 : 0 }}
@@ -456,7 +507,8 @@ function Sidebarlist({ drawer, setDrawer }) {
                 />
               </ListItemIcon>
 
-              <ListItemText primaryTypographyProps={{fontSize: '1.9vh'}}
+              <ListItemText
+                primaryTypographyProps={{ fontSize: "1.9vh" }}
                 primary="Basic Campaigns"
                 sx={{ opacity: open ? 1 : 0 }}
               />
@@ -479,7 +531,8 @@ function Sidebarlist({ drawer, setDrawer }) {
                 />
               </ListItemIcon>
 
-              <ListItemText primaryTypographyProps={{fontSize: '1.9vh'}}
+              <ListItemText
+                primaryTypographyProps={{ fontSize: "1.9vh" }}
                 primary="Item Campaigns"
                 sx={{ opacity: open ? 1 : 0 }}
               />
@@ -496,7 +549,11 @@ function Sidebarlist({ drawer, setDrawer }) {
                 <ListItemIcon>
                   <RxGroup className="text-white" />
                 </ListItemIcon>
-                <ListItemText primaryTypographyProps={{fontSize: '1.9vh'}} className="-mx-5" primary="Banners" />
+                <ListItemText
+                  primaryTypographyProps={{ fontSize: "1.9vh" }}
+                  className="-mx-5"
+                  primary="Banners"
+                />
               </ListItemButton>
             </ListItem>
           </Link>
@@ -508,7 +565,11 @@ function Sidebarlist({ drawer, setDrawer }) {
                 <ListItemIcon>
                   <RxGroup className="text-white" />
                 </ListItemIcon>
-                <ListItemText primaryTypographyProps={{fontSize: '1.9vh'}} className="-mx-5" primary="Other Banners" />
+                <ListItemText
+                  primaryTypographyProps={{ fontSize: "1.9vh" }}
+                  className="-mx-5"
+                  primary="Other Banners"
+                />
               </ListItemButton>
             </ListItem>
           </Link>
@@ -520,7 +581,11 @@ function Sidebarlist({ drawer, setDrawer }) {
                 <ListItemIcon>
                   <CiDiscount1 className="text-white" />
                 </ListItemIcon>
-                <ListItemText primaryTypographyProps={{fontSize: '1.9vh'}} className="-mx-5" primary="Coupons" />
+                <ListItemText
+                  primaryTypographyProps={{ fontSize: "1.9vh" }}
+                  className="-mx-5"
+                  primary="Coupons"
+                />
               </ListItemButton>
             </ListItem>
           </Link>
@@ -532,7 +597,11 @@ function Sidebarlist({ drawer, setDrawer }) {
                 <ListItemIcon>
                   <IoIosNotifications className="text-white" />
                 </ListItemIcon>
-                <ListItemText primaryTypographyProps={{fontSize: '1.9vh'}} className="-mx-5" primary="Push Notification" />
+                <ListItemText
+                  primaryTypographyProps={{ fontSize: "1.9vh" }}
+                  className="-mx-5"
+                  primary="Push Notification"
+                />
               </ListItemButton>
             </ListItem>
           </Link>
@@ -560,7 +629,8 @@ function Sidebarlist({ drawer, setDrawer }) {
             >
               <MdCategory className="text-white" />
             </ListItemIcon>
-            <ListItemText primaryTypographyProps={{fontSize: '1.9vh'}}
+            <ListItemText
+              primaryTypographyProps={{ fontSize: "1.9vh" }}
               className="-mx-2"
               primary="Categories"
               sx={{ opacity: open ? 1 : 0 }}
@@ -583,7 +653,8 @@ function Sidebarlist({ drawer, setDrawer }) {
                 />
               </ListItemIcon>
 
-              <ListItemText primaryTypographyProps={{fontSize: '1.9vh'}}
+              <ListItemText
+                primaryTypographyProps={{ fontSize: "1.9vh" }}
                 primary="Categories"
                 sx={{ opacity: open ? 1 : 0 }}
               />
@@ -606,7 +677,8 @@ function Sidebarlist({ drawer, setDrawer }) {
                 />
               </ListItemIcon>
 
-              <ListItemText primaryTypographyProps={{fontSize: '1.9vh'}}
+              <ListItemText
+                primaryTypographyProps={{ fontSize: "1.9vh" }}
                 primary=" Sub Categories"
                 sx={{ opacity: open ? 1 : 0 }}
               />
@@ -629,7 +701,8 @@ function Sidebarlist({ drawer, setDrawer }) {
                 />
               </ListItemIcon>
 
-              <ListItemText primaryTypographyProps={{fontSize: '1.9vh'}}
+              <ListItemText
+                primaryTypographyProps={{ fontSize: "1.9vh" }}
                 primary="Bulk Import"
                 sx={{ opacity: open ? 1 : 0 }}
               />
@@ -652,7 +725,8 @@ function Sidebarlist({ drawer, setDrawer }) {
                 />
               </ListItemIcon>
 
-              <ListItemText primaryTypographyProps={{fontSize: '1.9vh'}}
+              <ListItemText
+                primaryTypographyProps={{ fontSize: "1.9vh" }}
                 primary="Bulk Export"
                 sx={{ opacity: open ? 1 : 0 }}
               />
@@ -667,9 +741,16 @@ function Sidebarlist({ drawer, setDrawer }) {
             <ListItem disablePadding>
               <ListItemButton>
                 <ListItemIcon>
-                  <MdEditAttributes style={{marginLeft:"2px"}} className="text-white" />
+                  <MdEditAttributes
+                    style={{ marginLeft: "2px" }}
+                    className="text-white"
+                  />
                 </ListItemIcon>
-                <ListItemText primaryTypographyProps={{fontSize: '1.9vh'}} className="-mx-5" primary="Attributes" />
+                <ListItemText
+                  primaryTypographyProps={{ fontSize: "1.9vh" }}
+                  className="-mx-5"
+                  primary="Attributes"
+                />
               </ListItemButton>
             </ListItem>
           </Link>
@@ -679,9 +760,16 @@ function Sidebarlist({ drawer, setDrawer }) {
             <ListItem disablePadding>
               <ListItemButton>
                 <ListItemIcon>
-                  <FaBalanceScale  style={{marginLeft:"2px"}} className="text-white" />
+                  <FaBalanceScale
+                    style={{ marginLeft: "2px" }}
+                    className="text-white"
+                  />
                 </ListItemIcon>
-                <ListItemText primaryTypographyProps={{fontSize: '1.9vh'}} className="-mx-5" primary="Units" />
+                <ListItemText
+                  primaryTypographyProps={{ fontSize: "1.9vh" }}
+                  className="-mx-5"
+                  primary="Units"
+                />
               </ListItemButton>
             </ListItem>
           </Link>
@@ -703,9 +791,13 @@ function Sidebarlist({ drawer, setDrawer }) {
                 color: "black",
               }}
             >
-              <FaShoppingCart  style={{marginLeft:"-2px"}} className="text-white" />
+              <FaShoppingCart
+                style={{ marginLeft: "-2px" }}
+                className="text-white"
+              />
             </ListItemIcon>
-            <ListItemText primaryTypographyProps={{fontSize: '1.9vh'}}
+            <ListItemText
+              primaryTypographyProps={{ fontSize: "1.9vh" }}
               className="-mx-2"
               primary="Product Setup"
               sx={{ opacity: open ? 1 : 0 }}
@@ -728,7 +820,11 @@ function Sidebarlist({ drawer, setDrawer }) {
                 />
               </ListItemIcon>
 
-              <ListItemText primaryTypographyProps={{fontSize: '1.9vh'}} primary="Add New" sx={{ opacity: open ? 1 : 0 }} />
+              <ListItemText
+                primaryTypographyProps={{ fontSize: "1.9vh" }}
+                primary="Add New"
+                sx={{ opacity: open ? 1 : 0 }}
+              />
               {/* <span className="ml-auto bg-blue-500 text-white rounded-full px-2 py-1 text-xs">
           {30}
         </span> */}
@@ -748,7 +844,11 @@ function Sidebarlist({ drawer, setDrawer }) {
                 />
               </ListItemIcon>
 
-              <ListItemText primaryTypographyProps={{fontSize: '1.9vh'}} primary="List" sx={{ opacity: open ? 1 : 0 }} />
+              <ListItemText
+                primaryTypographyProps={{ fontSize: "1.9vh" }}
+                primary="List"
+                sx={{ opacity: open ? 1 : 0 }}
+              />
               {/* <span className="ml-auto bg-blue-500 text-white rounded-full px-2 py-1 text-xs">
           {30}
         </span> */}
@@ -768,7 +868,8 @@ function Sidebarlist({ drawer, setDrawer }) {
                 />
               </ListItemIcon>
 
-              <ListItemText primaryTypographyProps={{fontSize: '1.9vh'}}
+              <ListItemText
+                primaryTypographyProps={{ fontSize: "1.9vh" }}
                 primary="Product Gallery"
                 sx={{ opacity: open ? 1 : 0 }}
               />
@@ -777,7 +878,7 @@ function Sidebarlist({ drawer, setDrawer }) {
         </span> */}
             </ListItemButton>
           </Link>
-          <Link onClick={() => setDrawer(!drawer)} to={"/NewItemReqeust"}>
+          {/* <Link onClick={() => setDrawer(!drawer)} to={"/NewItemReqeust"}>
             <ListItemButton>
               <ListItemIcon
                 sx={{
@@ -795,11 +896,8 @@ function Sidebarlist({ drawer, setDrawer }) {
                 primary="New Item Request"
                 sx={{ opacity: open ? 1 : 0 }}
               />
-              {/* <span className="ml-auto bg-blue-500 text-white rounded-full px-2 py-1 text-xs">
-          {30}
-        </span> */}
             </ListItemButton>
-          </Link>
+          </Link> */}
           <Link onClick={() => setDrawer(!drawer)} to={"/Review"}>
             <ListItemButton>
               <ListItemIcon
@@ -814,7 +912,11 @@ function Sidebarlist({ drawer, setDrawer }) {
                 />
               </ListItemIcon>
 
-              <ListItemText primaryTypographyProps={{fontSize: '1.9vh'}} primary="Review" sx={{ opacity: open ? 1 : 0 }} />
+              <ListItemText
+                primaryTypographyProps={{ fontSize: "1.9vh" }}
+                primary="Review"
+                sx={{ opacity: open ? 1 : 0 }}
+              />
               {/* <span className="ml-auto bg-blue-500 text-white rounded-full px-2 py-1 text-xs">
           {30}
         </span> */}
@@ -834,7 +936,8 @@ function Sidebarlist({ drawer, setDrawer }) {
                 />
               </ListItemIcon>
 
-              <ListItemText primaryTypographyProps={{fontSize: '1.9vh'}}
+              <ListItemText
+                primaryTypographyProps={{ fontSize: "1.9vh" }}
                 primary="Bulk Import"
                 sx={{ opacity: open ? 1 : 0 }}
               />
@@ -857,7 +960,8 @@ function Sidebarlist({ drawer, setDrawer }) {
                 />
               </ListItemIcon>
 
-              <ListItemText primaryTypographyProps={{fontSize: '1.9vh'}}
+              <ListItemText
+                primaryTypographyProps={{ fontSize: "1.9vh" }}
                 primary="Bulk Export"
                 sx={{ opacity: open ? 1 : 0 }}
               />
@@ -872,7 +976,7 @@ function Sidebarlist({ drawer, setDrawer }) {
         </div>
 
         <div>
-          <List>
+          {/* <List>
             <Link to="/NewStore" onClick={() => setDrawer(!drawer)}>
               <ListItem disablePadding>
                 <ListItemButton>
@@ -881,13 +985,17 @@ function Sidebarlist({ drawer, setDrawer }) {
                 </ListItemButton>
               </ListItem>
             </Link>
-          </List>
-          <List style={{ marginTop: "-22px" }}>
+          </List> */}
+          <List>
             <Link to="/AddStore" onClick={() => setDrawer(!drawer)}>
               <ListItem disablePadding>
                 <ListItemButton>
                   <ListItemIcon></ListItemIcon>
-                  <ListItemText primaryTypographyProps={{fontSize: '1.9vh'}} className="-mx-5" primary="Add Stores" />
+                  <ListItemText
+                    primaryTypographyProps={{ fontSize: "1.9vh" }}
+                    className="-mx-5"
+                    primary="Add Stores"
+                  />
                 </ListItemButton>
               </ListItem>
             </Link>
@@ -897,7 +1005,11 @@ function Sidebarlist({ drawer, setDrawer }) {
               <ListItem disablePadding>
                 <ListItemButton>
                   <ListItemIcon></ListItemIcon>
-                  <ListItemText primaryTypographyProps={{fontSize: '1.9vh'}} className="-mx-5" primary="Stores List" />
+                  <ListItemText
+                    primaryTypographyProps={{ fontSize: "1.9vh" }}
+                    className="-mx-5"
+                    primary="Stores List"
+                  />
                 </ListItemButton>
               </ListItem>
             </Link>
@@ -907,7 +1019,11 @@ function Sidebarlist({ drawer, setDrawer }) {
               <ListItem disablePadding>
                 <ListItemButton>
                   <ListItemIcon></ListItemIcon>
-                  <ListItemText primaryTypographyProps={{fontSize: '1.9vh'}} className="-mx-5" primary="Recommended Store" />
+                  <ListItemText
+                    primaryTypographyProps={{ fontSize: "1.9vh" }}
+                    className="-mx-5"
+                    primary="Recommended Store"
+                  />
                 </ListItemButton>
               </ListItem>
             </Link>
@@ -917,7 +1033,11 @@ function Sidebarlist({ drawer, setDrawer }) {
               <ListItem disablePadding>
                 <ListItemButton>
                   <ListItemIcon></ListItemIcon>
-                  <ListItemText primaryTypographyProps={{fontSize: '1.9vh'}} className="-mx-5" primary="Bulk Import" />
+                  <ListItemText
+                    primaryTypographyProps={{ fontSize: "1.9vh" }}
+                    className="-mx-5"
+                    primary="Bulk Import"
+                  />
                 </ListItemButton>
               </ListItem>
             </Link>
@@ -927,7 +1047,11 @@ function Sidebarlist({ drawer, setDrawer }) {
               <ListItem disablePadding>
                 <ListItemButton>
                   <ListItemIcon></ListItemIcon>
-                  <ListItemText primaryTypographyProps={{fontSize: '1.9vh'}} className="-mx-5" primary="Bulk Export" />
+                  <ListItemText
+                    primaryTypographyProps={{ fontSize: "1.9vh" }}
+                    className="-mx-5"
+                    primary="Bulk Export"
+                  />
                 </ListItemButton>
               </ListItem>
             </Link>

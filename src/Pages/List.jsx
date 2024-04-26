@@ -17,6 +17,11 @@ import { useMutation, useQuery } from "react-query";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Swal from "sweetalert2";
+import {
+  getAdminCategories,
+  getAdminSubCategories,
+} from "../helpers/categories";
+import { getAdminStores } from "../helpers/store";
 
 const top100Films = [
   { label: "Organic Shop (Main Demo Zone)", year: 1994 },
@@ -36,7 +41,46 @@ function List() {
   const navigate = useNavigate();
   const [cookies, setCookie, removeCookie] = useCookies(["admin"]);
 
-  const { isError, isLoading, data, refetch } = useQuery(
+  //GET ALL CATEGORIES
+  const {
+    isError: isError1,
+    isLoading: isLoading1,
+    data: data1,
+    refetch: refetch1,
+  } = useQuery(
+    ["categories", { cookies }], // Use a unique key and any relevant parameters
+    () => getAdminCategories(cookies) // Pass a function that returns a promise
+  );
+
+  //GET ALL Main Categories
+  const {
+    isError: isError2,
+    isLoading: isLoading2,
+    data: data2,
+    refetch: refetch2,
+  } = useQuery(
+    ["subcategories", { cookies }], // Use a unique key and any relevant parameters
+    () => getAdminSubCategories(cookies) // Pass a function that returns a promise
+  );
+
+  //GET ALL STORES
+  const {
+    isError: isError3,
+    isLoading: isLoading3,
+    data: data3,
+    refetch: refetch3,
+  } = useQuery(
+    ["stores", { cookies }], // Use a unique key and any relevant parameters
+    () => getAdminStores(cookies) // Pass a function that returns a promise
+  );
+
+  // GET ALL PRODUCTS
+  const {
+    isError: isError6,
+    isLoading: isLoading6,
+    data: data6,
+    refetch: refetch6,
+  } = useQuery(
     ["products", { cookies }], // Use a unique key and any relevant parameters
     () => getAllAdminProducts(cookies) // Pass a function that returns a promise
   );
@@ -45,7 +89,7 @@ function List() {
   const statusChangeMutation = useMutation(handleVisibilityChange, {
     onSuccess: (data) => {
       if (data.success === true) {
-        refetch();
+        refetch6();
         return Swal.fire({
           icon: "success",
           title: "Product Status Updated",
@@ -113,7 +157,7 @@ function List() {
   const deleteMutation = useMutation(handleDeleteProduct, {
     onSuccess: (data) => {
       if (data.success === true) {
-        refetch();
+        refetch6();
         return Swal.fire({
           icon: "success",
           title: "Product Deleted",
@@ -212,7 +256,7 @@ function List() {
           />
           <h1 className="text-xl font-bold text-gray-800">Item list</h1>
           <span className="badge badge-soft-dark ml-2 text-sm bg-slate-300">
-            {data?.data?.length}
+            {data6?.data?.length}
           </span>
         </div>
       </div>
@@ -232,7 +276,13 @@ function List() {
                   <Autocomplete
                     disablePortal
                     id="combo-box-demo"
-                    options={top100Films}
+                    options={
+                      data3?.store?.length > 0 &&
+                      data3?.store?.map((doc) => ({
+                        label: doc.storeName,
+                        _id: doc._id,
+                      }))
+                    }
                     sx={{ width: "100%" }}
                     renderInput={(params) => (
                       <TextField {...params} label=" All Store" />
@@ -258,7 +308,13 @@ function List() {
                   <Autocomplete
                     disablePortal
                     id="combo-box-demo"
-                    options={top100Films}
+                    options={
+                      data1?.category?.length > 0 &&
+                      data1?.category?.map((doc) => ({
+                        label: doc.name,
+                        _id: doc._id,
+                      }))
+                    }
                     sx={{ width: "100%" }}
                     renderInput={(params) => (
                       <TextField {...params} label="All category" />
@@ -271,7 +327,13 @@ function List() {
                   <Autocomplete
                     disablePortal
                     id="combo-box-demo"
-                    options={top100Films}
+                    options={
+                      data2?.category?.length > 0 &&
+                      data2?.category?.map((doc) => ({
+                        label: doc.name,
+                        _id: doc._id,
+                      }))
+                    }
                     sx={{ width: "100%" }}
                     renderInput={(params) => (
                       <TextField {...params} label=" All Sub category" />
@@ -310,8 +372,12 @@ function List() {
             <button className="bg-[#24bac3] hover:bg-[#20A7AF] p-2 px-5 ml-4 rounded-md text-white">
               Limited stock
             </button>
-            <button className="bg-[#24bac3] hover:bg-[#20A7AF] p-2 px-5 rounded-md  text-white">
-              New Product Request
+            <button
+              type="button"
+              onClick={() => navigate("/Addnew")}
+              className="bg-[#24bac3] hover:bg-[#20A7AF] p-2 px-5 rounded-md  text-white"
+            >
+              Add Product
             </button>
           </div>
         </div>
@@ -334,17 +400,17 @@ function List() {
               </tr>
             </thead>
             <tbody id="set-rows  ">
-              {isLoading ? (
-                <span className="text-center">No Stores found</span>
-              ) : data?.error === "Token has expired" ||
-                data?.error === "Invalid token" ? (
+              {isLoading6 ? (
+                <span className="text-center">No Products found</span>
+              ) : data6?.error === "Token has expired" ||
+                data6?.error === "Invalid token" ? (
                 signout(removeCookie, () => {
                   navigate("/login");
                   return null;
                 })
               ) : (
-                data?.data?.length > 0 &&
-                data?.data?.map((item, index) => (
+                data6?.data?.length > 0 &&
+                data6?.data?.map((item, index) => (
                   <tr key={index}>
                     <td>
                       <span className="ml-5">{index + 1}</span>

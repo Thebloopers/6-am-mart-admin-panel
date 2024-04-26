@@ -124,7 +124,7 @@ function App() {
         <Route path="/Addnew" element={<AddNew />}></Route>
         <Route path="/List" element={<List />}></Route>
         <Route path="/ProductGallery" element={<ProductGallery />}></Route>
-        <Route path="/NewItemReqeust" element={<NewItemRequest />}></Route>
+        {/* <Route path="/NewItemReqeust" element={<NewItemRequest />}></Route> */}
         <Route path="/Review" element={<Review />}></Route>
         <Route path="/NewStore" element={<NewStore />}></Route>
         <Route path="/AddStore" element={<AddStore />}></Route>

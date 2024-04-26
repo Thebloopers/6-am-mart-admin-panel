@@ -591,7 +591,7 @@ function AddNew() {
                           disablePortal
                           id="combo-box-demo"
                           name="attribute"
-
+                          sx={{ minWidth:  {xs: 10, md: 990} }}
                           options={
                             data4?.data?.length > 0 &&
                             data4?.data?.map((doc) => ({
@@ -635,9 +635,8 @@ function AddNew() {
                       name="tags"
                       variant="outlined"
                       placeholder="Search tags"
-                      // sx={{ minWidth:  {xs: 10, md: 1200} }}
+                      sx={{ minWidth:  {xs: 10, md: 990} }}
                       // className="w-full"
-
                       required
                     />
                   </div>
@@ -651,14 +650,15 @@ function AddNew() {
               type="reset"
               id="reset_btn"
               className=" px-8 p-2 mr-4 bg-[#f3f4f5] hover:bg-[#DBDCDC] rounded-md"
-              disabled={loading}
+              
             >
               Reset
             </button>
             <button
               type="submit"
               id="submitButton"
-              className=" px-8 p-2 mr-4 bg-[#24BAC3] hover:bg-[#20A7AF] text-white rounded-md "
+              className=" px-8 p-2 mr-4 bg-[#24BAC3] hover:bg-[#20A7AF] text-white rounded-md"
+              disabled={loading}
             >
               <span
                 className={`${loading ? "block" : "hidden"
