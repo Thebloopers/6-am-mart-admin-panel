@@ -55,7 +55,7 @@ const DispatchSidebaar = ({ drawer, setDrawer }) => {
                 <ListItemIcon>
                   <GoHome className="text-white" />
                 </ListItemIcon>
-                <ListItemText className="-mx-6" primary="Dashboard" />
+                <ListItemText primaryTypographyProps={{fontSize: '1.9vh'}} className="-mx-6" primary="Dashboard" />
               </ListItemButton>
             </ListItem>
           </Link>
@@ -80,7 +80,7 @@ const DispatchSidebaar = ({ drawer, setDrawer }) => {
                 color: "black",
               }}
             ></ListItemIcon>
-            <ListItemText
+            <ListItemText primaryTypographyProps={{fontSize: '1.9vh'}}
               className="-mx-2"
               primary="Grocery"
               sx={{ opacity: open ? 1 : 0 }}
@@ -105,7 +105,7 @@ const DispatchSidebaar = ({ drawer, setDrawer }) => {
                   style={{ fontSize: "4px", color: "white", marginLeft: "4px" }}
                 />
               </ListItemIcon>
-              <ListItemText
+              <ListItemText primaryTypographyProps={{fontSize: '1.9vh'}}
                 primary="Unassigned Orders"
                 sx={{ opacity: open ? 1 : 0 }}
               />
@@ -114,11 +114,11 @@ const DispatchSidebaar = ({ drawer, setDrawer }) => {
         </span> */}
             </ListItemButton>
           </Link>
-          <Link
+          <Link 
             to={"/dispatch/list/1/on_going"}
             onClick={() => setDrawer(!drawer)}
           >
-            <ListItemButton>
+            <ListItemButton style={{ marginTop: "-8px" }}>
               <ListItemIcon
                 sx={{
                   minWidth: 0,
@@ -130,7 +130,7 @@ const DispatchSidebaar = ({ drawer, setDrawer }) => {
                   style={{ fontSize: "4px", color: "white", marginLeft: "4px" }}
                 />
               </ListItemIcon>
-              <ListItemText
+              <ListItemText primaryTypographyProps={{fontSize: '1.9vh'}}
                 primary="Ongoing Orders"
                 sx={{ opacity: open ? 1 : 0 }}
               />

@@ -244,7 +244,7 @@ function AddNew() {
                         type="text"
                         name="name"
                         id="title"
-                        className="form-control bg-white border border-gray-300 rounded px-3 py-2 w-full focus:outline-none focus:border-[#24C9DE]"
+                        className="form-control w-full bg-white border border-gray-300 rounded px-3 py-2  focus:outline-none focus:border-[#24C9DE]"
                         maxLength="100"
                         placeholder="New Item"
                         required
@@ -319,7 +319,7 @@ function AddNew() {
                         <input
                           type="file"
                           name="itemThumbnail"
-                          className="hidden"
+                          className="hidden "
                           accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*"
                           required
                         />
@@ -358,7 +358,7 @@ function AddNew() {
                             }))
                           }
                           onChange={handleAutocompleteChange("store")}
-                          sx={{ width: 250 }}
+                          sx={{ minWidth:  {xs: 10, md: "fit"} }}
                           renderInput={(params) => (
                             <TextField {...params} label="Store" />
                           )}
@@ -383,7 +383,7 @@ function AddNew() {
                             }))
                           }
                           onChange={handleAutocompleteChange("category")}
-                          sx={{ width: 250 }}
+                          sx={{ minWidth:  {xs: 10, md: "fit"} }}
                           renderInput={(params) => (
                             <TextField {...params} label="Category" />
                           )}
@@ -408,7 +408,7 @@ function AddNew() {
                             }))
                           }
                           onChange={handleAutocompleteChange("subCategory")}
-                          sx={{ width: 250 }}
+                          sx={{ minWidth:  {xs: 10, md: "fit"} }}
                           renderInput={(params) => (
                             <TextField {...params} label="Sub category" />
                           )}
@@ -431,7 +431,7 @@ function AddNew() {
                             }))
                           }
                           onChange={handleAutocompleteChange("unit")}
-                          sx={{ width: 250 }}
+                          sx={{ minWidth:  {xs: 10, md: "fit"} }}
                           renderInput={(params) => (
                             <TextField {...params} label="Unit" />
                           )}
@@ -448,7 +448,7 @@ function AddNew() {
                           name="maximumPurchaseQuantityLimit"
                           label="Maximum Purchase Quantity Limit "
                           variant="outlined"
-                          sx={{ width: 250 }}
+                          className="w-full"
                           required
                         />
                       </div>
@@ -478,7 +478,7 @@ function AddNew() {
                           label="Price"
                           name="price"
                           variant="outlined"
-                          sx={{ width: 250 }}
+                          className="w-full"
                           required
                         />
                       </div>
@@ -490,7 +490,7 @@ function AddNew() {
                           label="Total stock"
                           name="totalUnit"
                           variant="outlined"
-                          sx={{ width: 250 }}
+                          className="w-full"
                           required
                         />
                       </div>
@@ -503,7 +503,7 @@ function AddNew() {
                           id="combo-box-demo"
                           name="discounttype"
                           options={[{ label: "Amount" }, { label: "Percent" }]}
-                          sx={{ width: 250 }}
+                          sx={{ minWidth:  {xs: 10, md: "fit"} }}
                           onChange={handleAutocompleteChange("discounttype")}
                           renderInput={(params) => (
                             <TextField
@@ -513,6 +513,7 @@ function AddNew() {
                             />
                           )}
                           required
+                          
                         />
                       </div>
 
@@ -525,7 +526,7 @@ function AddNew() {
                           name="discount"
                           label="Discount"
                           variant="outlined"
-                          sx={{ width: 250 }}
+                          className="w-full"
                           required
                         />
                       </div>
@@ -552,6 +553,7 @@ function AddNew() {
                           disablePortal
                           id="combo-box-demo"
                           name="attribute"
+                          sx={{ minWidth:  {xs: 10, md: 990} }}
                           options={
                             data4?.data?.length > 0 &&
                             data4?.data?.map((doc) => ({
@@ -560,9 +562,11 @@ function AddNew() {
                             }))
                           }
                           onChange={handleAutocompleteChange("attribute")}
-                          sx={{ minWidth: 1000 }}
-                          renderInput={(params) => (
-                            <TextField {...params} label="Attribute" />
+y                          renderInput={(params) => (
+                            <TextField {...params}
+                            // sx={{ minWidth:  {xs: 10, md: 1200} }}
+                            className="w-full"
+                            label="Attribute" />
                           )}
                           required
                         />
@@ -588,11 +592,13 @@ function AddNew() {
                   <div className="grid grid-cols-1 grid-flow-row md:grid-cols-2 lg:grid-cols-4 gap-4">
                     <TextField
                       id="outlined-basic"
+                      className="w-full"
                       label=" Tags"
                       name="tags"
                       variant="outlined"
                       placeholder="Search tags"
-                      sx={{ minWidth: 1000 }}
+                      sx={{ minWidth:  {xs: 10, md: 990} }}
+                      // className="w-full"
                       required
                     />
                   </div>
