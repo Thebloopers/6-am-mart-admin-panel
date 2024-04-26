@@ -553,7 +553,7 @@ function AddNew() {
                           disablePortal
                           id="combo-box-demo"
                           name="attribute"
-                          
+                          sx={{ minWidth:  {xs: 10, md: 990} }}
                           options={
                             data4?.data?.length > 0 &&
                             data4?.data?.map((doc) => ({
@@ -597,9 +597,8 @@ y                          renderInput={(params) => (
                       name="tags"
                       variant="outlined"
                       placeholder="Search tags"
-                      // sx={{ minWidth:  {xs: 10, md: 1200} }}
+                      sx={{ minWidth:  {xs: 10, md: 990} }}
                       // className="w-full"
-
                       required
                     />
                   </div>
