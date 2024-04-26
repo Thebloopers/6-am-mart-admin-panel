@@ -16,11 +16,16 @@ import {
 import { getAdminUnits } from "../helpers/units";
 import { getAdminAttributes } from "../helpers/attributes";
 import { getAdminStores } from "../helpers/store";
+import { MdOutlineCancel } from "react-icons/md";
 
 function AddNew() {
   const navigate = useNavigate();
   const [loading, setIsLoading] = useState(false);
   const [cookies, setCookie] = useCookies(["admin"]);
+  const [images, setImages] = useState([]);
+
+
+
 
   //GET ALL CATEGORIES
   const {
@@ -188,6 +193,27 @@ function AddNew() {
     productMutation.mutate({ formData: formData, cookies: cookies });
   };
 
+
+
+
+
+  const handleImageChange = (event) => {
+    const files = event.target.files;
+    const maxFiles = 5;
+
+    if (files.length + images.length > maxFiles) {
+      alert(`You can upload maximum ${maxFiles} images.`);
+      return;
+    }
+
+    const selectedImages = Array.from(files).map((file) => URL.createObjectURL(file));
+    setImages([...images, ...selectedImages]);
+  };
+
+  const handleRemoveImage = (indexToRemove) => {
+    setImages(images.filter((_, index) => index !== indexToRemove));
+  };
+
   return (
     <>
       {" "}
@@ -278,24 +304,36 @@ function AddNew() {
                     </h2>
                     <small className="text-gray-500">Ratio 1:1</small>
                   </div>
-                  <div className="flex justify-center items-center mb-6">
+                  <div className="flex flex-col md:flex-row justify-center items-center mb-6 relative">
+                    <div className=" md:absolute md:left-0 flex flex-col md:flex-row justify-center items-center gap-2 ">
+                      {images.length > 0 && images.map((image, index) => (
+                        <div className="w-44 h-44 flex items-center justify-center p-1 border-dashed border-2 border-gray-400 rounded">
+                          <button
+                            className="absolute top-2 right-2 text-white bg-red-500 rounded-full w-8 h-8 flex justify-center items-center"
+                            onClick={() => handleRemoveImage(index)}
+                          >
+                            <MdOutlineCancel size="24px" />
+                          </button>
+                          <img key={index} className="rounded object-cover w-full h-full mx-auto my-auto" src={image} alt={`Uploaded Image ${index + 1}`} />
+                        </div>
+                      ))}
+                    </div>
                     <div className="w-44 h-44 relative rounded-md overflow-hidden bg-gray-200">
-                      <img
-                        className="object-cover w-full h-full"
-                        src="https://6ammart-admin.6amtech.com/public/assets/admin/img/upload-img.png"
-                        alt="Thumbnail"
-                      />
-                      <label className="absolute inset-0 flex justify-center items-center cursor-pointer bg-black bg-opacity-50 text-white text-sm font-semibold rounded-md opacity-0 hover:opacity-100 transition duration-300 ease-in-out">
+                      <img className="object-cover w-full h-full" src="https://6ammart-admin.6amtech.com/public/assets/admin/img/upload-img.png" alt="Thumbnail" />
+                      <label htmlFor="uploadInput" className="absolute inset-0 flex justify-center items-center cursor-pointer bg-black bg-opacity-50 text-white text-sm font-semibold rounded-md opacity-0 hover:opacity-100 transition duration-300 ease-in-out">
                         <input
+                          id="uploadInput"
                           type="file"
                           name="itemImage"
                           className="hidden"
                           accept="image/*"
                           multiple
+                          onChange={handleImageChange}
                           required
                         />
                         <i className="fas fa-upload mr-2"></i>Upload Image
                       </label>
+
                     </div>
                   </div>
                 </div>
@@ -358,7 +396,7 @@ function AddNew() {
                             }))
                           }
                           onChange={handleAutocompleteChange("store")}
-                          sx={{ minWidth:  {xs: 10, md: "fit"} }}
+                          sx={{ minWidth: { xs: 10, md: "fit" } }}
                           renderInput={(params) => (
                             <TextField {...params} label="Store" />
                           )}
@@ -383,7 +421,7 @@ function AddNew() {
                             }))
                           }
                           onChange={handleAutocompleteChange("category")}
-                          sx={{ minWidth:  {xs: 10, md: "fit"} }}
+                          sx={{ minWidth: { xs: 10, md: "fit" } }}
                           renderInput={(params) => (
                             <TextField {...params} label="Category" />
                           )}
@@ -408,7 +446,7 @@ function AddNew() {
                             }))
                           }
                           onChange={handleAutocompleteChange("subCategory")}
-                          sx={{ minWidth:  {xs: 10, md: "fit"} }}
+                          sx={{ minWidth: { xs: 10, md: "fit" } }}
                           renderInput={(params) => (
                             <TextField {...params} label="Sub category" />
                           )}
@@ -431,7 +469,7 @@ function AddNew() {
                             }))
                           }
                           onChange={handleAutocompleteChange("unit")}
-                          sx={{ minWidth:  {xs: 10, md: "fit"} }}
+                          sx={{ minWidth: { xs: 10, md: "fit" } }}
                           renderInput={(params) => (
                             <TextField {...params} label="Unit" />
                           )}
@@ -503,7 +541,7 @@ function AddNew() {
                           id="combo-box-demo"
                           name="discounttype"
                           options={[{ label: "Amount" }, { label: "Percent" }]}
-                          sx={{ minWidth:  {xs: 10, md: "fit"} }}
+                          sx={{ minWidth: { xs: 10, md: "fit" } }}
                           onChange={handleAutocompleteChange("discounttype")}
                           renderInput={(params) => (
                             <TextField
@@ -513,7 +551,7 @@ function AddNew() {
                             />
                           )}
                           required
-                          
+
                         />
                       </div>
 
@@ -562,11 +600,11 @@ function AddNew() {
                             }))
                           }
                           onChange={handleAutocompleteChange("attribute")}
-y                          renderInput={(params) => (
+                          y renderInput={(params) => (
                             <TextField {...params}
-                            // sx={{ minWidth:  {xs: 10, md: 1200} }}
-                            className="w-full"
-                            label="Attribute" />
+                              // sx={{ minWidth:  {xs: 10, md: 1200} }}
+                              className="w-full"
+                              label="Attribute" />
                           )}
                           required
                         />
@@ -623,9 +661,8 @@ y                          renderInput={(params) => (
               disabled={loading}
             >
               <span
-                className={`${
-                  loading ? "block" : "hidden"
-                } loading loading-dots loading-sm`}
+                className={`${loading ? "block" : "hidden"
+                  } loading loading-dots loading-sm`}
               ></span>
               <span className={`${loading ? "hidden" : "block"}`}>Submit</span>
             </button>
