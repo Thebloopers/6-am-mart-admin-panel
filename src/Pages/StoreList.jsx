@@ -321,7 +321,7 @@ function StoreList() {
             <tr className=" text-sm">
               <th className=" px-4 py-2 ">Sl</th>
               <th className=" px-4 py-2 ">Store Information</th>
-              <th className=" px-4 py-2 ">Owber Information</th>
+              <th className=" px-4 py-2 ">Owner Information</th>
               <th className=" px-4 py-2">Zone</th>
               <th className=" px-4 py-2 ">Featured</th>
               <th className=" px-4 py-2  text-center">Status</th>
@@ -355,10 +355,10 @@ function StoreList() {
                       </div>
 
                       <div className="   ">
-                        <div className="text-sm text-center ">
+                        <div className="text-sm text-center ml-10">
                           {item.storeName}
                         </div>
-                        <div className="font-light text-sm">
+                        <div className="font-light text-sm ml-10">
                           Id: {index + 1}
                         </div>
                       </div>
@@ -366,7 +366,7 @@ function StoreList() {
                   </td>
 
                   <td className="flex text-center gap-1 items-center ml-5 p-3">
-                    <div className=" text-center l-5 p-3 ">{item.phone}</div>
+                    <div className=" text-center l-5 p-3 ml-10 ">{item.phone}</div>
                     <div>{} </div>
                   </td>
                   <td className=" text-center text-sm font-light">
@@ -382,6 +382,7 @@ function StoreList() {
                     <i>
                       {" "}
                       <Switch
+                      className="ml-12"
                         {...label}
                         checked={item?.isVisible ? true : false}
                         onChange={() => handleStatusChange(item)}
