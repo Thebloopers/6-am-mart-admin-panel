@@ -305,9 +305,9 @@ function AddNew() {
                     <small className="text-gray-500">Ratio 1:1</small>
                   </div>
                   <div className="flex flex-col md:flex-row justify-center items-center mb-6 relative">
-                    <div className=" md:absolute md:left-0 flex flex-col md:flex-row justify-center items-center gap-2 ">
+                    <div className="flex flex-col md:flex-row justify-center items-center gap-2 ">
                       {images.length > 0 && images.map((image, index) => (
-                        <div className="w-44 h-44 flex items-center justify-center p-1 border-dashed border-2 border-gray-400 rounded">
+                        <div className="w-44 h-44 flex items-center justify-center p-1 border-dashed border-2 border-gray-400 rounded relative">
                           <button
                             className="absolute top-2 right-2 text-white bg-red-500 rounded-full w-8 h-8 flex justify-center items-center"
                             onClick={() => handleRemoveImage(index)}
@@ -318,7 +318,7 @@ function AddNew() {
                         </div>
                       ))}
                     </div>
-                    <div className="w-44 h-44 relative rounded-md overflow-hidden bg-gray-200">
+                    <div className={`w-44 h-44 relative rounded-md overflow-hidden bg-gray-200  ${images.length >= 5 ? 'hidden' : 'block'}`}>
                       <img className="object-cover w-full h-full" src="https://6ammart-admin.6amtech.com/public/assets/admin/img/upload-img.png" alt="Thumbnail" />
                       <label htmlFor="uploadInput" className="absolute inset-0 flex justify-center items-center cursor-pointer bg-black bg-opacity-50 text-white text-sm font-semibold rounded-md opacity-0 hover:opacity-100 transition duration-300 ease-in-out">
                         <input
@@ -591,7 +591,7 @@ function AddNew() {
                           disablePortal
                           id="combo-box-demo"
                           name="attribute"
-                          sx={{ minWidth:  {xs: 10, md: 990} }}
+                          sx={{ minWidth: { xs: 10, md: 990 } }}
                           options={
                             data4?.data?.length > 0 &&
                             data4?.data?.map((doc) => ({
@@ -635,7 +635,7 @@ function AddNew() {
                       name="tags"
                       variant="outlined"
                       placeholder="Search tags"
-                      sx={{ minWidth:  {xs: 10, md: 990} }}
+                      sx={{ minWidth: { xs: 10, md: 990 } }}
                       // className="w-full"
                       required
                     />
@@ -650,7 +650,7 @@ function AddNew() {
               type="reset"
               id="reset_btn"
               className=" px-8 p-2 mr-4 bg-[#f3f4f5] hover:bg-[#DBDCDC] rounded-md"
-              
+
             >
               Reset
             </button>
