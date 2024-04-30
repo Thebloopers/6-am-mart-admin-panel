@@ -99,6 +99,7 @@ import UpdateCampaingsedit from "./Pages/UpdateCampaingsedit";
 import UpdateItemCampaignsEdite from "./Pages/UpdateItemCampaignsEdite";
 import OrderOnTheWay from "./Pages/OrderOnTheWay";
 import PaymentFailed from "./Pages/PaymentFailed";
+import OrderDetails from "./Pages/OrderDetails";
 
 function App() {
   return (
@@ -158,6 +159,7 @@ function App() {
         <Route path="/OrderAll" element={<OrderAll/>}></Route>
         <Route path="order/list/item_on_the_way" element={<OrderOnTheWay/>}></Route>
         <Route path="admin/order/list/failed" element={<PaymentFailed/>}></Route>
+        <Route path="/order/View/details" element={<OrderDetails/>}></Route>
         {/* Order Routes */}
 
         <Route path="Users">

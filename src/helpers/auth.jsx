@@ -49,7 +49,7 @@ export const authenticate = (data, next, setCookie) => {
   if (typeof window !== "undefined") {
     const cookieExpireTime = parseInt(
       import.meta.env.VITE_COOKIE_EXPIRE_TIME,
-      10
+      
     ); // Read the expiration time from env
     const expiresInCustomTime = new Date();
     expiresInCustomTime.setTime(
