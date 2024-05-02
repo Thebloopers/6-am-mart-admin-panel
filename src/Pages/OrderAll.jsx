@@ -1,17 +1,19 @@
-import React from 'react'
+import React from "react";
 // import SelectDateRange from '../Components/Sandeep/SelectDateRange'
-import SearchExportForm from '../Components/SearchExportForm'
-import OrderTable from '../Components/OrderTable'
+import SearchExportForm from "../Components/SearchExportForm";
+import OrderTable from "../Components/OrderTable";
 // import Pagination from '../Components/Sandeep/Pagination'
-import { useState } from 'react';
+import { useState } from "react";
 import { IoFilterOutline } from "react-icons/io5";
-import { FaSearch } from 'react-icons/fa';
-import withAuth from '../HOC/withAuth';
-
-
+import { FaSearch } from "react-icons/fa";
+import withAuth from "../HOC/withAuth";
+import { IoEyeSharp } from "react-icons/io5";
+import { IoMdPrint } from "react-icons/io";
+import { useNavigate } from "react-router-dom";
 
 function OrderAll() {
-  const [searchInput, setSearchInput] = useState('');
+   const navigate=useNavigate()
+  const [searchInput, setSearchInput] = useState("");
 
   const handleInputChange = (event) => {
     setSearchInput(event.target.value);
@@ -37,16 +39,20 @@ function OrderAll() {
   ];
   return (
     <div>
-       <h1 className="page-header-title capitalize m-0 flex text-2xl gap-3 font-extrabold ">
-      <span className="page-header-icon">
-        <img src="https://6ammart-admin.6amtech.com/public/assets/admin/img/order.png" className="w-26" alt="" />
-      </span>
-      <span>
-        All Orders
-        <span className="badge badge-soft-dark ml-2 text-sm">30</span>
-      </span>
+      <h1 className="page-header-title capitalize m-0 flex text-2xl gap-3 font-extrabold ">
+        <span className="page-header-icon">
+          <img
+            src="https://6ammart-admin.6amtech.com/public/assets/admin/img/order.png"
+            className="w-26"
+            alt=""
+          />
+        </span>
+        <span>
+          All Orders
+          <span className="badge badge-soft-dark ml-2 text-sm">30</span>
+        </span>
       </h1>
-   <SearchExportForm/>
+      <SearchExportForm />
 
       {/* <div className=' flex justify-end gap-4 mt-9 border p-4'>
     <form className="search-form" onSubmit={handleSubmit}>
@@ -103,9 +109,8 @@ function OrderAll() {
   </div>
      </div> */}
       {/* <OrderTable/> */}
-    
-      {/* <Pagination/> */}
 
+      {/* <Pagination/> */}
 
       <div className="overflow-x-auto max-w-[340px] md:max-w-full">
         <table className="table-auto min-w-full border-collapse border border-gray-200">
@@ -127,10 +132,7 @@ function OrderAll() {
               <tr>
                 <td className="px-4 py-2">{data.sl}</td>
                 <td className="px-4 py-2">
-                  <a
-                    href=""
-                    className="text-blue-500 hover:text-blue-700"
-                  >
+                  <a href="" className="text-blue-500 hover:text-blue-700">
                     {data.orderId}
                   </a>
                 </td>
@@ -140,10 +142,7 @@ function OrderAll() {
                 </td>
                 <td className="px-2 py-2">
                   <h6 className="text-capitalize mb-1">
-                    <a
-                      href=""
-                      className="text-blue-500 hover:text-blue-700"
-                    >
+                    <a href="" className="text-blue-500 hover:text-blue-700">
                       Sir Moba
                     </a>
                   </h6>
@@ -175,20 +174,14 @@ function OrderAll() {
                   </span>
                 </td>
                 <td className="px-4 py-2 text-center">
-                  <div className="flex justify-center items-center gap-2">
-                    <a
-                      href=""
-                      className="btn btn-sm btn-outline-primary rounded-full p-2 hover:bg-blue-500 hover:text-white transition duration-300"
-                    >
-                      <i className="fa-solid fa-eye"></i>
-                    </a>
-                    <a
-                      href=""
-                      className="btn btn-sm btn-outline-success rounded-full p-2 hover:bg-green-500 hover:text-white transition duration-300"
-                      target="_blank"
-                    >
-                      <i className="fa-solid fa-floppy-disk"></i>
-                    </a>
+                  <div className="flex justify-center">
+                  <button onClick={()=>{navigate("/order/View/details")}} className="ml-2 btn btn-sm btn-outline btn-error bg-white text-white">
+                    <IoEyeSharp/>
+
+                  </button>
+                  <button onClick={()=>{navigate("/order/generate-invoice/")}} className="ml-2 btn btn-sm btn-outline btn-error bg-white text-white">
+                  <IoMdPrint />
+                  </button>
                   </div>
                 </td>
               </tr>
@@ -197,7 +190,7 @@ function OrderAll() {
         </table>
       </div>
     </div>
-  )
+  );
 }
 
-export default withAuth(OrderAll)
+export default withAuth(OrderAll);

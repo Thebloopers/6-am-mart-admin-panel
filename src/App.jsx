@@ -100,6 +100,9 @@ import UpdateItemCampaignsEdite from "./Pages/UpdateItemCampaignsEdite";
 import OrderOnTheWay from "./Pages/OrderOnTheWay";
 import PaymentFailed from "./Pages/PaymentFailed";
 import OrderDetails from "./Pages/OrderDetails";
+import OrderInvoiceGenrate from "./Pages/OrderInvoiceGenrate";
+import FlashSaleAddProduct from "./Pages/FlashSaleAddProduct";
+import FlashSaleEditeUpdate from "./Pages/FlashSaleEditeUpdate";
 
 function App() {
   return (
@@ -110,6 +113,8 @@ function App() {
         <Route path="/newsale" element={<Newsale />}></Route>
         <Route path="/OrderRefunds" element={<OrderRefunds />}></Route>
         <Route path="/FlashSale" element={<FlashSale />}></Route>
+        <Route path="/flash-sale/add-product/" element={<FlashSaleAddProduct/>}></Route>
+        <Route path="/flash-sale/edit/" element={<FlashSaleEditeUpdate/>}></Route>
         <Route path="/BasicCampaigns" element={<BasicCampaigns />}></Route>
         <Route path="/ItemCampaigns" element={<ItemBasicCampaigns />}></Route>
         <Route path="/admin/campaign/basic/edit/6" element={<UpdateCampaingsedit/>}></Route>
@@ -160,6 +165,7 @@ function App() {
         <Route path="order/list/item_on_the_way" element={<OrderOnTheWay/>}></Route>
         <Route path="admin/order/list/failed" element={<PaymentFailed/>}></Route>
         <Route path="/order/View/details" element={<OrderDetails/>}></Route>
+        <Route path="/order/generate-invoice/" element={<OrderInvoiceGenrate/>}></Route>
         {/* Order Routes */}
 
         <Route path="Users">
