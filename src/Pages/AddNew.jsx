@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Card } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import TextField from "@mui/material/TextField";
-import Autocomplete from "@mui/material/Autocomplete";
+import Autocomplete, { autocompleteClasses } from "@mui/material/Autocomplete";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 import withAuth from "../HOC/withAuth";
 import { useCookies } from "react-cookie";
@@ -17,14 +17,20 @@ import { getAdminUnits } from "../helpers/units";
 import { getAdminAttributes } from "../helpers/attributes";
 import { getAdminStores } from "../helpers/store";
 import { MdOutlineCancel } from "react-icons/md";
+import Chip from "@mui/material/Chip";
+import Input from "@mui/material/Input";
+import FormControl from "@mui/material/FormControl";
+
 
 function AddNew() {
   const navigate = useNavigate();
   const [loading, setIsLoading] = useState(false);
   const [cookies, setCookie] = useCookies(["admin"]);
   const [images, setImages] = useState([]);
-
-
+  const [thumbnail, setThumbnail] = useState([]);
+  const [attributeArray, setattributeArray] = useState([])
+  const [values, setValues] = useState([]);
+  const [currValue, setCurrValue] = useState("");
 
 
   //GET ALL CATEGORIES
@@ -87,7 +93,7 @@ function AddNew() {
     category: "",
     subCategory: "",
     unit: "",
-    attribute: "",
+    variants: [],
     discounttype: "",
   });
 
@@ -99,6 +105,12 @@ function AddNew() {
       return setAutoComplete({
         ...autoComplete,
         [name]: newValue?.label,
+      });
+    }
+    if (name === "variants") {
+      return setAutoComplete({
+        ...autoComplete,
+        [name]: newValue,
       });
     }
     return setAutoComplete({
@@ -189,13 +201,9 @@ function AddNew() {
     autoComplete.subCategory != "" &&
       formData.append("subCategory", autoComplete.subCategory);
     formData.append("unit", autoComplete.unit);
-    formData.append("attribute", autoComplete.attribute);
+    formData.append("variant", autoComplete.attribute);
     productMutation.mutate({ formData: formData, cookies: cookies });
   };
-
-
-
-
 
   const handleImageChange = (event) => {
     const files = event.target.files;
@@ -206,13 +214,63 @@ function AddNew() {
       return;
     }
 
-    const selectedImages = Array.from(files).map((file) => URL.createObjectURL(file));
+    const selectedImages = Array.from(files).map((file) =>
+      URL.createObjectURL(file)
+    );
     setImages([...images, ...selectedImages]);
+  };
+
+  const handleThumbnailChange = (event) => {
+    const files = event.target.files;
+
+    const selectedThumbnail = Array.from(files).map((file) =>
+      URL.createObjectURL(file)
+    );
+    console.log(selectedThumbnail[0]);
+    setThumbnail([...selectedThumbnail]);
   };
 
   const handleRemoveImage = (indexToRemove) => {
     setImages(images.filter((_, index) => index !== indexToRemove));
   };
+
+  // console.log(autoComplete.variants[0]?.label)
+
+  const attributeTable = (e) => {
+    let newItem = [e.target.value]
+    setattributeArray([...attributeArray, ...newItem])
+  }
+
+  console.log(attributeArray)
+
+  const handleKeyUp = (e) => {
+    console.log(e.keyCode);
+
+    if (e.target.value.length <= 0) {
+      return;
+    }
+    else {
+      setValues((oldState) => [...oldState, e.target.value]);
+      setCurrValue("");
+    }
+
+  };
+
+  useEffect(() => {
+    console.log(values);
+  }, [values]);
+
+  const handleChange = (e) => {
+    setCurrValue(e.target.value);
+  };
+
+  const handleDelete = (item, index) => {
+    let arr = [...values]
+    arr.splice(index, 1)
+    console.log(item)
+    setValues(arr)
+  }
+
 
   return (
     <>
@@ -306,21 +364,37 @@ function AddNew() {
                   </div>
                   <div className="flex flex-col md:flex-row justify-center items-center mb-6 relative">
                     <div className="flex flex-col md:flex-row justify-center items-center gap-2 ">
-                      {images.length > 0 && images.map((image, index) => (
-                        <div className="w-44 h-44 flex items-center justify-center p-1 border-dashed border-2 border-gray-400 rounded relative">
-                          <button
-                            className="absolute top-2 right-2 text-white bg-red-500 rounded-full w-8 h-8 flex justify-center items-center"
-                            onClick={() => handleRemoveImage(index)}
-                          >
-                            <MdOutlineCancel size="24px" />
-                          </button>
-                          <img key={index} className="rounded object-cover w-full h-full mx-auto my-auto" src={image} alt={`Uploaded Image ${index + 1}`} />
-                        </div>
-                      ))}
+                      {images.length > 0 &&
+                        images.map((image, index) => (
+                          <div className="w-44 h-44 flex items-center justify-center p-1 border-dashed border-2 border-gray-400 rounded relative">
+                            <button
+                              className="absolute top-2 right-2 text-white bg-red-500 rounded-full w-8 h-8 flex justify-center items-center"
+                              onClick={() => handleRemoveImage(index)}
+                            >
+                              <MdOutlineCancel size="24px" />
+                            </button>
+                            <img
+                              key={index}
+                              className="rounded object-cover w-full h-full mx-auto my-auto"
+                              src={image}
+                              alt={`Uploaded Image ${index + 1}`}
+                            />
+                          </div>
+                        ))}
                     </div>
-                    <div className={`w-44 h-44 relative rounded-md overflow-hidden bg-gray-200  ${images.length >= 5 ? 'hidden' : 'block'}`}>
-                      <img className="object-cover w-full h-full" src="https://6ammart-admin.6amtech.com/public/assets/admin/img/upload-img.png" alt="Thumbnail" />
-                      <label htmlFor="uploadInput" className="absolute inset-0 flex justify-center items-center cursor-pointer bg-black bg-opacity-50 text-white text-sm font-semibold rounded-md opacity-0 hover:opacity-100 transition duration-300 ease-in-out">
+                    <div
+                      className={`w-44 h-44 relative rounded-md overflow-hidden bg-gray-200  ${images.length >= 5 ? "hidden" : "block"
+                        }`}
+                    >
+                      <img
+                        className="object-cover w-full h-full"
+                        src="https://6ammart-admin.6amtech.com/public/assets/admin/img/upload-img.png"
+                        alt="Thumbnail"
+                      />
+                      <label
+                        htmlFor="uploadInput"
+                        className="absolute inset-0 flex justify-center items-center cursor-pointer bg-black bg-opacity-50 text-white text-sm font-semibold rounded-md opacity-0 hover:opacity-100 transition duration-300 ease-in-out"
+                      >
                         <input
                           id="uploadInput"
                           type="file"
@@ -333,7 +407,6 @@ function AddNew() {
                         />
                         <i className="fas fa-upload mr-2"></i>Upload Image
                       </label>
-
                     </div>
                   </div>
                 </div>
@@ -353,12 +426,19 @@ function AddNew() {
                         src="https://6ammart-admin.6amtech.com/public/assets/admin/img/upload-img.png"
                         alt="Thumbnail"
                       />
+                      <img
+                        className="absolute top-0 rounded object-cover w-full h-full "
+                        src={thumbnail[0]}
+                      />
                       <label className="absolute inset-0 flex justify-center items-center cursor-pointer bg-black bg-opacity-50 text-white text-sm font-semibold rounded-md opacity-0 hover:opacity-100 transition duration-300 ease-in-out">
                         <input
+                          id="uploadInput"
                           type="file"
-                          name="itemThumbnail"
-                          className="hidden "
-                          accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*"
+                          name="itemImage"
+                          className="hidden"
+                          accept="image/*"
+                          multiple
+                          onChange={handleThumbnailChange}
                           required
                         />
                         <i className="fas fa-upload mr-2"></i>Upload Image
@@ -551,7 +631,6 @@ function AddNew() {
                             />
                           )}
                           required
-
                         />
                       </div>
 
@@ -584,10 +663,11 @@ function AddNew() {
                   </h5>
                 </div>
                 <div className="p-4">
-                  <div className="grid grid-cols-1 grid-flow-row md:grid-cols-2 lg:grid-cols-4 gap-4">
-                    <div className="col-span-1">
+                  <div className="gap-4">
+                    <div className="col-span-1 w-full">
                       <div className="mb-4">
                         <Autocomplete
+                          multiple
                           disablePortal
                           id="combo-box-demo"
                           name="attribute"
@@ -599,16 +679,100 @@ function AddNew() {
                               _id: doc._id,
                             }))
                           }
-                          onChange={handleAutocompleteChange("attribute")}
-                          y renderInput={(params) => (
-                            <TextField {...params}
+                          onChange={handleAutocompleteChange("variants")}
+                          y
+                          renderInput={(params) => (
+                            <TextField
+                              {...params}
                               // sx={{ minWidth:  {xs: 10, md: 1200} }}
                               className="w-full"
-                              label="Attribute" />
+                              label="Attribute"
+                            />
                           )}
                           required
                         />
                       </div>
+
+                      {autoComplete.variants.length > 0 ? (
+
+
+                        <div className="flex flex-col gap-2 p-2 w-full">
+                          <div className="flex justify-between items-center">
+
+
+
+                              {autoComplete.variants.map((item, index) => (
+                            <form  >
+                                <div key={index}>
+
+                                
+                              <h1>{item.label}</h1>
+                              {/* <input onBlur={(e) => attributeTable(e)} className="border rounded p-1" type="text" placeholder="Enter choices value" /> */}
+                              <FormControl >
+                                <div className={"container"}>
+                                  {values.map((item, index) => (
+                                    <Chip size="small" onDelete={() => handleDelete(item, index)} label={item} />
+                                  ))}
+                                </div>
+                                <Input
+                                  value={currValue}
+                                  onChange={handleChange}
+                                  onBlur={handleKeyUp}
+                                  className="w-60"
+                                />
+                              </FormControl>
+                            </div>
+                            </form>
+                              ))}
+                          </div>
+                          {
+                            values.length >= 0 ? (
+                              <div className="w-full py-2 px-2 h-fit">
+                                <table className="w-full">
+                                  <thead className="w-full bg-teal-100 h-11 text-[1.8vh]">
+                                    <tr>
+                                      <th className="text-center">
+                                        <span>Variant</span>
+                                      </th>
+                                      <th className="text-center">
+                                        <span>Variant Price</span>
+                                      </th>
+                                      <th className="text-center">
+                                        <span>Stock</span>
+                                      </th>
+                                    </tr>
+                                  </thead>
+                                  <tbody className="">
+                                    {values.map((item, index) => (
+                                      <tr key={index} className="">
+                                        <td className="w-20 text-center py-5">
+                                          <label htmlFor="">{item}</label>
+                                        </td>
+                                        <td className="w-56 px-3">
+                                          <input className="w-full border h-11 rounded px-3" type="text" />
+                                        </td>
+                                        <td className="w-56 px-3">
+                                          <input className="w-full border h-11 rounded px-3" type="text" />
+                                        </td>
+                                      </tr>
+                                    ))}
+                                  </tbody>
+                                </table>
+                              </div>
+                            ) : (<h1>value is greater than 1</h1>)
+                          }
+                        </div>
+
+
+                        //  <div className="flex flex-col gap-2 p-2">
+                        //   <h1>{autoComplete.variants[0].label}</h1>
+                        //   <input className="border rounded p-1" type="text" placeholder="Enter choices value" />
+                        // </div>
+                      ) : (
+                        <h1>Insert a attribute</h1>
+                      )}
+
+
 
                       {/* Maximum Purchase Quantity */}
                     </div>
@@ -650,7 +814,6 @@ function AddNew() {
               type="reset"
               id="reset_btn"
               className=" px-8 p-2 mr-4 bg-[#f3f4f5] hover:bg-[#DBDCDC] rounded-md"
-
             >
               Reset
             </button>
