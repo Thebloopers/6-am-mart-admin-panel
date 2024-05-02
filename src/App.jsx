@@ -99,6 +99,7 @@ import UpdateCampaingsedit from "./Pages/UpdateCampaingsedit";
 import UpdateItemCampaignsEdite from "./Pages/UpdateItemCampaignsEdite";
 import OrderOnTheWay from "./Pages/OrderOnTheWay";
 import PaymentFailed from "./Pages/PaymentFailed";
+import CountryFair from "./Pages/Transaction/StoresListEye/ CountryFair";
 
 function App() {
   return (
@@ -128,9 +129,14 @@ function App() {
         <Route path="/Review" element={<Review />}></Route>
         <Route path="/NewStore" element={<NewStore />}></Route>
         <Route path="/AddStore" element={<AddStore />}></Route>
-        <Route path="/StoreList" element={<StoreList />}></Route>
+        <Route path="/StoreList" element={<StoreList />}>
+        </Route>
+        <Route path="store/view">
+        <Route index element={<CountryFair/>}></Route>
+        {/* <Route path="05" element={<CountryFair/>}></Route> */}
+        </Route>
         <Route path="/RecommendedStore" element={<Recommended />}></Route>
-        <Route path="/BulkImport" element={<Import />}></Route>
+        <Route path="/BulkImport" element={<Import />}></Route>s
         <Route path="/BulkExport" element={<Export />}></Route>
         <Route
           path="/CategoryBulkImport"
