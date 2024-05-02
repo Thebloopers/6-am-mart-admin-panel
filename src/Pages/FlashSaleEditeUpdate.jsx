@@ -1,11 +1,12 @@
-import FlashsalelistTable from "../Components/FlashsalelistTable";
+import React from 'react'
+
 import TabsComponent from "../Components/TabsComponent";
 import withAuth from "../HOC/withAuth";
 
-function FlashSale() {
+function FlashSaleEditeUpdate() {
   return (
     <>
-      <div class="">
+    <div class="">
         <div class="max-w-4xl">
           <h1 class="text-2xl font-bold flex items-center">
             <span class="mr-3">
@@ -21,7 +22,7 @@ function FlashSale() {
       </div>
 
       <div className="p-2 mt-8 shadow-md rounded-md">
-        <TabsComponent />
+        <TabsComponent/>
 
         <div className="container mx-auto px-4 py-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -119,15 +120,13 @@ function FlashSale() {
             type="submit"
             className="px-4 py-2 bg-[#24bac3] text-white rounded-md hover:bg-[#20A7AF] transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
-            Submit
+            Update
           </button>
         </div>
       </div>
-
-     
-      <FlashsalelistTable />
+      
     </>
-  );
+  )
 }
 
-export default withAuth(FlashSale);
+export default FlashSaleEditeUpdate
