@@ -1,10 +1,13 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import ToggleButton from "./ToggleButton";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 function CampaignsTable({ campaigns, price }) {
+
+   const navigate=useNavigate()
+   const[newNavigate,SetNewNavigate]=useState()
   return (
     <div className="md:max-w-full overflow-auto max-w-[400px]">
       <table className="w-full">
@@ -33,12 +36,12 @@ function CampaignsTable({ campaigns, price }) {
               </td>
               {price && <td className="py-3 px-4">{campaign.price}</td>}
               <td className="py-3 px-4 text-center space-x-2">
-                <Link to={`/${campaign.id}`}>
-                  <button className="btn btn-outline text-[#24bac3] hover:bg-[#24bac3]">
+             
+                  <button onClick={()=>{navigate("/campaign/basic/edit/")}} className="btn btn-sm btn-outline text-[#24bac3] hover:bg-[#24bac3]">
                     <EditIcon />
                   </button>
-                </Link>
-                <button className="bg-red-500 hover:bg-red-600 text-white btn btn-outline mt-2">
+          
+                <button className="bg-red-500 btn-sm hover:bg-red-600 text-white btn btn-outline mt-2">
                   <DeleteIcon />
                 </button>
               </td>

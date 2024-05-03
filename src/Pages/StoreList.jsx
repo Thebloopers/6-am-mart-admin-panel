@@ -236,7 +236,7 @@ function StoreList() {
           <div class="flex items-center space-x-4">
             <div className="relative">
               <button
-                className="btn btn-secondary h-10 px-4 flex items-center border"
+                className="btn  h-10 px-4 flex items-center border"
                 onClick={toggleDropdown}
               >
                 <AiOutlineDownload

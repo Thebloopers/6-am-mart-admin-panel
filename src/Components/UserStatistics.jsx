@@ -9,25 +9,27 @@ const data = [
 
 function UserStatistics() {
   return (
-    <PieChart
-      series={[
-        {
-          data,
-          highlightScope: { faded: 'global', highlighted: 'item' },
-          faded: { innerRadius: 30, additionalRadius: -30, color: 'gray' },
-        },
-      ]}
-      height={200}
-      options={{
-        legend: {
-          position: 'bottom',
-          alignment: 'center',
-        },
-        pie: {
-          size: '100%',
-        },
-      }}
-    />
+    <div className="w-full md:w-auto">
+      <PieChart
+        series={[
+          {
+            data,
+            highlightScope: { faded: 'global', highlighted: 'item' },
+            faded: { innerRadius: 30, additionalRadius: -30, color: 'gray' },
+          },
+        ]}
+        height={200}
+        options={{
+          legend: {
+            position: 'bottom',
+            alignment: 'center',
+          },
+          pie: {
+            size: '100%',
+          },
+        }}
+      />
+    </div>
   );
 }
 

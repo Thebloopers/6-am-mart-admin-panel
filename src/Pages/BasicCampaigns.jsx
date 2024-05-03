@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AddIcon from "@mui/icons-material/Add";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import SearchIcon from "@mui/icons-material/Search";
@@ -7,6 +7,7 @@ import CampaignsTable from "../Components/CampaignsTable";
 import withAuth from "../HOC/withAuth";
 
 function BasicCampaigns() {
+  const navigate =useNavigate()
   const campaigns = [
     {
       id: 1,
@@ -26,10 +27,7 @@ function BasicCampaigns() {
   ];
   return (
     <>
-      <div className=" mx-auto px-4 py-8">
-        <div className="bg-white shadow-md rounded-lg">
-          <div className="px-6 py-4">
-            <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center">
               <div className="flex items-center">
                 <img
                   src="https://6ammart-admin.6amtech.com/public/assets/admin/img/campaign.png"
@@ -40,13 +38,16 @@ function BasicCampaigns() {
                   Campaign
                 </h1>
               </div>
-              <button className="btn btn-outline text-[#24bac3] hover:bg-[#24bac3]">
+              <button onClick={()=>{navigate("/campaign/basic/add-new")}} className="btn btn-outline text-[#24bac3] hover:bg-[#24bac3]">
                 <AddIcon />
                 <span className="hidden sm:inline">Add New Campaign</span>
               </button>
             </div>
-            <hr className="my-4" />
-            <div className="flex items-center mb-4">
+
+      <div className=" py-8">
+        <div className="bg-white shadow-md rounded-lg">
+          <div className=" py-4">
+            <div className="flex items-center mb-4 px-4">
               <h2 className="text-lg font-semibold text-gray-800 mr-4">
                 Campaign list
               </h2>

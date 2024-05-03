@@ -12,6 +12,12 @@ import UserStatistics from "../Components/UserStatistics";
 import { Card } from "@mui/material";
 import withAuth from "../HOC/withAuth";
 
+import { GoDotFill } from "react-icons/go";
+
+
+import  PiChart  from "../Components/PiChart";
+import Chart from "../Components/Chart";
+
 const Dashboard = () => {
   const cardsData2 = [
     {
@@ -210,8 +216,8 @@ const Dashboard = () => {
         </div>
       </div>
       {/* dashboard card */}
-      <div className="container mx-auto my-8 border p-5 rounded-md shadow-xl ">
-        <div className="card mb-3">
+      <div className="container my-8 border p-5 rounded-md shadow-xl ">
+        <div className="card mb-3 ">
           <div className="card-body pt-0">
             <div className="flex flex-wrap justify-end">
               <div className="statistics-btn-grp">
@@ -222,9 +228,9 @@ const Dashboard = () => {
                     value="this_year"
                     className="order_stats_update hidden"
                   />
-                  <span className="text-gray-600 cursor-pointer transition duration-300 hover:text-blue-500">
-                    This Year
-                  </span>
+                  <button className="btn text-gray-600 border   cursor-pointer transition duration-300 hover:text-blue-500">
+                     Year
+                  </button>
                 </label>
                 <label className="mr-4">
                   <input
@@ -233,9 +239,9 @@ const Dashboard = () => {
                     value="this_month"
                     className="order_stats_update hidden"
                   />
-                  <span className="text-gray-600 cursor-pointer transition duration-300 hover:text-blue-500">
-                    This Month
-                  </span>
+                  <button className=" btn text-gray-600 cursor-pointer transition duration-300 hover:text-blue-500">
+                     Month
+                  </button>
                 </label>
                 <label>
                   <input
@@ -244,8 +250,8 @@ const Dashboard = () => {
                     value="this_week"
                     className="order_stats_update hidden"
                   />
-                  <span className="text-gray-600 cursor-pointer transition duration-300 hover:text-blue-500">
-                    This Week
+                  <span className="btn text-gray-600 cursor-pointer transition duration-300 hover:text-blue-500">
+                     Week
                   </span>
                 </label>
               </div>
@@ -279,50 +285,50 @@ const Dashboard = () => {
               iconSrc="https://6ammart-admin.6amtech.com/public/assets/admin/img/dashboard/grocery/accepted.svg"
               title="Accepted by Delivery Man"
               count="1"
-              link=""
+              link="/Accepted"
             />
             <OrderCard
               iconSrc="https://6ammart-admin.6amtech.com/public/assets/admin/img/dashboard/grocery/packaging.svg"
               title="Packaging"
               count="5"
-              link=""
+              link="/order/processing"
             />
             <OrderCard
               iconSrc="https://6ammart-admin.6amtech.com/public/assets/admin/img/dashboard/grocery/out-for.svg"
               title="Out for Delivery"
               count="0"
-              link=""
+              link="order/list/item_on_the_way"
             />
             <OrderCard
               iconSrc="https://6ammart-admin.6amtech.com/public/assets/admin/img/dashboard/grocery/delivered.svg"
               title="Delivered"
               count="9"
-              link=""
+              link="/Delivered"
             />
             <OrderCard
               iconSrc="https://6ammart-admin.6amtech.com/public/assets/admin/img/order-status/canceled.svg"
               title="Canceled"
               count="1"
-              link=""
+              link="/Canceled"
             />
             <OrderCard
               iconSrc="https://6ammart-admin.6amtech.com/public/assets/admin/img/order-status/refunded.svg"
               title="Refunded"
               count="0"
-              link=""
+              link="/Refunded"
             />
             <OrderCard
               iconSrc="https://6ammart-admin.6amtech.com/public/assets/admin/img/order-status/payment-failed.svg"
               title="Payment failed"
               count="1"
-              link=""
+              link="admin/order/list/failed"
             />
           </div>
         </div>
         {/* order card end */}
       </div>
 
-      <Card className="grid md:grid-cols-2 grid-cols-1 gap-4">
+      {/* <Card className="grid md:grid-cols-2 grid-cols-1 gap-4">
         <div className="md:col-span-1 bg-[#FFFFFF] p-2 shadow-md">
           <Cart />
         </div>
@@ -333,7 +339,63 @@ const Dashboard = () => {
           </div>
           <UserStatistics />
         </div>
-      </Card>
+      </Card> */}
+      <div className="flex flex-col md:flex-row justify-between items-start my-5 gap-x-3 w-full gap-y-5">
+          <div className=" max-w-[400px] overflow-x-auto p-4 md:max-w-full shadow-lg rounded-lg">
+            <div className="flex justify-around items-center mt-3">
+              <div>
+                <h1 className="text-gray-700 text-xl ">$ 858.40</h1>
+                <p className="text-gray-500 text-xl ">Gross Sale</p>
+              </div>
+              <h1>
+                <GoDotFill className="text-xl w-full text-[#00AA96] inline-block mx-2" />
+                Sale (2024)
+              </h1>
+              <select className="select w-full max-w-[250px] focus:outline-none border border-gray-300">
+                <option disabled selected>
+                  This Year
+                </option>
+                <option> This Year</option>
+                <option> This Month</option>
+                <option> This Week</option>
+              </select>
+            </div>
+            <Chart/>
+          </div>
+          <div className="shadow-lg rounded-lg flex flex-col  justify-center items-start w-full  md:w-1/3">
+            <div className="flex justify-between items-center mt-4 px-3 w-full">
+              <h1 className="text-gray-600 font-bold">User Statistics</h1>
+              <select className="select w-full max-w-[200px] focus:outline-none border border-gray-300">
+                <option disabled selected>
+                  This Year
+                </option>
+                <option> This Year</option>
+                <option> This Month</option>
+                <option> This Week</option>
+              </select>
+            </div>
+            <PiChart/>
+            <div className="flex justify-evenly items-center mb-5 gap-x-5">
+              <h1>
+                {" "}
+                <GoDotFill className="inline-block text-2xl text-[#005555]" />{" "}
+                Customer 24
+              </h1>
+              <h1>
+                {" "}
+                <GoDotFill className="inline-block text-2xl text-[#00AA96]" />{" "}
+                Store 15
+              </h1>
+              <h1>
+                {" "}
+                <GoDotFill className="inline-block text-2xl text-[#B9E0E0]" />{" "}
+                Delivery man 6
+              </h1>
+            </div>
+          </div>
+        </div>
+
+
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-12">
         <div className="col-span-1 md:col-span-2 lg:col-span-1 my-4">
@@ -343,7 +405,7 @@ const Dashboard = () => {
                 <h5 className="text-lg font-semibold text-gray-800">
                   Top Selling Stores
                 </h5>
-                <Link href="" className="text-blue-600 text-sm font-medium">
+                <Link to={"/StoreList"} className="text-blue-600 text-sm font-medium">
                   View all
                 </Link>
               </div>
@@ -392,27 +454,27 @@ const Dashboard = () => {
                 <h5 className="text-lg font-semibold text-gray-800">
                   Top Selling Items
                 </h5>
-                <a className="text-blue-600 text-sm font-medium">View all</a>
+                <Link to={"/List"} className="text-blue-600 text-sm font-medium">View all</Link>
               </div>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 gap-3">
                 {gridItems.map((item, index) => (
                   <Link
                     key={index}
-                    className="grid-card flex flex-col justify-between items-center rounded-lg overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300"
+                    className="grid-card flex justify-between items-center rounded-lg overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300"
                   >
                     <img
                       src={item.imgSrc}
                       alt={item.alt}
-                      className="w-20"
+                      className="w-8"
                     />
-                    <div className="p-4">
+                    <div className="p-4 flex">
                       <div className="cont" title={item.title}>
                         <span className="text-base font-medium text-gray-800">
                           {item.title}
                         </span>
                       </div>
-                      <div className="flex justify-between items-center mt-2">
-                        <span className="text-sm text-gray-600">
+                      <div className="flex  justify-between items-center mt-2">
+                        <span className="text-sm text-gray-600 ">
                           Sold: {item.sold}
                         </span>
                       </div>
@@ -433,7 +495,7 @@ const Dashboard = () => {
                 <h5 className="text-lg font-semibold text-gray-800">
                   Top Rated Items
                 </h5>
-                <Link className="text-blue-600 text-sm font-medium">
+                <Link to={"/List"} className="text-blue-600 text-sm font-medium">
                   View all
                 </Link>
               </div>
@@ -456,7 +518,7 @@ const Dashboard = () => {
                 <h5 className="text-lg font-semibold text-gray-800">
                   Top Customers
                 </h5>
-                <Link href="" className="text-blue-600 text-sm font-medium">
+                <Link to="Users/Customers" className="text-blue-600 text-sm font-medium">
                   View all
                 </Link>
               </div>
@@ -480,9 +542,9 @@ const Dashboard = () => {
             <div className="px-4 py-3">
               <div className="flex justify-between items-center mb-2">
                 <h5 className="text-lg font-semibold text-gray-800">
-                  Top Customers
+                   Top Deliveryman
                 </h5>
-                <Link href="" className="text-blue-600 text-sm font-medium">
+                <Link to="" className="text-blue-600 text-sm font-medium">
                   View all
                 </Link>
               </div>

@@ -55,9 +55,9 @@ function ProfileButton() {
                 </div>
               </div>
             </li>
-            <li className="border-b border-gray-400">
+            {/* <li className="border-b border-gray-400">
               <Link to="/settings">Settings</Link>
-            </li>
+            </li> */}
             <li>
               <button type="button" onClick={handleSignOut}>
                 Sign Out
