@@ -34,6 +34,7 @@
     "react-select": "^5.8.0",
     "react-select-currency": "^1.0.7",
     "react-timezone-select": "^3.2.3",
+    "recharts": "^2.12.6",
     "remixicon": "^4.2.0",
     "sweetalert2": "^11.6.13",
     "web-vitals": "^2.1.4"

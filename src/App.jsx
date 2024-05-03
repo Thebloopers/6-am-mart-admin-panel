@@ -99,10 +99,14 @@ import UpdateCampaingsedit from "./Pages/UpdateCampaingsedit";
 import UpdateItemCampaignsEdite from "./Pages/UpdateItemCampaignsEdite";
 import OrderOnTheWay from "./Pages/OrderOnTheWay";
 import PaymentFailed from "./Pages/PaymentFailed";
+import CountryFair from "./Pages/Transaction/StoresListEye/ CountryFair";
 import OrderDetails from "./Pages/OrderDetails";
 import OrderInvoiceGenrate from "./Pages/OrderInvoiceGenrate";
 import FlashSaleAddProduct from "./Pages/FlashSaleAddProduct";
 import FlashSaleEditeUpdate from "./Pages/FlashSaleEditeUpdate";
+import BasicCampaingsEdite from "./Pages/BasicCampaingsEdite";
+import ItemCampaingsEdite from "./Pages/ItemCampaingsEdite";
+import AddNewCampaign from "./Pages/AddNewCampaign";
 
 function App() {
   return (
@@ -115,8 +119,11 @@ function App() {
         <Route path="/FlashSale" element={<FlashSale />}></Route>
         <Route path="/flash-sale/add-product/" element={<FlashSaleAddProduct/>}></Route>
         <Route path="/flash-sale/edit/" element={<FlashSaleEditeUpdate/>}></Route>
+        <Route path="/campaign/basic/add-new" element={<AddNewCampaign/>}></Route>
         <Route path="/BasicCampaigns" element={<BasicCampaigns />}></Route>
+        <Route path="/campaign/basic/edit/" element={<BasicCampaingsEdite/>}></Route>
         <Route path="/ItemCampaigns" element={<ItemBasicCampaigns />}></Route>
+        <Route path="/campaign/item/edit/" element={<ItemCampaingsEdite/>}></Route>
         <Route path="/admin/campaign/basic/edit/6" element={<UpdateCampaingsedit/>}></Route>
         <Route path="/admin/campaign/item/edit/12" element={<UpdateItemCampaignsEdite/>}></Route>
         <Route path="/Banners" element={<Banners />}></Route>
@@ -134,7 +141,12 @@ function App() {
         <Route path="/Review" element={<Review />}></Route>
         <Route path="/NewStore" element={<NewStore />}></Route>
         <Route path="/AddStore" element={<AddStore />}></Route>
-        <Route path="/StoreList" element={<StoreList />}></Route>
+        <Route path="/StoreList" element={<StoreList />}>
+        </Route>
+        <Route path="store/view">
+        <Route index element={<CountryFair/>}></Route>
+        {/* <Route path="05" element={<CountryFair/>}></Route> */}
+        </Route>
         <Route path="/RecommendedStore" element={<Recommended />}></Route>
         <Route path="/BulkImport" element={<Import />}></Route>
         <Route path="/BulkExport" element={<Export />}></Route>

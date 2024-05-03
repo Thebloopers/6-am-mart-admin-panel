@@ -22,6 +22,8 @@ import {
   getAdminSubCategories,
 } from "../helpers/categories";
 import { getAdminStores } from "../helpers/store";
+import { IoEyeSharp } from "react-icons/io5";
+import { MdDelete } from "react-icons/md";
 
 const top100Films = [
   { label: "Organic Shop (Main Demo Zone)", year: 1994 },
@@ -383,7 +385,7 @@ function List() {
         </div>
         {/* Delete This <ItemListTable /> */}
 
-        <div className="overflow-x-auto max-w-[384px] md:max-w-full mt-4 shadow-sm ">
+        <div className="overflow-x-auto max-w-[350px] md:max-w-full mt-4 shadow-sm ">
           <table className="table-auto min-w-full border-collapse  border border-gray-200">
             <thead className="bg-gray-100">
               <tr className=" text-sm">
@@ -466,18 +468,20 @@ function List() {
                         />
                       </i>
                     </td>
-
-                    <td className="py-3 px-2 m-2 flex items-center justify-center ">
-                      <button className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-1 px-3 rounded md:mr-2">
-                        <EditIcon />
-                      </button>
-                      <button
-                        onClick={() => handleDelete(item)}
-                        className="bg-red-500 hover:bg-red-600 text-white font-semibold py-1 px-3  rounded"
-                      >
-                        <DeleteIcon />
-                      </button>
-                    </td>
+                   
+                    <td className="py-3 px-2  text-center   ">
+                  <button className="bg-orange-300 border border-orange-500 text-[#ff7500] text-center font-semibold py-1 px-3 rounded md:mr-2"
+                  
+                  >
+                  
+                    <IoEyeSharp />
+                  </button>
+                  <button className="bg-[#00c9db1a] border border-[#00c9db99] hover:text-[#00c9db99] text-[#00c9db] text-center font-semibold py-1 px-3 rounded md:mr-2"
+                  onClick={() => handleDelete(item)}
+                  >
+                  <MdDelete />
+                  </button>
+                </td>
                   </tr>
                 ))
               )}

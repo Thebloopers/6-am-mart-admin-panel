@@ -169,7 +169,7 @@ function Layout(props) {
         ) : (
           <Sidebarlist drawer={mobileOpen} setDrawer={setMobileOpen} />
         )}
-        <div className="sticky bottom-0">
+        <div className="sticky bottom-0 text-center">
           <ProfileButton />
         </div>
       </div>

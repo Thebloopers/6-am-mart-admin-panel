@@ -57,7 +57,7 @@ function Accepted() {
                 <td className="px-4 py-2">{data.sl}</td>
                 <td className="px-4 py-2">
                   <a
-                    href="https://efood-admin.6amtech.com/admin/orders/details/100089"
+                    href="https:-admin.6amtech.com/admin/orders/det"
                     className="text-blue-500 hover:text-blue-700"
                   >
                     {data.orderId}
@@ -70,7 +70,7 @@ function Accepted() {
                 <td className="px-2 py-2">
                   <h6 className="text-capitalize mb-1">
                     <a
-                      href="https://efood-admin.6amtech.com/admin/customer/view/191"
+                      href="h/efood-admin.6amtech.com/admin/customer/vie"
                       className="text-blue-500 hover:text-blue-700"
                     >
                       Sir Moba

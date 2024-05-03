@@ -1,6 +1,6 @@
-import { MdExpandMore } from "react-icons/md";
+import { MdDelete, MdEdit, MdExpandMore } from "react-icons/md";
 import { LuListFilter } from "react-icons/lu";
-import { IoDocumentText } from "react-icons/io5";
+import { IoDocumentText, IoEyeSharp } from "react-icons/io5";
 import { IoSearch, IoDownload } from "react-icons/io5";
 import { FaSearch } from "react-icons/fa";
 import {
@@ -238,7 +238,7 @@ function StoreList() {
           <div class="flex items-center space-x-4">
             <div className="relative">
               <button
-                className="btn btn-secondary h-10 px-4 flex items-center border"
+                className="btn  h-10 px-4 flex items-center border"
                 onClick={toggleDropdown}
               >
                 <AiOutlineDownload
@@ -390,14 +390,29 @@ function StoreList() {
                     </i>
                   </td>
 
-                  <td className="py-3 px-2 m-2 flex items-center justify-center ">
-                    <button className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-1 px-3 rounded md:mr-2">
-                      <EditIcon />
-                    </button>
-                    <button className="bg-red-500 hover:bg-red-600 text-white font-semibold py-1 px-3  rounded">
-                      <DeleteIcon />
-                    </button>
-                  </td>
+                    <td className="py-3 px-2 m-2 flex items-center justify-center">
+      <button 
+        className="bg-[#ff7500] hover:bg-orange-300 hover:text-[#ff7500] text-white text-center font-semibold py-1 px-3 rounded md:mr-2"
+        onClick={() => navigate('/store/view')}
+      >
+        <IoEyeSharp/>
+      </button>
+      <button 
+        className="bg-[#24bac3] hover:bg-[#92ebf0] hover:text-[#24bac3] text-white text-center font-semibold py-1 px-3 rounded md:mr-2"
+        onClick={() => history.push('/edit-page')}
+      >
+        <MdEdit />
+      </button>
+      <button 
+        className="bg-red-500 hover:bg-red-300 hover:text-red-500 text-white text-center font-semibold py-1 px-3 rounded md:mr-2"
+        onClick={() => {
+          // Add logic for the delete button click
+          console.log("Delete button clicked");
+        }}
+      >
+        <MdDelete/>
+      </button>
+    </td>
                 </tr>
               ))
             )}

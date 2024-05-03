@@ -72,7 +72,7 @@ function WithdrawRequest() {
     <div>
       <div>
         <div>
-          <h1 className="page-header-title capitalize m-0 flex text-2xl gap-3 font-extrabold">
+          <h1 className="page-header-title capitalize m-0 flex text-2xl gap-2 items-center font-extrabold">
             <span className="page-header-icon">
               <i className="w-26">
                 <LuListFilter />
@@ -83,7 +83,7 @@ function WithdrawRequest() {
         </div>
         <div>
           <div className="md:flex  items-center justify-between md:gap-4 mt-5 border  ">
-            <h1 className="page-header-title capitalize m-0 flex text-lx ml-2 gap-3 font-extrabold">
+            <h1 className="page-header-title capitalize m-0 flex text-lx ml-2 gap-2 font-extrabold">
               <span>
                 Transaction History
                 <span className="badge badge-soft-dark ml-2 text-sm bg-gray-300 p-1">
@@ -119,7 +119,7 @@ function WithdrawRequest() {
               <div class="flex items-center space-x-4 ml-5">
                 <div className="relative ">
                   <button
-                    className="btn btn-secondary h-10 px-4 flex items-center border border-[#24bac3]"
+                    className="btn h-10 px-4 flex items-center border border-[#24bac3]"
                     onClick={toggleDropdown}
                   >
                     <AiOutlineDownload size={20} className="mr-1  " /> Export
@@ -198,7 +198,7 @@ function WithdrawRequest() {
                     </td>
                     <td className="text-sm text-center ">{item.amount}</td>
 
-                    <td className=" text-center text-sm">{item.Store}</td>
+                    <td className=" text-center whitespace-nowrap p-3 text-sm">{item.Store}</td>
                     <td className="text-center text-sm"> {item.date}</td>
 
                     <td className="text-center ">
