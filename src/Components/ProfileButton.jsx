@@ -27,8 +27,8 @@ function ProfileButton() {
           <div className="flex justify-center items-center">
             <MdArrowDropDown className="text-xl" />
             <div>
-              <h1 className="font-bold text-[#00868F]">Jhon Miller</h1>
-              <h1 className="text-xs">johnmiller@gmail.com</h1>
+              <h1 className="font-bold text-[#00868F]">{cookies?.adminuser?.user?.firstName + cookies?.adminuser?.user?.lastName}</h1>
+              <h1 className="text-xs">{cookies?.adminuser?.user?.email}</h1>
             </div>
             <img
               src="https://6ammart-admin.6amtech.com/storage/app/public/vendor/2021-08-22-61214e5a0db7d.png"
@@ -50,8 +50,8 @@ function ProfileButton() {
                   className="w-[35px] h-[35px] rounded-full"
                 />
                 <div>
-                  <h1 className="font-bold text-[#00868F]">Jhon Miller</h1>
-                  <h1 className="text-xs">johnmiller@gmail.com</h1>
+                  <h1 className="font-bold text-[#00868F]">{cookies?.adminuser?.user?.firstName + cookies?.adminuser?.user?.lastName}</h1>
+                  <h1 className="text-xs">{cookies?.adminuser?.user?.email}</h1>
                 </div>
               </div>
             </li>

@@ -12,7 +12,7 @@ import { useCookies } from "react-cookie";
 
 const Login = () => {
   const navigate = useNavigate();
-  const DemoData = { mail: "Store@gmail.com", password: "123456" };
+  const DemoData = { mail: "raj@gmaill.com", password: "Raj1243@" };
   const [password, setPassword] = useState("");
   const [mail, setMail] = useState("");
   const [show, setShow] = useState("false");
@@ -99,8 +99,8 @@ const Login = () => {
     setIsLoading(true);
     const formData = new FormData(event.target);
     loginMutation.mutate({
-      email: formData.get("email"),
-      password: formData.get("password"),
+      email: mail != "" ? mail : formData.get("email"),
+      password: password != "" ? password : formData.get("password"),
     });
   };
 

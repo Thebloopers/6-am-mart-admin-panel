@@ -10,6 +10,10 @@ import { FaGear, FaHandPointer } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import { MdOutlineCrop } from "react-icons/md";
 import instructions from "../assets/instructions.gif";
+import { APIProvider } from "@vis.gl/react-google-maps";
+import GoogleMap from "../Map/googlemap";
+
+const API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 
 const ZoneSettings = () => {
   const navigate = useNavigate();
@@ -58,13 +62,11 @@ const ZoneSettings = () => {
                 type="text"
               />
               <div className="w-full mt-4">
-                <iframe
-                  width="100%"
-                  height="300"
-                  src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=Sagar%20Landmark+(Boostup%20Digital)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
-                >
-                  <a href="https://www.gps.ie/"></a>
-                </iframe>
+                <APIProvider apiKey={API_KEY}>
+                  <div style={{ width: "37vw", height: "50vh" }}>
+                    <GoogleMap />
+                  </div>
+                </APIProvider>
               </div>
               <div className="self-end w-fit flex gap-3 mt-3 font-semibold">
                 <button className="bg-gray-100 px-5 py-3 rounded-md text-[1.9vh]">
