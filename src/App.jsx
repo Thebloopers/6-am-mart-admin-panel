@@ -104,6 +104,9 @@ import OrderDetails from "./Pages/OrderDetails";
 import OrderInvoiceGenrate from "./Pages/OrderInvoiceGenrate";
 import FlashSaleAddProduct from "./Pages/FlashSaleAddProduct";
 import FlashSaleEditeUpdate from "./Pages/FlashSaleEditeUpdate";
+import BasicCampaingsEdite from "./Pages/BasicCampaingsEdite";
+import ItemCampaingsEdite from "./Pages/ItemCampaingsEdite";
+import AddNewCampaign from "./Pages/AddNewCampaign";
 
 function App() {
   return (
@@ -116,8 +119,11 @@ function App() {
         <Route path="/FlashSale" element={<FlashSale />}></Route>
         <Route path="/flash-sale/add-product/" element={<FlashSaleAddProduct/>}></Route>
         <Route path="/flash-sale/edit/" element={<FlashSaleEditeUpdate/>}></Route>
+        <Route path="/campaign/basic/add-new" element={<AddNewCampaign/>}></Route>
         <Route path="/BasicCampaigns" element={<BasicCampaigns />}></Route>
+        <Route path="/campaign/basic/edit/" element={<BasicCampaingsEdite/>}></Route>
         <Route path="/ItemCampaigns" element={<ItemBasicCampaigns />}></Route>
+        <Route path="/campaign/item/edit/" element={<ItemCampaingsEdite/>}></Route>
         <Route path="/admin/campaign/basic/edit/6" element={<UpdateCampaingsedit/>}></Route>
         <Route path="/admin/campaign/item/edit/12" element={<UpdateItemCampaignsEdite/>}></Route>
         <Route path="/Banners" element={<Banners />}></Route>

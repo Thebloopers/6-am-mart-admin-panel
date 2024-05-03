@@ -1,6 +1,6 @@
  export const DashboardCard = ({ imgSrc, name, count, subtxt, link }) => {
     return (
-      <div className="col-sm-6 lg:col-4 xl:col-3">
+      <div className="col-sm-6 lg:col-4 xl:col-3 ">
         <a href={link} className="order--card h-full flex items-center justify-between bg-white shadow-md rounded-lg p-4 transition duration-300 hover:shadow-lg">
           <div className="flex items-center">
             <img src={imgSrc} alt="dashboard" className="w-8 h-[150px] mr-3" />

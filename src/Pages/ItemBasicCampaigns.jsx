@@ -28,10 +28,9 @@ function ItemBasicCampaigns() {
     // Add more campaign objects as needed
   ];
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="bg-white shadow-md rounded-lg">
-        <div className="px-6 py-4">
-          <div className="flex justify-between items-center">
+
+    <>
+      <div className="flex justify-between items-center">
             <div className="flex items-center">
               <img
                 src="https://6ammart-admin.6amtech.com/public/assets/admin/img/campaign.png"
@@ -45,8 +44,13 @@ function ItemBasicCampaigns() {
               <span className="hidden sm:inline">Add New Campaign</span>
             </button>
           </div>
-          <hr className="my-4" />
-          <div className="flex items-center mb-4">
+
+          <div className="py-8">
+      <div className="bg-white shadow-md rounded-lg">
+        <div className=" py-4">
+          
+         
+          <div className="flex items-center mb-4 px-4">
             <h2 className="text-lg font-semibold text-gray-800 mr-4">
               Campaign list
             </h2>
@@ -83,6 +87,8 @@ function ItemBasicCampaigns() {
         </div>
       </div>
     </div>
+    </>
+   
   );
 }
 
