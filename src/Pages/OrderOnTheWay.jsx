@@ -1,6 +1,10 @@
 import React from 'react'
+import { IoMdPrint } from 'react-icons/io';
+import { IoEyeSharp } from 'react-icons/io5';
+import { useNavigate } from 'react-router-dom';
 
 const OrderOnTheWay = () => {
+  const navigate=useNavigate()
     const tableData = [
         {
           sl: 1,
@@ -96,19 +100,13 @@ const OrderOnTheWay = () => {
                 </td>
                 <td className="px-4 py-2 text-center">
                   <div className="flex justify-center items-center gap-2">
-                    <a
-                      href=""
-                      className="btn btn-sm btn-outline-primary rounded-full p-2 hover:bg-blue-500 hover:text-white transition duration-300"
-                    >
-                      <i className="fa-solid fa-eye"></i>
-                    </a>
-                    <a
-                      href=""
-                      className="btn btn-sm btn-outline-success rounded-full p-2 hover:bg-green-500 hover:text-white transition duration-300"
-                      target="_blank"
-                    >
-                      <i className="fa-solid fa-floppy-disk"></i>
-                    </a>
+                  <button onClick={()=>{navigate("/order/View/details")}} className="ml-2 btn btn-sm btn-outline btn-error bg-white text-white">
+                    <IoEyeSharp/>
+
+                  </button>
+                  <button onClick={()=>{navigate("/order/generate-invoice/")}} className="ml-2 btn btn-sm btn-outline btn-error bg-white text-white">
+                  <IoMdPrint />
+                  </button>
                   </div>
                 </td>
               </tr>

@@ -1,13 +1,15 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ToggleButton from "./ToggleButton";
 import { Button } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import AddIcon from '@mui/icons-material/Add';
 import SearchIcon from '@mui/icons-material/Search';
+import SearchBox from "./SearchBox";
 
 function FlashsalelistTable() {
+  const navigate=useNavigate()
   const [flashSales, setFlashSales] = useState([
     {
       id: 1,
@@ -26,34 +28,25 @@ function FlashsalelistTable() {
   ]);
 
   return (
-    <div className="container mx-auto px-2 sm:px-4 py-8">
+    <div className="mt-8">
       <div className="bg-white shadow-md rounded-lg overflow-hidden">
-        <div className="p-4 sm:p-6 border-b">
-          <h2 className="text-lg sm:text-2xl font-semibold text-gray-800 flex items-center justify-between">
+        <div className="p-4 flex flex-wrap justify-between sm:p-6 border-b">
+          <div className="text-lg sm:text-2xl font-semibold text-gray-800 flex items-center">
             Flash Sale List
             <span className="bg-gray-200 text-gray-700 px-3 py-1 text-xs font-semibold rounded-full mt-2 sm:mt-0 ml-2">
               {flashSales.length}
             </span>
-          </h2>
+          </div>
+          <div><SearchBox/></div>
+          
         </div>
-        <div className="p-4 sm:p-6">
-          <form className="flex justify-center sm:flex-row items-stretch sm:items-center mb-4">
-            <input
-              id="datatableSearch_"
-              type="search"
-              name="search"
-              className="form-input w-[80%] sm:w-2/3 mb-2 sm:mb-0 mr-0 sm:mr-2 py-2 px-3 border border-gray-400 rounded-md"
-              placeholder="Ex: flash sale title"
-              aria-label="Search"
-            />
-            <button type="submit" className="py-2">
-              <SearchIcon />
-            </button>
-          </form>
+       
+        <div className="">
+          
           <div className="overflow-x-auto max-w-[400px] overflow-auto md:max-w-full">
             <table className="w-full whitespace-nowrap">
               <thead className="bg-[#F8FAFD]">
-                <tr className="text-left font-semibold text-gray-700">
+                <tr className="text-left">
                   <th className="py-2 sm:py-4 px-4 sm:px-6">Sl</th>
                   <th className="py-2 sm:py-4 px-4 sm:px-6">Title</th>
                   <th className="py-2 sm:py-4 px-4 sm:px-6">Duration</th>
@@ -74,16 +67,16 @@ function FlashsalelistTable() {
                     </td>
                     <td className="py-2 sm:py-4 px-4 sm:px-6 text-center">
                       <div className="flex items-center justify-center space-x-4">
-                        <button className="btn btn-outline text-[#24bac3] hover:bg-[#24bac3]">
+                        <button onClick={()=>{navigate("/flash-sale/add-product/")}} className="btn btn-sm btn-outline text-[#24bac3] hover:bg-[#24bac3]">
                           <AddIcon />
                           <span className="hidden sm:inline">Add New Product</span>
                         </button>
-                        <Link to={`/${sale.id}`}>
-                          <button className="btn btn-outline text-[#24bac3] hover:bg-[#24bac3]">
+                      
+                          <button type="button " onClick={()=>{navigate("/flash-sale/edit/")}} className="btn btn-sm btn-outline text-[#24bac3] hover:bg-[#24bac3]">
                             <EditIcon />
                           </button>
-                        </Link>
-                        <button className="btn btn-outline text-[#24bac3] hover:bg-[#24bac3]">
+                      
+                        <button className="btn btn-sm btn-outline  btn-error">
                           <DeleteIcon />
                         </button>
                       </div>
