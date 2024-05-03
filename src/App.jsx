@@ -136,7 +136,7 @@ function App() {
         {/* <Route path="05" element={<CountryFair/>}></Route> */}
         </Route>
         <Route path="/RecommendedStore" element={<Recommended />}></Route>
-        <Route path="/BulkImport" element={<Import />}></Route>s
+        <Route path="/BulkImport" element={<Import />}></Route>
         <Route path="/BulkExport" element={<Export />}></Route>
         <Route
           path="/CategoryBulkImport"

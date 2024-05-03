@@ -1,8 +1,37 @@
-import React from 'react'
+
 import { BsShopWindow } from "react-icons/bs";
 import { FaCity, FaPhoneVolume, FaUser } from 'react-icons/fa';
-import { IoMdMap } from 'react-icons/io';
+import { IoMdMap, IoMdPrint } from 'react-icons/io';
 import { MdOutlineEmail } from 'react-icons/md';
+import React, { useState } from 'react';
+import { AiOutlineSearch, AiOutlineDownload } from 'react-icons/ai';
+import { MdExpandMore } from 'react-icons/md';
+import { Link } from 'react-router-dom';
+import { IoEyeSharp } from "react-icons/io5";
+
+const tableData = [
+  {
+    id: "1",
+    Order: "100080",
+    Customer: "Mr. Jhon parker",
+    contact:"8**********",
+    date: "27 Nov 2023 01:50:pm",
+    PaymentStatus: "Unpaid",
+    Total: "$433.64",
+    OrderStatus: "Pending",
+    action: "",
+  },
+]
+const tableDataIteam = [
+  {
+    id: "1",
+    Name: "Mr. Jhon parker",
+    Type: "Dairy Needs",
+    Price:"$ 100.00",
+
+    action: "",
+  },
+]
 
 function  CountryFair() {
   const [value, setValue] = React.useState("1");
@@ -10,6 +39,16 @@ function  CountryFair() {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  const handleExport = (format) => {
+    // Handle export logic
+    console.log(`Exporting as ${format}`);
+  }
   return (
     <div>
       <div>
@@ -223,7 +262,7 @@ function  CountryFair() {
             </li>
             <li className="flex items-center mb-2">
               <i className=" nav-icon mr-2"><IoMdMap /> </i>
-              <span className='font-semibold'>Zone</span>: <a>Main Demo Zone</a>
+              <span className='font-semibold'>Zone</span>:<a>Main Demo Zone</a>
             </li>
           </ul>
         </div>
@@ -232,9 +271,7 @@ function  CountryFair() {
                 <iframe
                   title="maps"
                   src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=1%20Grafton%20Street,%20Dublin,%20Ireland+(My%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
-                  width="100%"
-                 
-                >
+                  width="100%"  >
                   <a href="https://www.gps.ie/">gps devices</a>
                 </iframe>
               </div>
@@ -284,13 +321,13 @@ function  CountryFair() {
                <div>
                
       <div className="resturant-card-navbar md:flex md:justify-between  items-center border border-gray-100 rounded-md p-4">
-        <div className="order-info-item flex items-center mr-4 m-2 border-r-4  pr-6 ">
+        <div className="order-info-item flex items-center mr-3 m-2 border-r-2  pr-6 ">
           <div className="order-info-icon mr-2  ">
             <img src="https://6ammart-admin.6amtech.com/public/assets/admin/img/navbar/all.png" alt="All Orders" />
           </div>
           <h6 className="card-subtitle mb-0 font-bold">All<span className="amount  text-[#3182ce] ml-1">1</span></h6>
         </div>
-        <div className="order-info-item flex m-2 border-r-2  pr-6">
+        <div className="order-info-item flex m-3 border-r-2  pr-6">
           <div className="order-info-icon mr-2">
             <img src="https://6ammart-admin.6amtech.com/public/assets/admin/img/navbar/schedule.png" alt="Scheduled Orders" />
           </div>
@@ -302,41 +339,314 @@ function  CountryFair() {
           </div>
           <h6 className="card-subtitle mb-0 font-bold">Pending<span className="amount text-[#3498db] ml-1">1</span></h6>
         </div>
-        <div className="order-info-item flex items-center m-2 mr-4 border-r-2  pr-6">
+        <div className="order-info-item flex items-center m-3 mr-4 border-r-2  pr-6">
           <div className="order-info-icon mr-2">
             <img src="https://6ammart-admin.6amtech.com/public/assets/admin/img/navbar/delivered.png" alt="Delivered Orders" />
           </div>
           <h6 className="card-subtitle mb-0 font-bold">Delivered<span className="amount text-[#28a745] ml-1">0</span></h6>
 
         </div>
-        <div className="order-info-item flex items-center m-2">
+        <div className="order-info-item flex items-center m-3">
           <div className="order-info-icon mr-2">
             <img src="https://6ammart-admin.6amtech.com/public/assets/admin/img/navbar/cancel.png" alt="Canceled Orders" />
           </div>
           <h6 className="card-subtitle mb-0 font-bold">Canceled<span className="amount text-[#28a745] ml-1">0</span></h6>
         </div>
       </div>
+      <div className="card-header py-4 border md:flex md:flex-wrap md:items-center md:justify-end">
+      <form className="flex items-center">
+        <div className="relative border rounded-md rounded-r-lg w-full mx-2">
+          <input
+            id="datatableSearch_"
+            type="search"
+            name="search"
+            className="form-control py-3 w-full px-10 rounded-lg relative border-[#24bac3]"
+            placeholder="Ex:Search store name"
+            aria-label="Search"
+          />
+          <button
+            type="submit"
+            className="absolute right-0 top-0 bottom-0 flex items-center justify-center text-white bg-[#24bac3] px-3 rounded-r-lg"
+          >
+            <AiOutlineSearch size={20} />
+          </button>
+        </div>
+      </form>
 
-      
-      
-  
-               </div>
+      <div className="flex items-center space-x-4 ml-5 mt-2 mr-2">
+        <div className="relative">
+          <button
+            className="btn py-3 px-4 flex items-center  border-[#24bac3]"
+            onClick={toggleDropdown}
+          >
+            <AiOutlineDownload size={20} className="mr-1" /> Export
+            <span className="ml-2">
+              {/* <MdExpandMore /> */}
+            </span>
+          </button>
+
+          <div
+            className={`dropdown-unfold dropdown-menu dropdown-menu-right ${
+              isDropdownOpen ? '' : 'hidden'
+            } mt-1 absolute z-10 w-40 bg-white rounded-lg shadow-md`}
+          >
+            <span className="dropdown-header bg-gray-200 text-gray-700 py-2 px-3 rounded-t-lg">
+              Download options
+            </span>
+            <Link
+              className="dropdown-item flex items-center py-2 px-3 hover:bg-gray-100"
+              onClick={() => handleExport('Excel')}
+            >
+              <img
+                className="w-2 h-2 mr-2"
+                src="https://6ammart-admin.6amtech.com/public/assets/admin/svg/components/excel.svg"
+                alt="Excel"
+              />
+              Excel
+            </Link>
+            <Link
+              className="dropdown-item flex items-center py-2 px-3 hover:bg-gray-100"
+              onClick={() => handleExport('CSV')}
+            >
+              <img
+                className="avatar w-2 h-2 mr-2"
+                src="https://6ammart-admin.6amtech.com/public/assets/admin/svg/components/placeholder-csv-format.svg"
+                alt="CSV"
+              />
+              .CSV
+            </Link>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div className="overflow-x-auto max-w-[353px] md:max-w-full mt-4 shadow-sm ">
+        <table className="table-auto min-w-full border-collapse  border border-gray-200">
+          <thead className="bg-gray-100">
+            <tr className=" text-sm ">
+              <th className=" px-4 py-2 ">Sl</th>
+              <th className=" px-4 py-2 ">Order</th>
+              <th className=" px-4 py-2 ">Date</th>
+              <th className=" px-4 py-2 text-center">	Customer</th>
+              <th className=" px-4 py-2 text-center">	Payment Status</th>
+              <th className=" px-4 py-2 text-center">	Total</th>
+              <th className=" px-4 py-2 text-center">	Order Status</th>
+              <th className=" px-4 py-2  text-center">Action</th>
+            </tr>
+          </thead>
+          <tbody id="set-rows  ">
+            {tableData?.map((item) => (
+              <tr key={item.id}>
+                <td>
+                  <span className="ml-7">{item.id}</span>
+                </td>
+                <td className="text-sm text-center ">{item.Order}</td>
+
+                <td className="text-center text-sm"> {item.date}</td>
+                <td className=" text-center text-sm">{item.Customer}
+                <p>{item.contact}</p>
+                </td>
+                <td className="text-center text-sm "> 
+                <button className="text-[#ed4c78] border border-[#ed437899] hover:text-[#ff7500] bg-[#ed43781a] text-center font-semibold py-1 px-3 rounded-md md:mr-2">
+                {item.PaymentStatus}
+                    
+                  </button>
+                </td>
+                <td className="text-center text-sm"> {item.Total}</td>
+
+                <td className="text-center text-sm  "> 
+                <button className="bg-[#00c9db1a] border border-[#00c9db99] hover:text-[#00c9db99] text-[#00c9db] text-center font-semibold py-1 px-3 rounded md:mr-2">
+                {item.OrderStatus}
+                  </button>
+                </td>
+
+                <td className="py-3 px-2  text-center   ">
+                  <button className="bg-[#ff7500] hover:bg-orange-300 hover:text-[#ff7500] text-white text-center font-semibold py-1 px-3 rounded md:mr-2">
+                    {item.action}
+                    <IoEyeSharp />
+                  </button>
+                  <button className="bg-[#00c9db1a] border border-[#00c9db99] hover:text-[#00c9db99] text-[#00c9db] text-center font-semibold py-1 px-3 rounded md:mr-2">
+                    {item.action}
+                    <IoMdPrint />
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      </div>
               )}
               {value === "3" && (
                 <div>
-                  <div className="flex flex-col items-center justify-center gap-4">
-                    <div className="bg-white  rounded-lg p-8 text-center">
-                      <img
-                        src="https://6ammart-admin.6amtech.com/public/assets/admin/svg/illustrations/sorry.svg"
-                        alt="public"
-                        className="w-22 mx-auto mb-4"
-                      />
-                      <h5 className="text-lg font-semibold text-gray-800 mb-4">
-                        No data found
-                      </h5>
-                    </div>
-                  </div>
-                </div>
+               
+               <div className="resturant-card-navbar md:flex md:justify-between   md:items-center   rounded-md mt-5 pb-3">
+               
+                 <div className="order-info-item flex items-center justify-between rounded bg-gray-100 w-full  border px-2 py-3">
+                   <div className="order-info-icon  flex gap-2  ">
+                     <img src="https://6ammart-admin.6amtech.com/public/assets/admin/img/store_items/fi_9752284.png" alt="All Orders" />
+                     <h6 className=" font-bold">All Items </h6>
+                   </div>
+                   <div>
+                   <span className="amount  text-[#3182ce] font-bold text-xl ml-1">1</span>
+                   </div>
+                   
+                 </div>
+
+                 <div className="order-info-item flex items-center justify-between rounded bg-gray-100 w-full m-2  border px-2 py-3 ">
+                   <div className="order-info-icon  flex gap-2  ">
+                     <img src="https://6ammart-admin.6amtech.com/public/assets/admin/img/store_items/fi_10608883.png"  alt="All Orders" />
+                     <h6 className=" font-bold">Active Items </h6>
+                   </div>
+                   <div>
+                   <span className="amount  text-[#3182ce] font-bold text-xl ml-1">1</span>
+                   </div>
+                   
+                 </div>
+
+                 <div className="order-info-item flex items-center justify-between rounded bg-gray-100 w-full px-2 border py-3    ">
+                   <div className="order-info-icon  flex gap-2  ">
+                     <img src="https://6ammart-admin.6amtech.com/public/assets/admin/img/store_items/fi_10186054.png" alt="All Orders" />
+                     <h6 className="card-subtitle mb-0 font-bold">Inactive Items  </h6>
+                   </div>
+                   <div>
+                   <span className="amount  text-[#3182ce] font-bold text-xl ml-1">0</span>
+                   </div>
+                   
+                 </div>
+
+                 <div className="order-info-item flex items-center justify-between rounded bg-gray-100 w-full m-2 px-2  border py-3    ">
+                   <div className="order-info-icon mr-2 flex gap-2  ">
+                     <img src="https://6ammart-admin.6amtech.com/public/assets/admin/img/store_items/fi_5106700.png" alt="All Orders" />
+                     <h6 className="card-subtitle mb-0 font-bold">Pending Approval </h6>
+                   </div>
+                   <div>
+                   <span className="amount  text-[#3182ce] font-bold text-xl ml-1">0</span>
+                   </div>
+                 </div>
+
+                 <div className="order-info-item flex items-center justify-between rounded bg-gray-100 w-full  px-2  border py-3   ">
+                   <div className="order-info-icon mr-1 flex gap-2  ">
+                     <img src="https://6ammart-admin.6amtech.com/public/assets/admin/img/store_items/image 89.png"  alt="All Orders" />
+                     <h6 className="font-bold">Rejected Items</h6>
+                   </div>
+                   <div>
+                   <span className="amount  text-[#3182ce] font-bold text-xl ml-1">0</span>
+                   </div>
+                 </div>
+               </div>
+               <div className="card-header py-4 border md:flex md:flex-wrap md:items-center md:justify-end">
+               <form className="flex items-center">
+                 <div className="relative border rounded-md rounded-r-lg w-full mx-2">
+                   <input
+                     id="datatableSearch_"
+                     type="search"
+                     name="search"
+                     className="form-control py-3 w-full px-10 rounded-lg relative border-[#24bac3]"
+                     placeholder="Ex:Search store name"
+                     aria-label="Search"
+                   />
+                   <button
+                     type="submit"
+                     className="absolute right-0 top-0 bottom-0 flex items-center justify-center text-white bg-[#24bac3] px-3 rounded-r-lg"
+                   >
+                     <AiOutlineSearch size={20} />
+                   </button>
+                 </div>
+               </form>
+         
+               <div className="flex items-center space-x-4 ml-5 mt-2 mr-2">
+                 <div className="relative">
+                   <button
+                     className="btn py-3 px-4 flex items-center  border-[#24bac3]"
+                     onClick={toggleDropdown}
+                   >
+                     <AiOutlineDownload size={20} className="mr-1" /> Export
+                     <span className="ml-2">
+                       {/* <MdExpandMore /> */}
+                     </span>
+                   </button>
+         
+                   <div
+                     className={`dropdown-unfold dropdown-menu dropdown-menu-right ${
+                       isDropdownOpen ? '' : 'hidden'
+                     } mt-1 absolute z-10 w-40 bg-white rounded-lg shadow-md`}
+                   >
+                     <span className="dropdown-header bg-gray-200 text-gray-700 py-2 px-3 rounded-t-lg">
+                       Download options
+                     </span>
+                     <Link
+                       className="dropdown-item flex items-center py-2 px-3 hover:bg-gray-100"
+                       onClick={() => handleExport('Excel')}
+                     >
+                       <img
+                         className="w-2 h-2 mr-2"
+                         src="https://6ammart-admin.6amtech.com/public/assets/admin/svg/components/excel.svg"
+                         alt="Excel"
+                       />
+                       Excel
+                     </Link>
+                     <Link
+                       className="dropdown-item flex items-center py-2 px-3 hover:bg-gray-100"
+                       onClick={() => handleExport('CSV')}
+                     >
+                       <img
+                         className="avatar w-2 h-2 mr-2"
+                         src="https://6ammart-admin.6amtech.com/public/assets/admin/svg/components/placeholder-csv-format.svg"
+                         alt="CSV"
+                       />
+                       .CSV
+                     </Link>
+                   </div>
+                 </div>
+               </div>
+             </div>
+             <div className="overflow-x-auto max-w-[353px] md:max-w-full mt-4 shadow-sm ">
+                 <table className="table-auto min-w-full border-collapse  border border-gray-200">
+                   <thead className="bg-gray-100">
+                     <tr className=" text-sm ">
+                       <th className=" px-4 py-2 ">Sl</th>
+                       <th className=" px-4 py-2 ">Name</th>
+                       <th className=" px-4 py-2 ">Type</th>
+                       <th className=" px-4 py-2 text-center">Price</th>
+                       <th className=" px-4 py-2 text-center"> Status</th>
+                       <th className=" px-4 py-2  text-center">Action</th>
+                     </tr>
+                   </thead>
+                   <tbody id="set-rows  ">
+                     {tableDataIteam?.map((item) => (
+                       <tr key={item.id}>
+                         <td>
+                           <span className="ml-7">{item.id}</span>
+                         </td>
+                         <td className="text-sm text-center ">{item.Name}</td>
+         
+                         <td className="text-center text-sm"> {item.Type}</td>
+                         <td className=" text-center text-sm">{item.Price}
+                          </td>
+                  
+                         <td className="text-center text-sm  "> 
+                         <button className="bg-[#00c9db1a] border border-[#00c9db99] hover:text-[#00c9db99] text-[#00c9db] text-center font-semibold py-1 px-3 rounded md:mr-2">
+                         {item.Status}
+                           </button>
+                         </td>
+         
+                         <td className="py-3 px-2  text-center   ">
+                           <button className="bg-[#ff7500] hover:bg-orange-300 hover:text-[#ff7500] text-white text-center font-semibold py-1 px-3 rounded md:mr-2">
+                             {item.action}
+                             <IoEyeSharp />
+                           </button>
+                           <button className="bg-[#00c9db1a] border border-[#00c9db99] hover:text-[#00c9db99] text-[#00c9db] text-center font-semibold py-1 px-3 rounded md:mr-2">
+                             {item.action}
+                             <IoMdPrint />
+                           </button>
+                         </td>
+                       </tr>
+                     ))}
+                   </tbody>
+                 </table>
+               </div>
+               </div>
+                
               )}
               {value === "4" && (
                 <div>
@@ -401,7 +711,7 @@ function  CountryFair() {
                     </div>
                   </div>
                 </div>
-              )}s
+              )}
               {value === "8" && (
                 <div>
                   <div className="flex flex-col items-center justify-center gap-4">
@@ -420,13 +730,41 @@ function  CountryFair() {
               )}
               {value === "9" && (
                 <div>
-                 kjjhhhbvg
+                  <div className="flex flex-col items-center justify-center gap-4">
+                    <div className="bg-white  rounded-lg p-8 text-center">
+                      <img
+                        src="https://6ammart-admin.6amtech.com/public/assets/admin/svg/illustrations/sorry.svg"
+                        alt="public"
+                        className="w-22 mx-auto mb-4"
+                      />
+                      <h5 className="text-lg font-semibold text-gray-800 mb-4">
+                        No data found
+                      </h5>
+                    </div>
+                  </div>
+                </div>
+              )}
+              {value === "10" && (
+                <div>
+                  <div className="flex flex-col items-center justify-center gap-4">
+                    <div className="bg-white  rounded-lg p-8 text-center">
+                      <img
+                        src="https://6ammart-admin.6amtech.com/public/assets/admin/svg/illustrations/sorry.svg"
+                        alt="public"
+                        className="w-22 mx-auto mb-4"
+                      />
+                      <h5 className="text-lg font-semibold text-gray-800 mb-4">
+                        No data found
+                      </h5>
+                    </div>
+                  </div>
                 </div>
               )}
             </div>
           </div>
         </div>
       </div>
+      
     </div>
   )
 }

@@ -371,7 +371,7 @@ function CollectCash() {
                 <td className="py-3 px-2  text-center   ">
                   <button className="bg-[#ff7500] hover:bg-orange-300 hover:text-[#ff7500] text-white text-center font-semibold py-1 px-3 rounded md:mr-2">
                     {item.action}
-                    <IoEyeSharp />
+                    <IoEyeSharp/>
                   </button>
                 </td>
               </tr>
