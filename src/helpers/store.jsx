@@ -3,8 +3,7 @@ import { isAuthenticated } from "./auth";
 export const createStore = ({ formData, cookies }) => {
   const { token } = isAuthenticated(cookies);
 
-  return fetch(`http://localhost:7000/api/v1/store/`, {
-    // return fetch(`${import.meta.env.VITE_SERVER_URL}/store/`, {
+  return fetch(`${import.meta.env.VITE_SERVER_URL}/store/`, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${token}`,
@@ -35,7 +34,6 @@ export const handleVisibilityChange = ({ storeId, cookies }) => {
       import.meta.env.VITE_SERVER_URL
     }/store/of/admin/update/visiblity/${storeId}`,
     {
-      // return fetch(`${import.meta.env.VITE_SERVER_URL}/store/of/admin/update/visiblity`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

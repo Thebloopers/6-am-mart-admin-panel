@@ -45,12 +45,12 @@ const PagesAndSocialMedia = [
 
 const ThirdrdParty = [
   { to: "business-settings/third-party/payment-method", label: "3rd Party" },
-  {
-    to: "/business-settings/FirebaseNotification",
-    label: "Firebase Notification",
-  },
-  { to: "/business-settings/login-url-setup", label: "Login Url Page" },
-  { to: "/business-settings/offline-payment", label: "Offline Payment Setup" },
+  // {
+  //   to: "/business-settings/FirebaseNotification",
+  //   label: "Firebase Notification",
+  // },
+  // { to: "/business-settings/login-url-setup", label: "Login Url Page" },
+  // { to: "/business-settings/offline-payment", label: "Offline Payment Setup" },
 ];
 
 const SettingSidebar = ({ drawer, setDrawer }) => {
@@ -91,7 +91,7 @@ const SettingSidebar = ({ drawer, setDrawer }) => {
           </ListItem>
         </Link>
         <ListItem disablePadding sx={{ display: "block" }}>
-          <ListItemButton
+          {/* <ListItemButton
             onClick={() => toggleDropdown("Dropdown1")}
             sx={{
               minHeight: 20,
@@ -115,7 +115,7 @@ const SettingSidebar = ({ drawer, setDrawer }) => {
               sx={{ opacity: open ? 1 : 0 }}
             />
             {Isopen.Dropdown1 ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-          </ListItemButton>
+          </ListItemButton> */}
         </ListItem>
         <Collapse in={Isopen.Dropdown1} timeout={"auto"} unmountOnExit>
           {ModuleSetup.map((link, index) => (
@@ -175,7 +175,7 @@ const SettingSidebar = ({ drawer, setDrawer }) => {
           </ListItem>
         </Link>
 
-        <ListItem disablePadding sx={{ display: "block" }}>
+        {/* <ListItem disablePadding sx={{ display: "block" }}>
           <ListItemButton
             onClick={() => toggleDropdown("Dropdown2")}
             sx={{
@@ -228,8 +228,8 @@ const SettingSidebar = ({ drawer, setDrawer }) => {
               </ListItemButton>
             </Link>
           ))}
-        </Collapse>
-        <Link
+        </Collapse> */}
+        {/* <Link
           to="/users/customer/subscribed"
           onClick={() => setDrawer(!drawer)}
         >
@@ -241,7 +241,7 @@ const SettingSidebar = ({ drawer, setDrawer }) => {
               <ListItemText className="-mx-6" primary="Gallery" />
             </ListItemButton>
           </ListItem>
-        </Link>
+        </Link> */}
 
         <div className="flex justify-start items-center mx-3 text-sm mt-5 mb-2">
           SYSTEM MANAGEMENT
@@ -304,7 +304,7 @@ const SettingSidebar = ({ drawer, setDrawer }) => {
           ))}
         </Collapse>
       </List>
-      <Link
+      {/* <Link
         className=""
         to="/react_site_setup"
         onClick={() => setDrawer(!drawer)}
@@ -327,7 +327,7 @@ const SettingSidebar = ({ drawer, setDrawer }) => {
             <ListItemText className="-mx-6 " primary="Email Template" />
           </ListItemButton>
         </ListItem>
-      </Link>
+      </Link> */}
     </>
   );
 };

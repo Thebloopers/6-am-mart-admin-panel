@@ -1,7 +1,7 @@
 import { useMap, useMapsLibrary } from "@vis.gl/react-google-maps";
 import { useEffect, useState } from "react";
 
-export function useDrawingManager(initialValue = null) {
+export function useDrawingManager(initialValue = null, polygon) {
   const map = useMap();
   const drawing = useMapsLibrary("drawing");
 
@@ -10,19 +10,18 @@ export function useDrawingManager(initialValue = null) {
   useEffect(() => {
     if (!map || !drawing) return;
 
-    // https://developers.google.com/maps/documentation/javascript/reference/drawing
     const newDrawingManager = new drawing.DrawingManager({
       map,
-      drawingMode: google.maps.drawing.OverlayType.CIRCLE,
+      // drawingMode: polygon ? google.maps.drawing.OverlayType.POLYGON : null,
       drawingControl: true,
       drawingControlOptions: {
         position: google.maps.ControlPosition.TOP_CENTER,
         drawingModes: [
           google.maps.drawing.OverlayType.MARKER,
-          // google.maps.drawing.OverlayType.CIRCLE,
-          google.maps.drawing.OverlayType.POLYGON,
-          // google.maps.drawing.OverlayType.POLYLINE,
+          polygon && google.maps.drawing.OverlayType.POLYGON,
           // google.maps.drawing.OverlayType.RECTANGLE,
+          // google.maps.drawing.OverlayType.POLYLINE,
+          // google.maps.drawing.OverlayType.CIRCLE,
         ],
       },
       markerOptions: {
@@ -48,9 +47,11 @@ export function useDrawingManager(initialValue = null) {
     setDrawingManager(newDrawingManager);
 
     return () => {
-      newDrawingManager.setMap(null);
+      if (newDrawingManager) {
+        newDrawingManager.setMap(null);
+      }
     };
-  }, [drawing, map]);
+  }, [drawing, map, polygon]);
 
   return drawingManager;
 }

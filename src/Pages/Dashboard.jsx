@@ -14,9 +14,9 @@ import withAuth from "../HOC/withAuth";
 
 import { GoDotFill } from "react-icons/go";
 
-
-import  PiChart  from "../Components/PiChart";
+import PiChart from "../Components/PiChart";
 import Chart from "../Components/Chart";
+import { ResponsiveContainer } from "recharts";
 
 const Dashboard = () => {
   const cardsData2 = [
@@ -229,7 +229,7 @@ const Dashboard = () => {
                     className="order_stats_update hidden"
                   />
                   <button className="btn text-gray-600 border   cursor-pointer transition duration-300 hover:text-blue-500">
-                     Year
+                    Year
                   </button>
                 </label>
                 <label className="mr-4">
@@ -240,7 +240,7 @@ const Dashboard = () => {
                     className="order_stats_update hidden"
                   />
                   <button className=" btn text-gray-600 cursor-pointer transition duration-300 hover:text-blue-500">
-                     Month
+                    Month
                   </button>
                 </label>
                 <label>
@@ -251,7 +251,7 @@ const Dashboard = () => {
                     className="order_stats_update hidden"
                   />
                   <span className="btn text-gray-600 cursor-pointer transition duration-300 hover:text-blue-500">
-                     Week
+                    Week
                   </span>
                 </label>
               </div>
@@ -341,61 +341,63 @@ const Dashboard = () => {
         </div>
       </Card> */}
       <div className="flex flex-col md:flex-row justify-between items-start my-5 gap-x-3 w-full gap-y-5">
-          <div className=" max-w-[400px] overflow-x-auto p-4 md:max-w-full shadow-lg rounded-lg">
-            <div className="flex justify-around items-center mt-3">
-              <div>
-                <h1 className="text-gray-700 text-xl ">$ 858.40</h1>
-                <p className="text-gray-500 text-xl ">Gross Sale</p>
-              </div>
-              <h1>
-                <GoDotFill className="text-xl w-full text-[#00AA96] inline-block mx-2" />
-                Sale (2024)
-              </h1>
-              <select className="select w-full max-w-[250px] focus:outline-none border border-gray-300">
-                <option disabled selected>
-                  This Year
-                </option>
-                <option> This Year</option>
-                <option> This Month</option>
-                <option> This Week</option>
-              </select>
+        <div className="overflow-x-auto p-4 md:max-w-full shadow-lg rounded-lg">
+          <div className="flex justify-around items-center mt-3">
+            <div>
+              <h1 className="text-gray-700 text-xl ">$ 858.40</h1>
+              <p className="text-gray-500 text-xl ">Gross Sale</p>
             </div>
-            <Chart/>
+            <h1>
+              <GoDotFill className="text-xl w-full text-[#00AA96] inline-block mx-2" />
+              Sale (2024)
+            </h1>
+            <select className="select w-full max-w-[250px] focus:outline-none border border-gray-300">
+              <option disabled selected>
+                This Year
+              </option>
+              <option> This Year</option>
+              <option> This Month</option>
+              <option> This Week</option>
+            </select>
           </div>
-          <div className="shadow-lg rounded-lg flex flex-col  justify-center items-start w-full  md:w-1/3">
-            <div className="flex justify-between items-center mt-4 px-3 w-full">
-              <h1 className="text-gray-600 font-bold">User Statistics</h1>
-              <select className="select w-full max-w-[200px] focus:outline-none border border-gray-300">
-                <option disabled selected>
-                  This Year
-                </option>
-                <option> This Year</option>
-                <option> This Month</option>
-                <option> This Week</option>
-              </select>
-            </div>
-            <PiChart/>
-            <div className="flex justify-evenly items-center mb-5 gap-x-5">
-              <h1>
-                {" "}
-                <GoDotFill className="inline-block text-2xl text-[#005555]" />{" "}
-                Customer 24
-              </h1>
-              <h1>
-                {" "}
-                <GoDotFill className="inline-block text-2xl text-[#00AA96]" />{" "}
-                Store 15
-              </h1>
-              <h1>
-                {" "}
-                <GoDotFill className="inline-block text-2xl text-[#B9E0E0]" />{" "}
-                Delivery man 6
-              </h1>
-            </div>
+          <ResponsiveContainer width={100} height="80%">
+            <Chart />
+          </ResponsiveContainer>
+        </div>
+        <div className="shadow-lg rounded-lg flex flex-col  justify-center items-start w-full">
+          <div className="flex justify-between items-center mt-4 px-3 w-full">
+            <h1 className="text-gray-600 font-bold">User Statistics</h1>
+            <select className="select w-full focus:outline-none border border-gray-300">
+              <option disabled selected>
+                This Year
+              </option>
+              <option> This Year</option>
+              <option> This Month</option>
+              <option> This Week</option>
+            </select>
+          </div>
+          <ResponsiveContainer width={100} height="80%">
+            <PiChart />
+          </ResponsiveContainer>
+          <div className="flex justify-evenly items-center mb-5 gap-x-5">
+            <h1>
+              {" "}
+              <GoDotFill className="inline-block text-2xl text-[#005555]" />{" "}
+              Customer 24
+            </h1>
+            <h1>
+              {" "}
+              <GoDotFill className="inline-block text-2xl text-[#00AA96]" />{" "}
+              Store 15
+            </h1>
+            <h1>
+              {" "}
+              <GoDotFill className="inline-block text-2xl text-[#B9E0E0]" />{" "}
+              Delivery man 6
+            </h1>
           </div>
         </div>
-
-
+      </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-12">
         <div className="col-span-1 md:col-span-2 lg:col-span-1 my-4">
@@ -405,7 +407,10 @@ const Dashboard = () => {
                 <h5 className="text-lg font-semibold text-gray-800">
                   Top Selling Stores
                 </h5>
-                <Link to={"/StoreList"} className="text-blue-600 text-sm font-medium">
+                <Link
+                  to={"/StoreList"}
+                  className="text-blue-600 text-sm font-medium"
+                >
                   View all
                 </Link>
               </div>
@@ -454,7 +459,12 @@ const Dashboard = () => {
                 <h5 className="text-lg font-semibold text-gray-800">
                   Top Selling Items
                 </h5>
-                <Link to={"/List"} className="text-blue-600 text-sm font-medium">View all</Link>
+                <Link
+                  to={"/List"}
+                  className="text-blue-600 text-sm font-medium"
+                >
+                  View all
+                </Link>
               </div>
               <div className="grid grid-cols-1 gap-3">
                 {gridItems.map((item, index) => (
@@ -462,11 +472,7 @@ const Dashboard = () => {
                     key={index}
                     className="grid-card flex justify-between items-center rounded-lg overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300"
                   >
-                    <img
-                      src={item.imgSrc}
-                      alt={item.alt}
-                      className="w-8"
-                    />
+                    <img src={item.imgSrc} alt={item.alt} className="w-8" />
                     <div className="p-4 flex">
                       <div className="cont" title={item.title}>
                         <span className="text-base font-medium text-gray-800">
@@ -495,13 +501,16 @@ const Dashboard = () => {
                 <h5 className="text-lg font-semibold text-gray-800">
                   Top Rated Items
                 </h5>
-                <Link to={"/List"} className="text-blue-600 text-sm font-medium">
+                <Link
+                  to={"/List"}
+                  className="text-blue-600 text-sm font-medium"
+                >
                   View all
                 </Link>
               </div>
 
               {products.map((product) => (
-                <TopRatedItems 
+                <TopRatedItems
                   key={product.id}
                   imageUrl={product?.imageUrl}
                   productName={product?.title}
@@ -518,7 +527,10 @@ const Dashboard = () => {
                 <h5 className="text-lg font-semibold text-gray-800">
                   Top Customers
                 </h5>
-                <Link to="Users/Customers" className="text-blue-600 text-sm font-medium">
+                <Link
+                  to="Users/Customers"
+                  className="text-blue-600 text-sm font-medium"
+                >
                   View all
                 </Link>
               </div>
@@ -530,7 +542,6 @@ const Dashboard = () => {
                   phoneNumber={card.phoneNumber}
                   orders={card.orders}
                   link={card.link}
-                  
                 />
               ))}
             </div>
@@ -542,7 +553,7 @@ const Dashboard = () => {
             <div className="px-4 py-3">
               <div className="flex justify-between items-center mb-2">
                 <h5 className="text-lg font-semibold text-gray-800">
-                   Top Deliveryman
+                  Top Deliveryman
                 </h5>
                 <Link to="" className="text-blue-600 text-sm font-medium">
                   View all
@@ -564,6 +575,6 @@ const Dashboard = () => {
       </div>
     </>
   );
-}
+};
 
 export default withAuth(Dashboard);

@@ -1,5 +1,5 @@
 import { Switch } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import { IoSettingsOutline } from "react-icons/io5";
 import SearchIcon from "@mui/icons-material/Search";
 import EditIcon from "@mui/icons-material/Edit";
@@ -12,11 +12,204 @@ import { MdOutlineCrop } from "react-icons/md";
 import instructions from "../assets/instructions.gif";
 import { APIProvider } from "@vis.gl/react-google-maps";
 import GoogleMap from "../Map/googlemap";
+import { useMutation, useQuery } from "react-query";
+import { createZone, deleteZone, getAllAdminZones } from "../helpers/zone";
+import { useCookies } from "react-cookie";
+import Swal from "sweetalert2";
 
 const API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 
 const ZoneSettings = () => {
   const navigate = useNavigate();
+
+  const [loading, setIsLoading] = useState(false);
+  const [cookies, setCookie] = useCookies(["admin"]);
+
+  const [name, setName] = useState("");
+  const [points, setPoints] = useState([]);
+  const [reset, setReset] = useState(false);
+
+  const { isError, isLoading, data, refetch } = useQuery(
+    ["adminzones", { cookies }], // Use a unique key and any relevant parameters
+    () => getAllAdminZones(cookies) // Pass a function that returns a promise
+  );
+
+  //create zone
+  const zoneMutation = useMutation(createZone, {
+    onSuccess: (data) => {
+      setIsLoading(false);
+      if (data.success === true) {
+        return Swal.fire({
+          icon: "success",
+          title: "Zone Created Successfully",
+          timer: "3000",
+          confirmButtonText: "Ok",
+          confirmButtonColor: "#33996A",
+          showClass: {
+            popup: "swal2-show",
+            backdrop: "swal2-backdrop-show",
+            icon: "swal2-icon-show",
+          },
+          hideClass: {
+            popup: "swal2-hide",
+            backdrop: "swal2-backdrop-hide",
+            icon: "swal2-icon-hide",
+          },
+        }).then((result) => {
+          if (
+            result.isConfirmed ||
+            result.dismiss === Swal.DismissReason.timer
+          ) {
+            refetch();
+          }
+        });
+      }
+      if (data.success === false) {
+        return Swal.fire({
+          icon: "error",
+          title: data?.error || data?.errors || "something went wrong",
+          timer: "2000",
+          confirmButtonText: "Ok",
+          confirmButtonColor: "#33996A",
+          showClass: {
+            popup: "swal2-show",
+            backdrop: "swal2-backdrop-show",
+            icon: "swal2-icon-show",
+          },
+          hideClass: {
+            popup: "swal2-hide",
+            backdrop: "swal2-backdrop-hide",
+            icon: "swal2-icon-hide",
+          },
+        });
+      }
+    },
+    onError: (error) => {
+      setIsLoading(false);
+      return Swal.fire({
+        icon: "error",
+        title: error || "something went wrong",
+        timer: "2000",
+        confirmButtonText: "Ok",
+        confirmButtonColor: "#33996A",
+        showClass: {
+          popup: "swal2-show",
+          backdrop: "swal2-backdrop-show",
+          icon: "swal2-icon-show",
+        },
+        hideClass: {
+          popup: "swal2-hide",
+          backdrop: "swal2-backdrop-hide",
+          icon: "swal2-icon-hide",
+        },
+      });
+    },
+  });
+
+  const handleCreate = (event) => {
+    event.preventDefault();
+    setIsLoading(true);
+    zoneMutation.mutate({ name: name, points: points, cookies: cookies });
+  };
+
+  //delete zone
+  const deleteZoneMutation = useMutation(deleteZone, {
+    onSuccess: (data) => {
+      setIsLoading(false);
+      if (data.success === true) {
+        return Swal.fire({
+          icon: "success",
+          title: "Zone Deleted",
+          timer: "3000",
+          confirmButtonText: "Ok",
+          confirmButtonColor: "#33996A",
+          showClass: {
+            popup: "swal2-show",
+            backdrop: "swal2-backdrop-show",
+            icon: "swal2-icon-show",
+          },
+          hideClass: {
+            popup: "swal2-hide",
+            backdrop: "swal2-backdrop-hide",
+            icon: "swal2-icon-hide",
+          },
+        }).then((result) => {
+          if (
+            result.isConfirmed ||
+            result.dismiss === Swal.DismissReason.timer
+          ) {
+            refetch();
+          }
+        });
+      }
+      if (data.success === false) {
+        return Swal.fire({
+          icon: "error",
+          title: data?.error || data?.errors || "something went wrong",
+          timer: "2000",
+          confirmButtonText: "Ok",
+          confirmButtonColor: "#33996A",
+          showClass: {
+            popup: "swal2-show",
+            backdrop: "swal2-backdrop-show",
+            icon: "swal2-icon-show",
+          },
+          hideClass: {
+            popup: "swal2-hide",
+            backdrop: "swal2-backdrop-hide",
+            icon: "swal2-icon-hide",
+          },
+        });
+      }
+    },
+    onError: (error) => {
+      setIsLoading(false);
+      return Swal.fire({
+        icon: "error",
+        title: error || "something went wrong",
+        timer: "2000",
+        confirmButtonText: "Ok",
+        confirmButtonColor: "#33996A",
+        showClass: {
+          popup: "swal2-show",
+          backdrop: "swal2-backdrop-show",
+          icon: "swal2-icon-show",
+        },
+        hideClass: {
+          popup: "swal2-hide",
+          backdrop: "swal2-backdrop-hide",
+          icon: "swal2-icon-hide",
+        },
+      });
+    },
+  });
+
+  const handleDelete = (item) => {
+    Swal.fire({
+      icon: "warning",
+      title: "Are You Sure ?",
+      text: "Delete This Zone",
+      confirmButtonText: "Confirm",
+      showCancelButton: true,
+      confirmButtonColor: "#00B5FF",
+      cancelButtonColor: "#EF4C53",
+      showClass: {
+        popup: "swal2-show",
+        backdrop: "swal2-backdrop-show",
+        icon: "swal2-icon-show",
+      },
+      hideClass: {
+        popup: "swal2-hide",
+        backdrop: "swal2-backdrop-hide",
+        icon: "swal2-icon-hide",
+      },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        setIsLoading(true);
+        deleteZoneMutation.mutate({ zoneId: item?._id, cookies: cookies });
+      }
+    });
+  };
 
   return (
     <div className="h-full w-full">
@@ -60,20 +253,43 @@ const ZoneSettings = () => {
                 className="border rounded px-3 py-1 text-[1.8vh] h-10"
                 placeholder="Write a New Business Zone Name"
                 type="text"
+                name="name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
               />
               <div className="w-full mt-4">
                 <APIProvider apiKey={API_KEY}>
                   <div style={{ width: "37vw", height: "50vh" }}>
-                    <GoogleMap />
+                    <GoogleMap
+                      polygon={true}
+                      setPoints={setPoints}
+                      reset={reset}
+                    />
                   </div>
                 </APIProvider>
               </div>
               <div className="self-end w-fit flex gap-3 mt-3 font-semibold">
-                <button className="bg-gray-100 px-5 py-3 rounded-md text-[1.9vh]">
+                <button
+                  type="button"
+                  onClick={() => setReset(true)}
+                  className="bg-gray-100 px-5 py-3 rounded-md text-[1.9vh]"
+                >
                   Reset
                 </button>
-                <button className="bg-teal-500 px-5 py-3 rounded-md text-[1.9vh] text-white">
-                  Submit
+                <button
+                  type="submit"
+                  onClick={handleCreate}
+                  className="bg-teal-500 px-5 py-3 rounded-md text-[1.9vh] text-white"
+                  disabled={loading}
+                >
+                  <span
+                    className={`${
+                      loading ? "block" : "hidden"
+                    } loading loading-dots loading-sm`}
+                  ></span>
+                  <span className={`${loading ? "hidden" : "block"}`}>
+                    Submit
+                  </span>
                 </button>
               </div>
             </div>
@@ -106,94 +322,82 @@ const ZoneSettings = () => {
             </div>
           </div>
           <div className="overflow-x-auto max-w-[350px] md:max-w-full mt-4 shadow-sm">
-            <table className="table-auto min-w-full border-collapse  border border-gray-200">
-              <thead className="">
+            <table className="table-auto min-w-full border-collapse border border-gray-200">
+              <thead>
                 <tr className="bg-slate-100 h-10 text-sm md:text-[1.8vh]">
-                  <th className="px-4 py-2">SL</th>
-                  <th className="px-4 py-2">Zone Id</th>
-                  <th className="px-4 py-2">Business Zone Name</th>
-                  <th className="px-4 py-2">Stores</th>
-                  <th className="px-4 py-2">Deliveryman</th>
-                  <th className="px-4 py-2">Status</th>
-                  <th className="px-4 py-2">Digtial Payment</th>
-                  <th className="px-4 py-2">Cash On Delivery</th>
-                  <th className="px-4 py-2">Offline Payment</th>
-                  <th className="px-4 py-2">Action</th>
+                  <th className="px-4 py-2 text-left">SL</th>
+                  <th className="px-4 py-2 text-left">Zone Id</th>
+                  <th className="px-4 py-2 text-left">Business Zone Name</th>
+                  <th className="px-4 py-2 text-left">Stores</th>
+                  <th className="px-4 py-2 text-left">Deliveryman</th>
+                  <th className="px-4 py-2 text-left">Status</th>
+                  <th className="px-4 py-2 text-left">Digital Payment</th>
+                  <th className="px-4 py-2 text-left">Cash On Delivery</th>
+                  <th className="px-4 py-2 text-left">Offline Payment</th>
+                  <th className="px-4 py-2 text-left">Action</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>2</td>
-                  <td>1</td>
-                  <td>Some Zone</td>
-                  <td>55</td>
-                  <td>6</td>
-                  <td>
-                    <Switch />
-                  </td>
-                  <td>
-                    <Switch />
-                  </td>
-                  <td>
-                    <Switch />
-                  </td>
-                  <td>
-                    <Switch />
-                  </td>
-                  <td className="flex items-center justify-center gap-2">
-                    <button className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-2 py-1 rounded">
-                      <EditIcon fontSize="8px" />
-                    </button>
-                    <button
-                      onClick={() =>
-                        navigate("/business-settings/ZoneSetup/module_settings")
-                      }
-                      x
-                      className="bg-orange-500 hover:bg-red-600 text-white font-semibold px-2 py-2  rounded"
-                    >
-                      <FaGear />
-                    </button>
-                    <button className="bg-red-500 hover:bg-red-600 text-white font-semibold px-2 py-1  rounded">
-                      <DeleteIcon fontSize="8px" />
-                    </button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>1</td>
-                  <td>2</td>
-                  <td>Example Zone</td>
-                  <td>3</td>
-                  <td>1</td>
-                  <td>
-                    <Switch />
-                  </td>
-                  <td>
-                    <Switch />
-                  </td>
-                  <td>
-                    <Switch />
-                  </td>
-                  <td>
-                    <Switch />
-                  </td>
-                  <td className="flex items-center justify-center gap-2">
-                    <button className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-2 py-1 rounded">
-                      <EditIcon fontSize="8px" />
-                    </button>
-                    <button
-                      onClick={() =>
-                        navigate("/business-settings/ZoneSetup/module_settings")
-                      }
-                      className="bg-orange-500 hover:bg-red-600 text-white font-semibold px-2 py-2  rounded"
-                    >
-                      <FaGear />
-                    </button>
-                    <button className="bg-red-500 hover:bg-red-600 text-white font-semibold px-2 py-1  rounded">
-                      <DeleteIcon fontSize="8px" />
-                    </button>
-                  </td>
-                </tr>
-                {/* Add more rows as needed */}
+                {data &&
+                  data?.zones?.map((item, index) => (
+                    <tr key={index} className="text-sm md:text-[1.8vh]">
+                      <td className="px-4 py-2">{index + 1}</td>
+                      <td className="px-4 py-2">{item.zoneId}</td>
+                      <td className="px-4 py-2">{item.name}</td>
+                      <td className="px-4 py-2">{item.stores}</td>
+                      <td className="px-4 py-2">{item.deliveryMan}</td>
+                      <td className="px-4 py-2">
+                        <Switch
+                          className="ml-4"
+                          checked={item.status}
+                          // onChange={() => handleStatusChange(item)}
+                        />
+                      </td>
+                      <td className="px-4 py-2">
+                        <Switch
+                          className="ml-4"
+                          checked={item.isDigitalPayment}
+                          // onChange={() => handleStatusChange(item)}
+                        />
+                      </td>
+                      <td className="px-4 py-2">
+                        <Switch
+                          className="ml-4"
+                          checked={item.isCashOnDelivery}
+                          // onChange={() => handleStatusChange(item)}
+                        />
+                      </td>
+                      <td className="px-4 py-2">
+                        <Switch
+                          className="ml-4"
+                          checked={item.isOfflinePayment}
+                          // onChange={() => handleStatusChange(item)}
+                        />
+                      </td>
+                      <td className="px-4 py-2 flex items-center gap-2">
+                        <button className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-2 py-1 rounded">
+                          <EditIcon fontSize="8px" />
+                        </button>
+                        <button
+                          onClick={() =>
+                            navigate(
+                              "/business-settings/ZoneSetup/module_settings"
+                            )
+                          }
+                          className="bg-orange-500 hover:bg-red-600 text-white font-semibold px-2 py-2 rounded"
+                        >
+                          <FaGear />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => handleDelete(item)}
+                          className="bg-red-500 hover:bg-red-600 text-white font-semibold px-2 py-1 rounded"
+                        >
+                          <DeleteIcon fontSize="8px" />
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
               </tbody>
             </table>
           </div>

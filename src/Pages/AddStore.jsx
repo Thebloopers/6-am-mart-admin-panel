@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -8,11 +8,17 @@ import { IoStorefrontOutline } from "react-icons/io5";
 import { MdDashboard } from "react-icons/md";
 import { FaUser } from "react-icons/fa";
 import withAuth from "../HOC/withAuth";
-import { useMutation } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import { createStore } from "../helpers/store";
 import Swal from "sweetalert2";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
+import { APIProvider } from "@vis.gl/react-google-maps";
+import GoogleMap from "../Map/googlemap";
+import { Autocomplete, TextField } from "@mui/material";
+import { getAllAdminZones } from "../helpers/zone";
+
+const API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -48,6 +54,29 @@ function AddStore() {
   const [deliveryTimeType, setDeliveryTimeType] = useState("min");
   const [loading, setIsLoading] = useState(false);
   const [cookies, setCookie] = useCookies(["admin"]);
+  const [points, setPoints] = useState([]);
+
+  useEffect(() => {
+    // Get current location
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          setPoints({ lat: latitude, lng: longitude });
+        },
+        (error) => {
+          console.error("Error getting current location:", error);
+        }
+      );
+    } else {
+      console.error("Geolocation is not supported by this browser.");
+    }
+  }, []); // Empty dependency array ensures this effect runs only once on component mount
+
+  const { isError, isLoading, data, refetch } = useQuery(
+    ["adminzones", { cookies }], // Use a unique key and any relevant parameters
+    () => getAllAdminZones(cookies) // Pass a function that returns a promise
+  );
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -162,6 +191,8 @@ function AddStore() {
     setIsLoading(true);
 
     const formData = new FormData(event.target);
+    formData.append("latitude", Number(points?.lat));
+    formData.append("longitude", Number(points?.lng));
     storeMutation.mutate({ formData: formData, cookies: cookies });
   };
 
@@ -369,6 +400,39 @@ function AddStore() {
                               className="input-label"
                               htmlFor="minimum_delivery_time"
                             >
+                              Add Zone
+                            </label>
+                          </div>
+                          <div>
+                            <div className="mb-4">
+                              <Autocomplete
+                                disablePortal
+                                id="combo-box-demo"
+                                name="zone"
+                                options={
+                                  data?.zones?.length > 0
+                                    ? data?.zones?.map((doc) => ({
+                                        label: doc.name,
+                                        _id: doc._id,
+                                      }))
+                                    : [] // Provide a default empty array if data is empty or null
+                                }
+                                // onChange={handleAutocompleteChange("unit")}
+                                sx={{ minWidth: { xs: 10, md: "fit" } }}
+                                renderInput={(params) => (
+                                  <TextField {...params} label="Zone" />
+                                )}
+                                required
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        <div className="item">
+                          <div>
+                            <label
+                              className="input-label"
+                              htmlFor="minimum_delivery_time"
+                            >
                               Minimum Time
                             </label>
                           </div>
@@ -470,14 +534,15 @@ function AddStore() {
                 />
               </div>
               <div className="col-md-12 mt-4">
-                <iframe
-                  title="maps"
-                  src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=1%20Grafton%20Street,%20Dublin,%20Ireland+(My%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
-                  width="100%"
-                  height="300px"
-                >
-                  <a href="https://www.gps.ie/">gps devices</a>
-                </iframe>
+                <APIProvider apiKey={API_KEY}>
+                  <div style={{ width: "37vw", height: "50vh" }}>
+                    <GoogleMap
+                      polygon={false}
+                      marker={true}
+                      setPoints={setPoints}
+                    />
+                  </div>
+                </APIProvider>
               </div>
             </div>
           </div>

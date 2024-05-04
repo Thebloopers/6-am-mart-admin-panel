@@ -137,9 +137,14 @@ function Layout(props) {
   const drawer = (
     <div className="bg-[#005555] h-full overflow-y-auto text-[#E9F3FF]">
       <div className="bg-white flex items-center justify-center">
-        <img className=" object-cover h-10 " src={logo} />
+        <Link to="/">
+          <img className=" object-cover h-10 " src={logo} />
+        </Link>
         <Toolbar className="bg-white" />
-        <IoClose className="fill-black text-[2.5vh]" onClick={() => console.log("helloooo")} />
+        <IoClose
+          className="fill-black text-[2.5vh]"
+          onClick={() => console.log("helloooo")}
+        />
       </div>
       <Divider />
 
