@@ -14,8 +14,35 @@ export const createStore = ({ formData, cookies }) => {
   });
 };
 
-export const getAdminStores = (cookies) => {
+export const updateStore = ({ formData, cookies }) => {
   const { token } = isAuthenticated(cookies);
+
+  return fetch(`${import.meta.env.VITE_SERVER_URL}/store/`, {
+    method: "PUT",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    body: formData,
+  }).then((response) => {
+    return response.json();
+  });
+};
+
+export const getAdminStores = (zoneId, cookies) => {
+  const { token } = isAuthenticated(cookies);
+  if (zoneId) {
+    return fetch(
+      `${import.meta.env.VITE_SERVER_URL}/store/of/admin/zone/${zoneId}`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    ).then((response) => {
+      return response.json();
+    });
+  }
   return fetch(`${import.meta.env.VITE_SERVER_URL}/store/of/admin/`, {
     method: "GET",
     headers: {
@@ -26,20 +53,18 @@ export const getAdminStores = (cookies) => {
   });
 };
 
-export const handleVisibilityChange = ({ storeId, cookies }) => {
+export const handleVisibilityChange = ({ storeId, serviceName, cookies }) => {
   const { token } = isAuthenticated(cookies);
 
   return fetch(
-    `${
-      import.meta.env.VITE_SERVER_URL
-    }/store/of/admin/update/visiblity/${storeId}`,
+    `${import.meta.env.VITE_SERVER_URL}/store/statuses/update/${storeId}`,
     {
-      method: "POST",
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({}),
+      body: JSON.stringify({ serviceName }),
     }
   ).then((response) => {
     return response.json();

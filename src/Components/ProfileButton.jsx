@@ -27,7 +27,11 @@ function ProfileButton() {
           <div className="flex justify-center items-center">
             <MdArrowDropDown className="text-xl" />
             <div>
-              <h1 className="font-bold text-[#00868F]">{cookies?.adminuser?.user?.firstName + cookies?.adminuser?.user?.lastName}</h1>
+              <h1 className="font-bold text-[#00868F]">
+                {cookies?.adminuser?.user?.firstName +
+                  " " +
+                  cookies?.adminuser?.user?.lastName}
+              </h1>
               <h1 className="text-xs">{cookies?.adminuser?.user?.email}</h1>
             </div>
             <img
@@ -50,7 +54,11 @@ function ProfileButton() {
                   className="w-[35px] h-[35px] rounded-full"
                 />
                 <div>
-                  <h1 className="font-bold text-[#00868F]">{cookies?.adminuser?.user?.firstName + cookies?.adminuser?.user?.lastName}</h1>
+                  <h1 className="font-bold text-[#00868F]">
+                    {cookies?.adminuser?.user?.firstName +
+                      " " +
+                      cookies?.adminuser?.user?.lastName}
+                  </h1>
                   <h1 className="text-xs">{cookies?.adminuser?.user?.email}</h1>
                 </div>
               </div>

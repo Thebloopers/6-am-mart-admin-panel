@@ -13,7 +13,13 @@ import instructions from "../assets/instructions.gif";
 import { APIProvider } from "@vis.gl/react-google-maps";
 import GoogleMap from "../Map/googlemap";
 import { useMutation, useQuery } from "react-query";
-import { createZone, deleteZone, getAllAdminZones } from "../helpers/zone";
+import {
+  createZone,
+  deleteZone,
+  getAllAdminZones,
+  handleStatusesChange,
+  updateZone,
+} from "../helpers/zone";
 import { useCookies } from "react-cookie";
 import Swal from "sweetalert2";
 
@@ -24,7 +30,8 @@ const ZoneSettings = () => {
 
   const [loading, setIsLoading] = useState(false);
   const [cookies, setCookie] = useCookies(["admin"]);
-
+  const [update, setUpdate] = useState(false);
+  const [itemId, setItemId] = useState(false);
   const [name, setName] = useState("");
   const [points, setPoints] = useState([]);
   const [reset, setReset] = useState(false);
@@ -42,6 +49,168 @@ const ZoneSettings = () => {
         return Swal.fire({
           icon: "success",
           title: "Zone Created Successfully",
+          timer: "3000",
+          confirmButtonText: "Ok",
+          confirmButtonColor: "#33996A",
+          showClass: {
+            popup: "swal2-show",
+            backdrop: "swal2-backdrop-show",
+            icon: "swal2-icon-show",
+          },
+          hideClass: {
+            popup: "swal2-hide",
+            backdrop: "swal2-backdrop-hide",
+            icon: "swal2-icon-hide",
+          },
+        }).then((result) => {
+          if (
+            result.isConfirmed ||
+            result.dismiss === Swal.DismissReason.timer
+          ) {
+            window.location.reload();
+          }
+        });
+      }
+      if (data.success === false) {
+        return Swal.fire({
+          icon: "error",
+          title: data?.error || data?.errors || "something went wrong",
+          timer: "2000",
+          confirmButtonText: "Ok",
+          confirmButtonColor: "#33996A",
+          showClass: {
+            popup: "swal2-show",
+            backdrop: "swal2-backdrop-show",
+            icon: "swal2-icon-show",
+          },
+          hideClass: {
+            popup: "swal2-hide",
+            backdrop: "swal2-backdrop-hide",
+            icon: "swal2-icon-hide",
+          },
+        });
+      }
+    },
+    onError: (error) => {
+      setIsLoading(false);
+      return Swal.fire({
+        icon: "error",
+        title: error || "something went wrong",
+        timer: "2000",
+        confirmButtonText: "Ok",
+        confirmButtonColor: "#33996A",
+        showClass: {
+          popup: "swal2-show",
+          backdrop: "swal2-backdrop-show",
+          icon: "swal2-icon-show",
+        },
+        hideClass: {
+          popup: "swal2-hide",
+          backdrop: "swal2-backdrop-hide",
+          icon: "swal2-icon-hide",
+        },
+      });
+    },
+  });
+
+  const handleCreate = (event) => {
+    event.preventDefault();
+    setIsLoading(true);
+    zoneMutation.mutate({ name: name, points: points, cookies: cookies });
+  };
+
+  //update zone
+  const updateZoneMutation = useMutation(updateZone, {
+    onSuccess: (data) => {
+      setIsLoading(false);
+      if (data.success === true) {
+        return Swal.fire({
+          icon: "success",
+          title: "Zone Updated",
+          timer: "3000",
+          confirmButtonText: "Ok",
+          confirmButtonColor: "#33996A",
+          showClass: {
+            popup: "swal2-show",
+            backdrop: "swal2-backdrop-show",
+            icon: "swal2-icon-show",
+          },
+          hideClass: {
+            popup: "swal2-hide",
+            backdrop: "swal2-backdrop-hide",
+            icon: "swal2-icon-hide",
+          },
+        }).then((result) => {
+          if (
+            result.isConfirmed ||
+            result.dismiss === Swal.DismissReason.timer
+          ) {
+            window.location.reload();
+          }
+        });
+      }
+      if (data.success === false) {
+        return Swal.fire({
+          icon: "error",
+          title: data?.error || data?.errors || "something went wrong",
+          timer: "2000",
+          confirmButtonText: "Ok",
+          confirmButtonColor: "#33996A",
+          showClass: {
+            popup: "swal2-show",
+            backdrop: "swal2-backdrop-show",
+            icon: "swal2-icon-show",
+          },
+          hideClass: {
+            popup: "swal2-hide",
+            backdrop: "swal2-backdrop-hide",
+            icon: "swal2-icon-hide",
+          },
+        });
+      }
+    },
+    onError: (error) => {
+      setIsLoading(false);
+      return Swal.fire({
+        icon: "error",
+        title: error || "something went wrong",
+        timer: "2000",
+        confirmButtonText: "Ok",
+        confirmButtonColor: "#33996A",
+        showClass: {
+          popup: "swal2-show",
+          backdrop: "swal2-backdrop-show",
+          icon: "swal2-icon-show",
+        },
+        hideClass: {
+          popup: "swal2-hide",
+          backdrop: "swal2-backdrop-hide",
+          icon: "swal2-icon-hide",
+        },
+      });
+    },
+  });
+
+  const handleUpdate = (event) => {
+    event.preventDefault();
+    setIsLoading(true);
+
+    updateZoneMutation.mutate({
+      zoneId: itemId,
+      name: name,
+      points: points,
+      cookies: cookies,
+    });
+  };
+
+  //update service statuses
+  const updateStatusesZoneMutation = useMutation(handleStatusesChange, {
+    onSuccess: (data) => {
+      setIsLoading(false);
+      if (data.success === true) {
+        return Swal.fire({
+          icon: "success",
+          title: data?.message || "Data Updated",
           timer: "3000",
           confirmButtonText: "Ok",
           confirmButtonColor: "#33996A",
@@ -106,10 +275,12 @@ const ZoneSettings = () => {
     },
   });
 
-  const handleCreate = (event) => {
-    event.preventDefault();
-    setIsLoading(true);
-    zoneMutation.mutate({ name: name, points: points, cookies: cookies });
+  const handleStatusesUpdate = (itemId, serviceName) => {
+    updateStatusesZoneMutation.mutate({
+      zoneId: itemId,
+      serviceName,
+      cookies: cookies,
+    });
   };
 
   //delete zone
@@ -219,8 +390,8 @@ const ZoneSettings = () => {
           <h1>Zone Settings</h1>
         </div>
         <div className="shadow rounded">
-          <div className="flex gap-5 justify-between items-start  px-5 py-5">
-            <div className="flex flex-col gap-2 text-[2vh] w-1/2">
+          <div className="md:flex gap-5 justify-between items-start  px-5 py-5">
+            <div className="flex flex-col gap-2 text-[2vh] md:w-1/2">
               <h1 className="text-green-400 font-semibold">Instructions</h1>
               <h1 className="text-[1.7vh]">
                 Create & connect dots in a specific area on the map to add a new
@@ -247,7 +418,7 @@ const ZoneSettings = () => {
                 <img className="h-[35vh]" src={instructions} alt="" />
               </div>
             </div>
-            <div className="flex flex-col gap-2 text-[2vh] w-1/2">
+            <div className="flex flex-col gap-2 text-[2vh] md:w-1/2">
               <h1 className="font-semibold">Business Zone name (Default)</h1>
               <input
                 className="border rounded px-3 py-1 text-[1.8vh] h-10"
@@ -257,18 +428,17 @@ const ZoneSettings = () => {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />
-              <div className="w-full mt-4">
-                <APIProvider apiKey={API_KEY}>
-                  <div style={{ width: "37vw", height: "50vh" }}>
-                    <GoogleMap
-                      polygon={true}
-                      setPoints={setPoints}
-                      reset={reset}
-                    />
-                  </div>
+              <div className="w-full mt-4 h-[50vh]">
+                <APIProvider apiKey={API_KEY} libraries={["places"]}>
+                  <GoogleMap
+                    polygon={true}
+                    points={points}
+                    setPoints={setPoints}
+                    reset={reset}
+                  />
                 </APIProvider>
               </div>
-              <div className="self-end w-fit flex gap-3 mt-3 font-semibold">
+              <div className="self-end w-fit flex gap-3 mt-20 font-semibold">
                 <button
                   type="button"
                   onClick={() => setReset(true)}
@@ -276,21 +446,39 @@ const ZoneSettings = () => {
                 >
                   Reset
                 </button>
-                <button
-                  type="submit"
-                  onClick={handleCreate}
-                  className="bg-teal-500 px-5 py-3 rounded-md text-[1.9vh] text-white"
-                  disabled={loading}
-                >
-                  <span
-                    className={`${
-                      loading ? "block" : "hidden"
-                    } loading loading-dots loading-sm`}
-                  ></span>
-                  <span className={`${loading ? "hidden" : "block"}`}>
-                    Submit
-                  </span>
-                </button>
+                {update ? (
+                  <button
+                    type="submit"
+                    onClick={handleUpdate}
+                    className="bg-teal-500 px-5 py-3 rounded-md text-[1.9vh] text-white"
+                    disabled={loading}
+                  >
+                    <span
+                      className={`${
+                        loading ? "block" : "hidden"
+                      } loading loading-dots loading-sm`}
+                    ></span>
+                    <span className={`${loading ? "hidden" : "block"}`}>
+                      Update
+                    </span>
+                  </button>
+                ) : (
+                  <button
+                    type="submit"
+                    onClick={handleCreate}
+                    className="bg-teal-500 px-5 py-3 rounded-md text-[1.9vh] text-white"
+                    disabled={loading}
+                  >
+                    <span
+                      className={`${
+                        loading ? "block" : "hidden"
+                      } loading loading-dots loading-sm`}
+                    ></span>
+                    <span className={`${loading ? "hidden" : "block"}`}>
+                      Submit
+                    </span>
+                  </button>
+                )}
               </div>
             </div>
           </div>
@@ -342,40 +530,57 @@ const ZoneSettings = () => {
                   data?.zones?.map((item, index) => (
                     <tr key={index} className="text-sm md:text-[1.8vh]">
                       <td className="px-4 py-2">{index + 1}</td>
-                      <td className="px-4 py-2">{item.zoneId}</td>
-                      <td className="px-4 py-2">{item.name}</td>
-                      <td className="px-4 py-2">{item.stores}</td>
-                      <td className="px-4 py-2">{item.deliveryMan}</td>
+                      <td className="px-4 py-2">{item?.zoneId}</td>
+                      <td className="px-4 py-2">{item?.name}</td>
+                      <td className="px-4 py-2">{item?.stores}</td>
+                      <td className="px-4 py-2">{item?.deliveryMan}</td>
                       <td className="px-4 py-2">
                         <Switch
                           className="ml-4"
-                          checked={item.status}
-                          // onChange={() => handleStatusChange(item)}
+                          checked={item?.status}
+                          onChange={() =>
+                            handleStatusesUpdate(item?._id, "status")
+                          }
                         />
                       </td>
                       <td className="px-4 py-2">
                         <Switch
                           className="ml-4"
-                          checked={item.isDigitalPayment}
-                          // onChange={() => handleStatusChange(item)}
+                          checked={item?.isDigitalPayment}
+                          onChange={() =>
+                            handleStatusesUpdate(item?._id, "isDigitalPayment")
+                          }
                         />
                       </td>
                       <td className="px-4 py-2">
                         <Switch
                           className="ml-4"
-                          checked={item.isCashOnDelivery}
-                          // onChange={() => handleStatusChange(item)}
+                          checked={item?.isCashOnDelivery}
+                          onChange={() =>
+                            handleStatusesUpdate(item?._id, "isCashOnDelivery")
+                          }
                         />
                       </td>
                       <td className="px-4 py-2">
                         <Switch
                           className="ml-4"
-                          checked={item.isOfflinePayment}
-                          // onChange={() => handleStatusChange(item)}
+                          checked={item?.isOfflinePayment}
+                          onChange={() =>
+                            handleStatusesUpdate(item?._id, "isOfflinePayment")
+                          }
                         />
                       </td>
                       <td className="px-4 py-2 flex items-center gap-2">
-                        <button className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-2 py-1 rounded">
+                        <button
+                          type="button"
+                          className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-2 py-1 rounded"
+                          onClick={() => (
+                            setUpdate(true),
+                            setName(item?.name),
+                            setItemId(item?._id),
+                            setPoints(item?.location?.coordinates[0])
+                          )}
+                        >
                           <EditIcon fontSize="8px" />
                         </button>
                         <button

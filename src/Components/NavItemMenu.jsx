@@ -147,68 +147,67 @@ function NavItemMenu({
                     Monitor your business general settings from here
                   </p>
                 </div>
-                <ul>
-                  <li>
-                    <Link
-                      to={"/business-settings/zoneSetup"}
-                      onClick={() => {
-                        return (
-                          setShowSettings(true),
-                          setShowDispatch(false),
-                          setShowUserSideNav(false),
-                          setShowTransactions(false)
-                        );
-                      }}
-                      className="next-tour"
-                    >
-                      <img
-                        src="https://6ammart-admin.6amtech.com/public/assets/admin/img/navbar-setting-icon/location.svg"
-                        alt=""
-                      />
-                      <span>Zone Setup</span>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/business-settings/business-setup"
-                      onClick={() => {
-                        return (
-                          setShowSettings(true),
-                          setShowDispatch(false),
-                          setShowUserSideNav(false),
-                          setShowTransactions(false)
-                        );
-                      }}
-                      className="next-tour"
-                    >
-                      <img
-                        src="https://6ammart-admin.6amtech.com/public/assets/admin/img/navbar-setting-icon/business.svg"
-                        alt=""
-                      />
-                      <span>Business Settings</span>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/business-settings/third-party/payment-method"
-                      onClick={() => {
-                        return (
-                          setShowSettings(true),
-                          setShowDispatch(false),
-                          setShowUserSideNav(false),
-                          setShowTransactions(false)
-                        );
-                      }}
-                      className="next-tour"
-                    >
-                      <img
-                        src="https://6ammart-admin.6amtech.com/public/assets/admin/img/navbar-setting-icon/third-party.svg"
-                        alt=""
-                      />
-                      <span>3rd Party</span>
-                    </Link>
-                  </li>
-                  {/* <li>
+                <li>
+                  <Link
+                    to={"/business-settings/zoneSetup"}
+                    onClick={() => {
+                      return (
+                        setShowSettings(true),
+                        setShowDispatch(false),
+                        setShowUserSideNav(false),
+                        setShowTransactions(false)
+                      );
+                    }}
+                    className="next-tour dropdown-item"
+                  >
+                    <img
+                      src="https://6ammart-admin.6amtech.com/public/assets/admin/img/navbar-setting-icon/location.svg"
+                      alt=""
+                    />
+                    <span>Zone Setup</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/business-settings/business-setup"
+                    onClick={() => {
+                      return (
+                        setShowSettings(true),
+                        setShowDispatch(false),
+                        setShowUserSideNav(false),
+                        setShowTransactions(false)
+                      );
+                    }}
+                    className="next-tour"
+                  >
+                    <img
+                      src="https://6ammart-admin.6amtech.com/public/assets/admin/img/navbar-setting-icon/business.svg"
+                      alt=""
+                    />
+                    <span>Business Settings</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/business-settings/third-party/payment-method"
+                    onClick={() => {
+                      return (
+                        setShowSettings(true),
+                        setShowDispatch(false),
+                        setShowUserSideNav(false),
+                        setShowTransactions(false)
+                      );
+                    }}
+                    className="next-tour"
+                  >
+                    <img
+                      src="https://6ammart-admin.6amtech.com/public/assets/admin/img/navbar-setting-icon/third-party.svg"
+                      alt=""
+                    />
+                    <span>3rd Party</span>
+                  </Link>
+                </li>
+                {/* <li>
                     <Link
                       to={"/social_settings"}
                       onClick={() => {
@@ -228,7 +227,6 @@ function NavItemMenu({
                       <span>Social Media and Page Setup</span>
                     </Link>
                   </li> */}
-                </ul>
                 {/* <div className="flex items-center justify-center hover:text-green-300">
                   view all
                 </div> */}

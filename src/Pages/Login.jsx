@@ -12,7 +12,7 @@ import { useCookies } from "react-cookie";
 
 const Login = () => {
   const navigate = useNavigate();
-  const DemoData = { mail: "raj@gmaill.com", password: "Raj1243@" };
+  const DemoData = { mail: "Demoadmin@gmail.com", password: "Demoadmin@11" };
   const [password, setPassword] = useState("");
   const [mail, setMail] = useState("");
   const [show, setShow] = useState("false");

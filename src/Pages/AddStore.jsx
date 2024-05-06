@@ -48,13 +48,16 @@ CustomTabPanel.propTypes = {
 function AddStore() {
   const navigate = useNavigate();
   const [value, setValue] = React.useState(0);
-  const [tax, setTax] = useState("");
-  const [minimumDeliveryTime, setMinimumDeliveryTime] = useState("");
-  const [maximumDeliveryTime, setMaximumDeliveryTime] = useState("");
+  const [tax, setTax] = useState("0");
+  const [minimumDeliveryTime, setMinimumDeliveryTime] = useState("0");
+  const [maximumDeliveryTime, setMaximumDeliveryTime] = useState("0");
   const [deliveryTimeType, setDeliveryTimeType] = useState("min");
+  const [zone, setZone] = useState(false);
   const [loading, setIsLoading] = useState(false);
   const [cookies, setCookie] = useCookies(["admin"]);
   const [points, setPoints] = useState([]);
+
+  console.log(points);
 
   useEffect(() => {
     // Get current location
@@ -191,8 +194,9 @@ function AddStore() {
     setIsLoading(true);
 
     const formData = new FormData(event.target);
-    formData.append("latitude", Number(points?.lat));
-    formData.append("longitude", Number(points?.lng));
+    formData.append("latitude", JSON.stringify(points?.lat));
+    formData.append("longitude", JSON.stringify(points?.lng));
+    formData.append("zone", zone);
     storeMutation.mutate({ formData: formData, cookies: cookies });
   };
 
@@ -363,8 +367,36 @@ function AddStore() {
         </div>
 
         <div className=" shadow-md p-2 rounded-md grid grid-cols-1 md:grid-cols-2 gap-3 my-0">
-          <div className="col-md-6">
+          <div className="col-md-4">
             <div className="form-group mt-6">
+              <div>
+                <label className="input-label text-sm" htmlFor="tax">
+                  Select Zone
+                </label>
+              </div>
+              <div className="">
+                <Autocomplete
+                  disablePortal
+                  id="combo-box-demo"
+                  name="zone"
+                  size="small"
+                  options={
+                    data?.zones?.length > 0
+                      ? data?.zones?.map((doc) => ({
+                          label: doc.name,
+                          _id: doc._id,
+                        }))
+                      : [] // Provide a default empty array if data is empty or null
+                  }
+                  onChange={(e, value) => setZone(value ? value._id : null)}
+                  isOptionEqualToValue={(option, value) =>
+                    option._id === value._id
+                  } // Customize the equality test
+                  sx={{ minWidth: { xs: 10, md: "fit" } }}
+                  renderInput={(params) => <TextField {...params} />}
+                  required
+                />
+              </div>
               <div>
                 <label className="input-label text-sm " htmlFor="vat_tax">
                   Vat/tax (%)
@@ -375,9 +407,9 @@ function AddStore() {
                   type="number"
                   name="vat_tax"
                   id="vat_tax"
-                  className="form-control border w-full h-[45px] "
+                  className="form-control border w-full h-[40px] "
                   placeholder="Vat/tax"
-                  min="0"
+                  min={0}
                   step=".01"
                   required
                   value={tax}
@@ -400,39 +432,6 @@ function AddStore() {
                               className="input-label"
                               htmlFor="minimum_delivery_time"
                             >
-                              Add Zone
-                            </label>
-                          </div>
-                          <div>
-                            <div className="mb-4">
-                              <Autocomplete
-                                disablePortal
-                                id="combo-box-demo"
-                                name="zone"
-                                options={
-                                  data?.zones?.length > 0
-                                    ? data?.zones?.map((doc) => ({
-                                        label: doc.name,
-                                        _id: doc._id,
-                                      }))
-                                    : [] // Provide a default empty array if data is empty or null
-                                }
-                                // onChange={handleAutocompleteChange("unit")}
-                                sx={{ minWidth: { xs: 10, md: "fit" } }}
-                                renderInput={(params) => (
-                                  <TextField {...params} label="Zone" />
-                                )}
-                                required
-                              />
-                            </div>
-                          </div>
-                        </div>
-                        <div className="item">
-                          <div>
-                            <label
-                              className="input-label"
-                              htmlFor="minimum_delivery_time"
-                            >
                               Minimum Time
                             </label>
                           </div>
@@ -440,12 +439,12 @@ function AddStore() {
                             <input
                               id="minimum_delivery_time"
                               type="number"
-                              // name="minimum_delivery_time"
+                              name="minimumDeliveryTime"
                               className="form-control h-[45px] border w-full "
                               placeholder="Ex : 30"
                               pattern="^[0-9]{2}$"
-                              // required
                               value={minimumDeliveryTime}
+                              min={0}
                               onChange={handleMinimumDeliveryTimeChange}
                             />
                           </div>
@@ -463,19 +462,19 @@ function AddStore() {
                             <input
                               id="maximum_delivery_time"
                               type="number"
-                              // name="maximum_delivery_time"
+                              name="maximumDeliveryTime"
                               className="form-control h-[45px] w-full border"
                               placeholder="Ex : 60"
                               pattern="[0-9]{2}"
-                              // required
                               value={maximumDeliveryTime}
+                              min={0}
                               onChange={handleMaximumDeliveryTimeChange}
                             />
                           </div>
                         </div>
                         <div className="relative">
                           <select
-                            // name="delivery_time_type"
+                            name="deliveryTimeParameter"
                             id="delivery_time_type"
                             className="appearance-none border border-[#24bac3`] rounded-md mt-5 py-2 pl-3 pr-10 focus:outline-none focus:border-[#24bac3]  focus:ring-offset-indigo-200 focus:ring-offset-2 focus:ring-opacity-50 sm:text-sm"
                             value={deliveryTimeType}
@@ -520,22 +519,9 @@ function AddStore() {
           </div>
           <div className="col-md-4">
             <div className="position-relative mt-6 ">
-              <div>
-                <label className="input-label text-sm" htmlFor="tax">
-                  Estimated Delivery Time ( Min &amp; Maximum Time)
-                </label>
-              </div>
-              <div>
-                <input
-                  type="text"
-                  id="time_view"
-                  className="form-control border w-full h-[45px]"
-                  readOnly
-                />
-              </div>
               <div className="col-md-12 mt-4">
-                <APIProvider apiKey={API_KEY}>
-                  <div style={{ width: "37vw", height: "50vh" }}>
+                <APIProvider apiKey={API_KEY} libraries={["places"]}>
+                  <div style={{ height: "50vh", marginBottom: "69px" }}>
                     <GoogleMap
                       polygon={false}
                       marker={true}
@@ -605,6 +591,7 @@ function AddStore() {
                 className="mt-1 border p-4  focus:ring-indigo-500 focus:border-indigo-500 block  w-full shadow-sm sm:text-sm border-[#24bac3] rounded-md"
                 placeholder="Phone"
                 required
+                maxLength={10}
               />
             </div>
           </div>

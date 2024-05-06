@@ -109,7 +109,7 @@ function Sidebarlist({ drawer, setDrawer }) {
             <ListItemIcon
               sx={{
                 minWidth: 0,
-                mr: open ? 3 : "auto",
+                mr: open ? 4 : "auto",
                 justifyContent: "center",
                 color: "black",
               }}
@@ -403,7 +403,7 @@ function Sidebarlist({ drawer, setDrawer }) {
             <ListItemIcon
               sx={{
                 minWidth: 0,
-                mr: open ? 3 : "auto",
+                mr: open ? 4 : "auto",
                 justifyContent: "center",
                 color: "black",
               }}
@@ -449,8 +449,14 @@ function Sidebarlist({ drawer, setDrawer }) {
           <Link to="/FlashSale" onClick={() => setDrawer(!drawer)}>
             <ListItem disablePadding>
               <ListItemButton>
-                <ListItemIcon>
-                  <IoIosFlash className="text-white" />
+                <ListItemIcon
+                  sx={{
+                    mr: open ? 1 : "auto",
+                  }}
+                  >
+                  <IoIosFlash
+                    className="text-white mr-1"
+                  />
                 </ListItemIcon>
                 <ListItemText
                   primaryTypographyProps={{ fontSize: "1.9vh" }}
@@ -485,7 +491,7 @@ function Sidebarlist({ drawer, setDrawer }) {
             </ListItemIcon>
             <ListItemText
               primaryTypographyProps={{ fontSize: "1.9vh" }}
-              className="-mx-2"
+              className="-mx-1"
               primary="Campaigns"
               sx={{ opacity: open ? 1 : 0 }}
             />

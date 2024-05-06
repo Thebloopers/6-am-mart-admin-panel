@@ -21,15 +21,15 @@ import Switch from "@mui/material/Switch";
 import SearchBox from "../Components/SearchBox";
 import withAuth from "../HOC/withAuth";
 import { useMutation, useQueries, useQuery } from "react-query";
-import { getAdminStores, handleVisibilityChange } from "../helpers/store";
+import {
+  getAdminStores,
+  handleDeleteStore,
+  handleVisibilityChange,
+} from "../helpers/store";
 import { useCookies } from "react-cookie";
 import Swal from "sweetalert2";
 import { signout } from "../helpers/auth";
-
-const top100Films = [
-  { label: "All Zones", year: 1994 },
-  { label: "man demo zone", year: 1994 },
-];
+import { getAllAdminZones } from "../helpers/zone";
 
 const Card = ({ bgColor, title, subtitle, iconSrc, alt }) => {
   return (
@@ -65,7 +65,18 @@ const TransactionItem = ({ iconClass, textClass, icon, title, amount }) => {
 function StoreList() {
   const navigate = useNavigate();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [zoneId, setZoneId] = useState(false);
   const [cookies, setCookie, removeCookie] = useCookies(["admin"]);
+
+  const {
+    isError: isError2,
+    isLoading: isLoading2,
+    data: data2,
+    refetch: refetch2,
+  } = useQuery(
+    ["adminzones", { cookies }], // Use a unique key and any relevant parameters
+    () => getAllAdminZones(cookies) // Pass a function that returns a promise
+  );
 
   const {
     isError: isError1,
@@ -73,17 +84,16 @@ function StoreList() {
     data: data1,
     refetch: refetch1,
   } = useQuery(
-    ["stores", { cookies }], // Use a unique key and any relevant parameters
-    () => getAdminStores(cookies) // Pass a function that returns a promise
+    ["stores", { zoneId, cookies }], // Use a unique key and any relevant parameters
+    () => getAdminStores(zoneId ? zoneId : null, cookies) // Pass a function that returns a promise
   );
 
   const statusChangeMutation = useMutation(handleVisibilityChange, {
     onSuccess: (data) => {
       if (data.success === true) {
-        refetch1();
-        return Swal.fire({
+        Swal.fire({
           icon: "success",
-          title: "Store Status Updated",
+          title: data?.message || "Store Status Updated",
           timer: "3000",
           confirmButtonText: "Ok",
           confirmButtonColor: "#33996A",
@@ -97,6 +107,87 @@ function StoreList() {
             backdrop: "swal2-backdrop-hide",
             icon: "swal2-icon-hide",
           },
+        });
+        return refetch1();
+      }
+      if (data.success === false) {
+        return Swal.fire({
+          icon: "error",
+          title: data?.error || data?.errors || "something went wrong",
+          timer: "2000",
+          confirmButtonText: "Ok",
+          confirmButtonColor: "#33996A",
+          showClass: {
+            popup: "swal2-show",
+            backdrop: "swal2-backdrop-show",
+            icon: "swal2-icon-show",
+          },
+          hideClass: {
+            popup: "swal2-hide",
+            backdrop: "swal2-backdrop-hide",
+            icon: "swal2-icon-hide",
+          },
+        });
+      }
+    },
+    onError: (error) => {
+      return Swal.fire({
+        icon: "error",
+        title: error || "something went wrong",
+        timer: "2000",
+        confirmButtonText: "Ok",
+        confirmButtonColor: "#33996A",
+        showClass: {
+          popup: "swal2-show",
+          backdrop: "swal2-backdrop-show",
+          icon: "swal2-icon-show",
+        },
+        hideClass: {
+          popup: "swal2-hide",
+          backdrop: "swal2-backdrop-hide",
+          icon: "swal2-icon-hide",
+        },
+      });
+    },
+  });
+
+  const handleStatusChange = (itemId, serviceName) => {
+    statusChangeMutation.mutate({
+      storeId: itemId,
+      serviceName,
+      cookies: cookies,
+    });
+  };
+
+  //delete Store
+
+  //delete zone
+  const deleteStoreMutation = useMutation(handleDeleteStore, {
+    onSuccess: (data) => {
+      if (data.success === true) {
+        return Swal.fire({
+          icon: "success",
+          title: "Store Deleted",
+          timer: "3000",
+          confirmButtonText: "Ok",
+          confirmButtonColor: "#33996A",
+          showClass: {
+            popup: "swal2-show",
+            backdrop: "swal2-backdrop-show",
+            icon: "swal2-icon-show",
+          },
+          hideClass: {
+            popup: "swal2-hide",
+            backdrop: "swal2-backdrop-hide",
+            icon: "swal2-icon-hide",
+          },
+        }).then((result) => {
+          if (
+            result.isConfirmed ||
+            result.dismiss === Swal.DismissReason.timer
+          ) {
+            refetch1();
+          }
         });
       }
       if (data.success === false) {
@@ -140,8 +231,30 @@ function StoreList() {
     },
   });
 
-  const handleStatusChange = (item) => {
-    statusChangeMutation.mutate({ storeId: item?._id, cookies: cookies });
+  const handleDelete = (item) => {
+    Swal.fire({
+      icon: "warning",
+      title: "Are You Sure ?",
+      text: "Delete This Store",
+      confirmButtonText: "Confirm",
+      showCancelButton: true,
+      confirmButtonColor: "#00B5FF",
+      cancelButtonColor: "#EF4C53",
+      showClass: {
+        popup: "swal2-show",
+        backdrop: "swal2-backdrop-show",
+        icon: "swal2-icon-show",
+      },
+      hideClass: {
+        popup: "swal2-hide",
+        backdrop: "swal2-backdrop-hide",
+        icon: "swal2-icon-hide",
+      },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteStoreMutation.mutate({ storeId: item?._id, cookies: cookies });
+      }
+    });
   };
 
   const toggleDropdown = () => {
@@ -294,14 +407,15 @@ function StoreList() {
               <Autocomplete
                 disablePortal
                 id="combo-box-demo"
-                options={top100Films}
-                sx={{
-                  width: 230,
-                  "& .MuiAutocomplete-inputRoot": {
-                    padding: "1.5rem", // Adjust padding here
-                    height: "calc(1rem - 10px)", // Adjust height here
-                  },
-                }}
+                options={
+                  data2?.zones?.length > 0 &&
+                  data2?.zones?.map((doc) => ({
+                    label: doc.name,
+                    _id: doc._id,
+                  }))
+                }
+                onChange={(e, value) => setZoneId(value ? value._id : null)}
+                sx={{ width: 200 }}
                 renderInput={(params) => (
                   <TextField {...params} label="All Zones" />
                 )}
@@ -323,7 +437,7 @@ function StoreList() {
               <th className=" px-4 py-2 ">Store Information</th>
               <th className=" px-4 py-2 ">Owner Information</th>
               <th className=" px-4 py-2">Zone</th>
-              <th className=" px-4 py-2 ">Featured</th>
+              <th className=" px-4 py-2 ">Disabled</th>
               <th className=" px-4 py-2  text-center">Status</th>
               <th className=" px-4 py-2  text-center">Action</th>
             </tr>
@@ -345,74 +459,77 @@ function StoreList() {
                     <span className="ml-5">{index + 1}</span>
                   </td>
                   <td>
-                    <div className="flex items-center gap-3 ml-5">
+                    <div className="flex items-center gap-1">
                       <div>
                         <img
-                          className=" circle w-10"
+                          className="circle w-10"
                           data-onerror-image="https://6ammart-admin.6amtech.com/public/assets/admin/img/160x160/img1.jpg"
                           src={`https://rent-karoo.s3.ap-south-1.amazonaws.com/${item.storeLogo[0]}`}
                         />
                       </div>
 
-                      <div className="   ">
-                        <div className="text-sm text-center ml-10">
+                      <div className="">
+                        <div className="text-sm text-center ml-5">
                           {item.storeName}
                         </div>
-                        <div className="font-light text-sm ml-10">
+                        <div className="font-light text-sm ml-5">
                           Id: {index + 1}
                         </div>
                       </div>
                     </div>
                   </td>
 
-                  <td className="flex text-center gap-1 items-center ml-5 p-3">
-                    <div className=" text-center l-5 p-3 ml-10 ">{item.phone}</div>
-                    <div>{} </div>
+                  <td className="text-sm text-center items-center p-3">
+                    <div className="text-center p-3">{item.phone}</div>
+                    <div>{item.firstName + " " + item.lastName}</div>
                   </td>
                   <td className=" text-center text-sm font-light">
-                    {item.Zone}
+                    {item?.zone?.name}
                   </td>
                   <td className="text-center">
                     <i>
                       {" "}
-                      <Switch {...label} />
+                      <Switch
+                        {...label}
+                        checked={item?.isDisabled ? true : false}
+                        onChange={() =>
+                          handleStatusChange(item?._id, "disabled")
+                        }
+                      />
                     </i>{" "}
                   </td>
                   <td className="">
                     <i>
                       {" "}
                       <Switch
-                      className="ml-12"
+                        className="ml-12"
                         {...label}
                         checked={item?.isVisible ? true : false}
-                        onChange={() => handleStatusChange(item)}
+                        onChange={() => handleStatusChange(item?._id, "status")}
                       />
                     </i>
                   </td>
 
-                    <td className="py-3 px-2 m-2 flex items-center justify-center">
-      <button 
-        className="bg-[#ff7500] hover:bg-orange-300 hover:text-[#ff7500] text-white text-center font-semibold py-1 px-3 rounded md:mr-2"
-        onClick={() => navigate('/store/view')}
-      >
-        <IoEyeSharp/>
-      </button>
-      <button 
-        className="bg-[#24bac3] hover:bg-[#92ebf0] hover:text-[#24bac3] text-white text-center font-semibold py-1 px-3 rounded md:mr-2"
-        onClick={() => history.push('/edit-page')}
-      >
-        <MdEdit />
-      </button>
-      <button 
-        className="bg-red-500 hover:bg-red-300 hover:text-red-500 text-white text-center font-semibold py-1 px-3 rounded md:mr-2"
-        onClick={() => {
-          // Add logic for the delete button click
-          console.log("Delete button clicked");
-        }}
-      >
-        <MdDelete/>
-      </button>
-    </td>
+                  <td className="py-3 px-2 m-2 flex items-center justify-center">
+                    <button
+                      className="bg-[#ff7500] hover:bg-orange-300 hover:text-[#ff7500] text-white text-center font-semibold py-1 px-3 rounded md:mr-2"
+                      onClick={() => navigate("/store/view")}
+                    >
+                      <IoEyeSharp />
+                    </button>
+                    <button
+                      className="bg-[#24bac3] hover:bg-[#92ebf0] hover:text-[#24bac3] text-white text-center font-semibold py-1 px-3 rounded md:mr-2"
+                      onClick={() => history.push("/edit-page")}
+                    >
+                      <MdEdit />
+                    </button>
+                    <button
+                      className="bg-red-500 hover:bg-red-300 hover:text-red-500 text-white text-center font-semibold py-1 px-3 rounded md:mr-2"
+                      onClick={() => handleDelete(item)}
+                    >
+                      <MdDelete />
+                    </button>
+                  </td>
                 </tr>
               ))
             )}

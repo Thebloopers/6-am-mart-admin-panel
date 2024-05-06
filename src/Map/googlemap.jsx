@@ -3,9 +3,14 @@ import { ControlPosition, Map, MapControl } from "@vis.gl/react-google-maps";
 import { UndoRedoControl } from "./undo_redo_control";
 import { useDrawingManager } from "./use_drawing_manager";
 
-const GoogleMap = ({ polygon, setPoints, reset, marker }) => {
-  const drawingManager = useDrawingManager(null, polygon);
+const GoogleMap = ({ polygon, points, setPoints, reset, marker }) => {
   const [currentLocation, setCurrentLocation] = useState(null);
+  const drawingManager = useDrawingManager(
+    null,
+    polygon,
+    setCurrentLocation,
+    points
+  );
   const [drawnShapes, setDrawnShapes] = useState([]);
   const mapRef = useRef(null);
 
@@ -54,6 +59,7 @@ const GoogleMap = ({ polygon, setPoints, reset, marker }) => {
           shape.getPath().forEach((point) => {
             points.push([point.lat(), point.lng()]);
           });
+          setPoints(points);
         }
 
         // Store drawn shape and its points
@@ -76,7 +82,7 @@ const GoogleMap = ({ polygon, setPoints, reset, marker }) => {
         const lat = latLng.lat();
         const lng = latLng.lng();
         // Set points state with the selected marker's location
-        console.log(lat, lng);
+        console.log(lat, lng, "here");
         setPoints([currentLocation]);
       };
       // Attach the event listener to the map
@@ -87,7 +93,7 @@ const GoogleMap = ({ polygon, setPoints, reset, marker }) => {
         mapRef.current.removeListener("click", markerClickListener);
       };
     }
-  }, [marker, setPoints]);
+  }, [marker, mapRef.current]);
 
   useEffect(() => {
     if (reset && mapRef.current && currentLocation) {
@@ -98,6 +104,13 @@ const GoogleMap = ({ polygon, setPoints, reset, marker }) => {
 
   return (
     <>
+      <h1 className="font-semibold mb-1">Map(Add Place)</h1>
+      <input
+        className="border rounded px-3 py-1 text-[1.8vh] h-10 w-full"
+        placeholder="Search a place ..."
+        type="text"
+        id="searchBox"
+      />
       {currentLocation && (
         <Map
           ref={mapRef}
@@ -105,14 +118,14 @@ const GoogleMap = ({ polygon, setPoints, reset, marker }) => {
           defaultCenter={currentLocation}
           gestureHandling="greedy"
           disableDefaultUI={true}
+          zoomControl={true} // Enable zoom control icons
+          mapTypeControl={true} // Disable map type control
         />
       )}
 
       <MapControl position={ControlPosition.TOP_CENTER}>
         <UndoRedoControl drawingManager={drawingManager} />
       </MapControl>
-
-      {/* Display drawn shapes and their points */}
     </>
   );
 };

@@ -21,17 +21,16 @@ import Chip from "@mui/material/Chip";
 import Input from "@mui/material/Input";
 import FormControl from "@mui/material/FormControl";
 
-
 function AddNew() {
   const navigate = useNavigate();
   const [loading, setIsLoading] = useState(false);
   const [cookies, setCookie] = useCookies(["admin"]);
   const [images, setImages] = useState([]);
   const [thumbnail, setThumbnail] = useState([]);
-  const [attributeArray, setattributeArray] = useState([])
+  const [attributeArray, setattributeArray] = useState([]);
   const [values, setValues] = useState([]);
   const [currValue, setCurrValue] = useState("");
-
+  const [zoneId, setZoneId] = useState(null);
 
   //GET ALL CATEGORIES
   const {
@@ -84,8 +83,8 @@ function AddNew() {
     data: data5,
     refetch: refetch5,
   } = useQuery(
-    ["stores", { cookies }], // Use a unique key and any relevant parameters
-    () => getAdminStores(cookies) // Pass a function that returns a promise
+    ["stores", { zoneId, cookies }], // Use a unique key and any relevant parameters
+    () => getAdminStores(null, cookies) // Pass a function that returns a promise
   );
 
   const [autoComplete, setAutoComplete] = useState({
@@ -237,23 +236,21 @@ function AddNew() {
   // console.log(autoComplete.variants[0]?.label)
 
   const attributeTable = (e) => {
-    let newItem = [e.target.value]
-    setattributeArray([...attributeArray, ...newItem])
-  }
+    let newItem = [e.target.value];
+    setattributeArray([...attributeArray, ...newItem]);
+  };
 
-  console.log(attributeArray)
+  console.log(attributeArray);
 
   const handleKeyUp = (e) => {
     console.log(e.keyCode);
 
     if (e.target.value.length <= 0) {
       return;
-    }
-    else {
+    } else {
       setValues((oldState) => [...oldState, e.target.value]);
       setCurrValue("");
     }
-
   };
 
   useEffect(() => {
@@ -265,12 +262,11 @@ function AddNew() {
   };
 
   const handleDelete = (item, index) => {
-    let arr = [...values]
-    arr.splice(index, 1)
-    console.log(item)
-    setValues(arr)
-  }
-
+    let arr = [...values];
+    arr.splice(index, 1);
+    console.log(item);
+    setValues(arr);
+  };
 
   return (
     <>
@@ -383,8 +379,9 @@ function AddNew() {
                         ))}
                     </div>
                     <div
-                      className={`w-44 h-44 relative rounded-md overflow-hidden bg-gray-200  ${images.length >= 5 ? "hidden" : "block"
-                        }`}
+                      className={`w-44 h-44 relative rounded-md overflow-hidden bg-gray-200  ${
+                        images.length >= 5 ? "hidden" : "block"
+                      }`}
                     >
                       <img
                         className="object-cover w-full h-full"
@@ -493,12 +490,13 @@ function AddNew() {
                           id="combo-box-demo"
                           name="category"
                           options={
-                            data1?.category?.length > 0 &&
-                            data1?.category?.map((doc) => ({
-                              label: doc.name,
-                              id: doc.id,
-                              _id: doc._id,
-                            }))
+                            data1?.category?.length > 0
+                              ? data1?.category?.map((doc) => ({
+                                  label: doc.name,
+                                  id: doc.id,
+                                  _id: doc._id,
+                                }))
+                              : []
                           }
                           onChange={handleAutocompleteChange("category")}
                           sx={{ minWidth: { xs: 10, md: "fit" } }}
@@ -518,12 +516,13 @@ function AddNew() {
                           id="combo-box-demo"
                           name="subCategory"
                           options={
-                            data2?.category?.length > 0 &&
-                            data2?.category?.map((doc) => ({
-                              label: doc.name,
-                              id: doc.id,
-                              _id: doc._id,
-                            }))
+                            data2?.category?.length > 0
+                              ? data2?.category?.map((doc) => ({
+                                  label: doc.name,
+                                  id: doc.id,
+                                  _id: doc._id,
+                                }))
+                              : []
                           }
                           onChange={handleAutocompleteChange("subCategory")}
                           sx={{ minWidth: { xs: 10, md: "fit" } }}
@@ -542,11 +541,12 @@ function AddNew() {
                           id="combo-box-demo"
                           name="unit"
                           options={
-                            data3?.data?.length > 0 &&
-                            data3?.data?.map((doc) => ({
-                              label: doc.name,
-                              _id: doc._id,
-                            }))
+                            data3?.data?.length > 0
+                              ? data3?.data?.map((doc) => ({
+                                  label: doc.name,
+                                  _id: doc._id,
+                                }))
+                              : []
                           }
                           onChange={handleAutocompleteChange("unit")}
                           sx={{ minWidth: { xs: 10, md: "fit" } }}
@@ -673,11 +673,12 @@ function AddNew() {
                           name="attribute"
                           sx={{ minWidth: { xs: 10, md: 990 } }}
                           options={
-                            data4?.data?.length > 0 &&
-                            data4?.data?.map((doc) => ({
-                              label: doc.name,
-                              _id: doc._id,
-                            }))
+                            data4?.data?.length > 0
+                              ? data4?.data?.map((doc) => ({
+                                  label: doc.name,
+                                  _id: doc._id,
+                                }))
+                              : []
                           }
                           onChange={handleAutocompleteChange("variants")}
                           y
@@ -694,85 +695,86 @@ function AddNew() {
                       </div>
 
                       {autoComplete.variants.length > 0 ? (
-
-
                         <div className="flex flex-col gap-2 p-2 w-full">
                           <div className="flex justify-between items-center">
-
-
-
-                              {autoComplete.variants.map((item, index) => (
-                            <form  >
+                            {autoComplete.variants.map((item, index) => (
+                              <form>
                                 <div key={index}>
-
-                                
-                              <h1>{item.label}</h1>
-                              {/* <input onBlur={(e) => attributeTable(e)} className="border rounded p-1" type="text" placeholder="Enter choices value" /> */}
-                              <FormControl >
-                                <div className={"container"}>
-                                  {values.map((item, index) => (
-                                    <Chip size="small" onDelete={() => handleDelete(item, index)} label={item} />
-                                  ))}
+                                  <h1>{item.label}</h1>
+                                  {/* <input onBlur={(e) => attributeTable(e)} className="border rounded p-1" type="text" placeholder="Enter choices value" /> */}
+                                  <FormControl>
+                                    <div className={"container"}>
+                                      {values.map((item, index) => (
+                                        <Chip
+                                          size="small"
+                                          onDelete={() =>
+                                            handleDelete(item, index)
+                                          }
+                                          label={item}
+                                        />
+                                      ))}
+                                    </div>
+                                    <Input
+                                      value={currValue}
+                                      onChange={handleChange}
+                                      onBlur={handleKeyUp}
+                                      className="w-60"
+                                    />
+                                  </FormControl>
                                 </div>
-                                <Input
-                                  value={currValue}
-                                  onChange={handleChange}
-                                  onBlur={handleKeyUp}
-                                  className="w-60"
-                                />
-                              </FormControl>
-                            </div>
-                            </form>
-                              ))}
+                              </form>
+                            ))}
                           </div>
-                          {
-                            values.length >= 0 ? (
-                              <div className="w-full py-2 px-2 h-fit">
-                                <table className="w-full">
-                                  <thead className="w-full bg-teal-100 h-11 text-[1.8vh]">
-                                    <tr>
-                                      <th className="text-center">
-                                        <span>Variant</span>
-                                      </th>
-                                      <th className="text-center">
-                                        <span>Variant Price</span>
-                                      </th>
-                                      <th className="text-center">
-                                        <span>Stock</span>
-                                      </th>
+                          {values.length >= 0 ? (
+                            <div className="w-full py-2 px-2 h-fit">
+                              <table className="w-full">
+                                <thead className="w-full bg-teal-100 h-11 text-[1.8vh]">
+                                  <tr>
+                                    <th className="text-center">
+                                      <span>Variant</span>
+                                    </th>
+                                    <th className="text-center">
+                                      <span>Variant Price</span>
+                                    </th>
+                                    <th className="text-center">
+                                      <span>Stock</span>
+                                    </th>
+                                  </tr>
+                                </thead>
+                                <tbody className="">
+                                  {values.map((item, index) => (
+                                    <tr key={index} className="">
+                                      <td className="w-20 text-center py-5">
+                                        <label htmlFor="">{item}</label>
+                                      </td>
+                                      <td className="w-56 px-3">
+                                        <input
+                                          className="w-full border h-11 rounded px-3"
+                                          type="text"
+                                        />
+                                      </td>
+                                      <td className="w-56 px-3">
+                                        <input
+                                          className="w-full border h-11 rounded px-3"
+                                          type="text"
+                                        />
+                                      </td>
                                     </tr>
-                                  </thead>
-                                  <tbody className="">
-                                    {values.map((item, index) => (
-                                      <tr key={index} className="">
-                                        <td className="w-20 text-center py-5">
-                                          <label htmlFor="">{item}</label>
-                                        </td>
-                                        <td className="w-56 px-3">
-                                          <input className="w-full border h-11 rounded px-3" type="text" />
-                                        </td>
-                                        <td className="w-56 px-3">
-                                          <input className="w-full border h-11 rounded px-3" type="text" />
-                                        </td>
-                                      </tr>
-                                    ))}
-                                  </tbody>
-                                </table>
-                              </div>
-                            ) : (<h1>value is greater than 1</h1>)
-                          }
+                                  ))}
+                                </tbody>
+                              </table>
+                            </div>
+                          ) : (
+                            <h1>value is greater than 1</h1>
+                          )}
                         </div>
-
-
+                      ) : (
                         //  <div className="flex flex-col gap-2 p-2">
                         //   <h1>{autoComplete.variants[0].label}</h1>
                         //   <input className="border rounded p-1" type="text" placeholder="Enter choices value" />
                         // </div>
-                      ) : (
                         <h1>Insert a attribute</h1>
                       )}
-
-
 
                       {/* Maximum Purchase Quantity */}
                     </div>
@@ -824,8 +826,9 @@ function AddNew() {
               disabled={loading}
             >
               <span
-                className={`${loading ? "block" : "hidden"
-                  } loading loading-dots loading-sm`}
+                className={`${
+                  loading ? "block" : "hidden"
+                } loading loading-dots loading-sm`}
               ></span>
               <span className={`${loading ? "hidden" : "block"}`}>Submit</span>
             </button>

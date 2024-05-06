@@ -15,10 +15,43 @@ export const createZone = ({ name, points, cookies }) => {
   });
 };
 
+export const handleStatusesChange = ({ zoneId, serviceName, cookies }) => {
+  const { token } = isAuthenticated(cookies);
+
+  return fetch(
+    `${import.meta.env.VITE_SERVER_URL}/zone/statuses/update/${zoneId}`,
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ serviceName }),
+    }
+  ).then((response) => {
+    return response.json();
+  });
+};
+
+export const updateZone = ({ zoneId, name, points, cookies }) => {
+  const { token } = isAuthenticated(cookies);
+
+  return fetch(`${import.meta.env.VITE_SERVER_URL}/zone/${zoneId}`, {
+    method: "PUT",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ name, points }),
+  }).then((response) => {
+    return response.json();
+  });
+};
+
 export const deleteZone = ({ zoneId, cookies }) => {
   const { token } = isAuthenticated(cookies);
 
-  return fetch(`${import.meta.env.VITE_SERVER_URL}/zone/`, {
+  return fetch(`${import.meta.env.VITE_SERVER_URL}/zone/${zoneId}`, {
     method: "DELETE",
     headers: {
       Authorization: `Bearer ${token}`,
