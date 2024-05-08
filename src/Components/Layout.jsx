@@ -135,16 +135,16 @@ function Layout(props) {
   }, [location.pathname]);
 
   const drawer = (
-    <div className="bg-[#005555] h-full overflow-y-auto text-[#E9F3FF]">
+    <div className="bg-[#005555] h-full overflow-y-auto  whitespace-nowrap overflow-auto scrollbar-hide text-[#E9F3FF]">
       <div className="bg-white flex items-center justify-center">
         <Link to="/">
           <img className=" object-cover h-10 " src={logo} />
         </Link>
         <Toolbar className="bg-white" />
-        <IoClose
+        {/* <IoClose
           className="fill-black text-[2.5vh]"
           onClick={() => console.log("helloooo")}
-        />
+        /> */}
       </div>
       <Divider />
 

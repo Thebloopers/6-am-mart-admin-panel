@@ -112,7 +112,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
-        <Route index element={<Dashboard />}></Route>
+        <Route path="/" element={<Dashboard />}></Route>
         <Route path="/allshop" element={<Allshop />}></Route>
         <Route path="/newsale" element={<Newsale />}></Route>
         <Route path="/OrderRefunds" element={<OrderRefunds />}></Route>

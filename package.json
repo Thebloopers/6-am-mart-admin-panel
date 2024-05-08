@@ -37,6 +37,7 @@
     "recharts": "^2.12.6",
     "remixicon": "^4.2.0",
     "sweetalert2": "^11.6.13",
+    "tailwind-scrollbar-hide": "^1.1.7",
     "web-vitals": "^2.1.4"
   },
   "devDependencies": {

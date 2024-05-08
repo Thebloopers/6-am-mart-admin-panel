@@ -56,6 +56,8 @@ function AddStore() {
   const [loading, setIsLoading] = useState(false);
   const [cookies, setCookie] = useCookies(["admin"]);
   const [points, setPoints] = useState([]);
+  const [thumbnail, setThumbnail] = useState([]);
+  const [storelogo, setstorelogo] = useState([]);
 
   console.log(points);
 
@@ -230,6 +232,23 @@ function AddStore() {
     setSelectedCover([...selectedCover, imagePreviews]);
   };
 
+  const handleThumbnailChange = (event) => {
+    const files = event.target.files;
+    const selectedThumbnail = Array.from(files).map((file) =>
+      URL.createObjectURL(file)
+    );
+    console.log(selectedThumbnail[0]);
+    setThumbnail([...selectedThumbnail]);
+  };
+  const handleStoreLogo = (event) => {
+    const files = event.target.files;
+    const selectedThumbnail = Array.from(files).map((file) =>
+      URL.createObjectURL(file)
+    );
+    console.log(selectedThumbnail[0]);
+    setstorelogo([...selectedThumbnail]);
+  };
+
   return (
     <div>
       <div>
@@ -242,9 +261,9 @@ function AddStore() {
       </div>
 
       <form onSubmit={handleSubmit}>
-        <div className="flex flex-col mt-8  md:flex-row md:justify-between md:items-center w-full gap-4">
+        <div className="flex flex-col  md:flex-row md:justify-between md:items-center w-full  gap-4">
           {/* Left Section */}
-          <div className="p-5 md:-mt-36 shadow-md border-red-500 w-full md:w-[50%]">
+          <div className=" shadow-md border-red-500  md:w-[50%]">
             <div sx={{ width: "100%" }}>
               <div sx={{ borderBottom: 1, borderColor: "#24bac3" }}>
                 <Tabs
@@ -258,9 +277,9 @@ function AddStore() {
 
               {/* English (EN) Tab Panel */}
               <CustomTabPanel value={value} index={0}>
-                <div className="lang_form" id="en-form">
-                  <div className="form-group">
-                    <label htmlFor="en_name" className="input-label">
+                <div className="h-full md:h-[360px] space-y-3">
+                  <div className="">
+                    <label htmlFor="en_name" className="">
                       Name (Default)
                     </label>
                     <div>
@@ -268,16 +287,16 @@ function AddStore() {
                         type="text"
                         name="storeName"
                         id="en_name"
-                        className="w-full h-[50px] border p-4 border-[#24bac3]"
+                        className="w-full h-[50px] border p-4  border-gray-400 outline-[#24bac3]"
                         placeholder="Store name"
                         aria-invalid="false"
                       />
                     </div>
                   </div>
-                  <div className="form-group mb-0">
+                  <div className="mb-0">
                     <label
                       htmlFor="exampleFormControlInput1"
-                      className="input-label"
+                      className=""
                     >
                       Address (Default)
                     </label>
@@ -286,7 +305,7 @@ function AddStore() {
                         type="text"
                         name="completeAddress"
                         placeholder="Store"
-                        className="form-control min-h-200px ckeditor w-full p-4 border border-[#24bac3]"
+                        className=" max-h-[250px] w-full p-4 border border-gray-400 outline-[#24bac3]"
                       ></textarea>
                     </div>
                   </div>
@@ -299,7 +318,7 @@ function AddStore() {
           <div className=" p-5 shadow-md w-full md:w-[50%]">
             <div className="sm:flex-nowrap gap-12px">
               {/* Logo Section */}
-              <div className="">
+              {/* <div className="">
                 <label className="font-semibold block mb-1">
                   Logo <span className="text-primary">(1:1)</span>
                 </label>
@@ -322,10 +341,39 @@ function AddStore() {
                     />
                   </div>
                 </label>
-              </div>
+              </div> */}
+              <label className="font-semibold block mb-1">
+                  Logo <span className="text-primary">(1:1)</span>
+                </label>
+              <div className="w-full h-44 relative rounded-md overflow-hidden bg-gray-200">
+              
+              <img
+                className="object-cover w-full h-full"
+                src="https://6ammart-admin.6amtech.com/public/assets/admin/img/upload-img.png"
+                alt="Thumbnail"
+              />
+              <img
+                className="absolute top-0 rounded object-cover w-full h-full "
+                src={thumbnail[0]}
+              />
+              <label className="absolute inset-0 flex justify-center items-center cursor-pointer bg-black bg-opacity-50 text-white text-sm font-semibold rounded-md opacity-0 hover:opacity-100 transition duration-300 ease-in-out">
+                <input
+                  id="uploadInput"
+                  type="file"
+                  name="itemImage"
+                  className="hidden"
+                  accept="image/*"
+                  multiple
+                  onChange={handleThumbnailChange}
+                  required
+                />
+                <i className="fas fa-upload mr-2"></i>Upload Image
+              </label>
+            </div>
+
 
               {/* Store Cover Section */}
-              <div>
+              {/* <div>
                 <label className="font-semibold block mb-1">
                   Store Cover <span className="text-primary">(2:1)</span>
                 </label>
@@ -348,7 +396,38 @@ function AddStore() {
                     />
                   </div>
                 </label>
-              </div>
+              </div> */}
+              <label className="font-semibold block mb-1">
+                  Store Cover <span className="text-primary">(2:1)</span>
+                </label>
+              <div className="w-full h-44 relative rounded-md overflow-hidden bg-gray-200">
+              
+                      <img
+                        className="object-cover w-full h-full"
+                        src="https://6ammart-admin.6amtech.com/public/assets/admin/img/upload-img.png"
+                        alt="Thumbnail"
+                      />
+                      <img
+                        className="absolute top-0 rounded object-cover w-full h-full "
+                        src={storelogo[0]}
+                      />
+                      <label className="absolute inset-0 flex justify-center items-center cursor-pointer bg-black bg-opacity-50 text-white text-sm font-semibold rounded-md opacity-0 hover:opacity-100 transition duration-300 ease-in-out">
+                        <input
+                          id="uploadInput"
+                          type="file"
+                          name="itemImage"
+                          className="hidden"
+                          accept="image/*"
+                          multiple
+                          onChange={handleStoreLogo}
+                          required
+                        />
+                        <i className="fas fa-upload mr-2"></i>Upload Image
+                      </label>
+                    </div>
+
+
+              
             </div>
           </div>
         </div>
@@ -366,9 +445,9 @@ function AddStore() {
           </div>
         </div>
 
-        <div className=" shadow-md p-2 rounded-md grid grid-cols-1 md:grid-cols-2 gap-3 my-0">
+        <div className=" shadow-md p-2 rounded-md grid grid-cols-1 md:grid-cols-2 gap-3 my-0 ">
           <div className="col-md-4">
-            <div className="form-group mt-6">
+            <div className="form-group mt-6 space-y-2 px-2">
               <div>
                 <label className="input-label text-sm" htmlFor="tax">
                   Select Zone
@@ -407,7 +486,7 @@ function AddStore() {
                   type="number"
                   name="vat_tax"
                   id="vat_tax"
-                  className="form-control border w-full h-[40px] "
+                  className="form-control border w-full h-[40px] px-2 "
                   placeholder="Vat/tax"
                   min={0}
                   step=".01"
@@ -418,21 +497,17 @@ function AddStore() {
               </div>
 
               <div>
-                <a href="javascript:void(0)" className="floating-date-toggler">
-                  &nbsp;
-                </a>
-                <span className="offcanvas"></span>
-                <div className="floating--date" id="floating--date">
-                  <div className="card shadow--card-2">
-                    <div className="card-body">
+                <div>
+                  <div className="">
+                    <div className="">
                       <div className="floating-date-inner ">
                         <div className="item">
-                          <div>
+                          <div className="my-2">
                             <label
-                              className="input-label"
+                              className=""
                               htmlFor="minimum_delivery_time"
                             >
-                              Minimum Time
+                            Latitude
                             </label>
                           </div>
                           <div>
@@ -440,7 +515,7 @@ function AddStore() {
                               id="minimum_delivery_time"
                               type="number"
                               name="minimumDeliveryTime"
-                              className="form-control h-[45px] border w-full "
+                              className="form-control h-[45px] border w-full px-2 "
                               placeholder="Ex : 30"
                               pattern="^[0-9]{2}$"
                               value={minimumDeliveryTime}
@@ -450,12 +525,12 @@ function AddStore() {
                           </div>
                         </div>
                         <div className="item">
-                          <div>
+                          <div className="my-2">
                             <label
                               className="input-label"
                               htmlFor="maximum_delivery_time"
                             >
-                              Maximum Time
+                           Longitude
                             </label>
                           </div>
                           <div>
@@ -463,7 +538,7 @@ function AddStore() {
                               id="maximum_delivery_time"
                               type="number"
                               name="maximumDeliveryTime"
-                              className="form-control h-[45px] w-full border"
+                              className="form-control h-[45px] w-full border px-2"
                               placeholder="Ex : 60"
                               pattern="[0-9]{2}"
                               value={maximumDeliveryTime}
@@ -485,7 +560,7 @@ function AddStore() {
                             <option value="days">Days</option>
                           </select>
                           <div className="pointer-events-none absolute inset-y-0 right-0 mt-4 flex items-center px-2 text-gray-700">
-                            <svg
+                            {/* <svg
                               className="h-4 w-4"
                               fill="none"
                               viewBox="0 0 24 24"
@@ -497,10 +572,10 @@ function AddStore() {
                                 strokeWidth={2}
                                 d="M8 9l4-4 4 4m0 6l-4 4-4-4"
                               />
-                            </svg>
+                            </svg> */}
                           </div>
                         </div>
-                        <div className="item smaller">
+                        {/* <div className="item smaller">
                           <button
                             type="button"
                             className="inline-flex items-center px-4 py-2 border mt-4 border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#24bac3] hover:bg-[#24bac3] focus:outline-none focus:ring-2 focus:ring-offset-2 "
@@ -509,7 +584,7 @@ function AddStore() {
                             {" "}
                             Done
                           </button>
-                        </div>
+                        </div> */}
                       </div>
                     </div>
                   </div>
@@ -658,7 +733,7 @@ function AddStore() {
               />
             </div>
           </div>
-          <div class="flex flex-row-reverse gap-2">
+          <div class="flex flex-row-reverse gap-2 p-2">
             <button
               type="submit"
               class="bg-[#24bac3] text-white font-bold py-2 px-4 rounded w-[100px] md:w-[100px]"

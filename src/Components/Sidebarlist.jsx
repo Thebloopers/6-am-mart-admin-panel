@@ -13,14 +13,14 @@ import Collapse from "@mui/material/Collapse";
 import { MdDashboard } from "react-icons/md";
 import { MdOutlineNewLabel } from "react-icons/md";
 import { RiRefund2Line } from "react-icons/ri";
-import { IoIosFlash } from "react-icons/io";
+import { IoIosAddCircleOutline, IoIosFlash } from "react-icons/io";
 import { SiCampaignmonitor } from "react-icons/si";
 import { RxGroup } from "react-icons/rx";
-import { CiDiscount1 } from "react-icons/ci";
+import { CiBoxList, CiDiscount1, CiExport, CiImport } from "react-icons/ci";
 import { IoIosNotifications } from "react-icons/io";
 import { MdCategory } from "react-icons/md";
 import { MdEditAttributes } from "react-icons/md";
-import { FaBalanceScale } from "react-icons/fa";
+import { FaBalanceScale, FaFire } from "react-icons/fa";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import BadgeIcon from "@mui/icons-material/Badge";
 import { RiTeamLine } from "react-icons/ri";
@@ -996,7 +996,10 @@ function Sidebarlist({ drawer, setDrawer }) {
             <Link to="/AddStore" onClick={() => setDrawer(!drawer)}>
               <ListItem disablePadding>
                 <ListItemButton>
-                  <ListItemIcon></ListItemIcon>
+                  <ListItemIcon>
+                  <IoIosAddCircleOutline className="text-white" />
+
+                  </ListItemIcon>
                   <ListItemText
                     primaryTypographyProps={{ fontSize: "1.9vh" }}
                     className="-mx-5"
@@ -1010,7 +1013,9 @@ function Sidebarlist({ drawer, setDrawer }) {
             <Link to="/StoreList" onClick={() => setDrawer(!drawer)}>
               <ListItem disablePadding>
                 <ListItemButton>
-                  <ListItemIcon></ListItemIcon>
+                  <ListItemIcon>
+                  <CiBoxList className="text-white" />
+                  </ListItemIcon>
                   <ListItemText
                     primaryTypographyProps={{ fontSize: "1.9vh" }}
                     className="-mx-5"
@@ -1024,7 +1029,9 @@ function Sidebarlist({ drawer, setDrawer }) {
             <Link to="/RecommendedStore" onClick={() => setDrawer(!drawer)}>
               <ListItem disablePadding>
                 <ListItemButton>
-                  <ListItemIcon></ListItemIcon>
+                  <ListItemIcon>
+                  <FaFire  className="text-white"/>
+                  </ListItemIcon>
                   <ListItemText
                     primaryTypographyProps={{ fontSize: "1.9vh" }}
                     className="-mx-5"
@@ -1038,7 +1045,9 @@ function Sidebarlist({ drawer, setDrawer }) {
             <Link to="/BulkImport" onClick={() => setDrawer(!drawer)}>
               <ListItem disablePadding>
                 <ListItemButton>
-                  <ListItemIcon></ListItemIcon>
+                  <ListItemIcon>
+                  <CiImport className="text-white" />
+                  </ListItemIcon>
                   <ListItemText
                     primaryTypographyProps={{ fontSize: "1.9vh" }}
                     className="-mx-5"
@@ -1052,7 +1061,9 @@ function Sidebarlist({ drawer, setDrawer }) {
             <Link to="/BulkExport" onClick={() => setDrawer(!drawer)}>
               <ListItem disablePadding>
                 <ListItemButton>
-                  <ListItemIcon></ListItemIcon>
+                  <ListItemIcon>
+                  <CiExport className="text-white" />
+                  </ListItemIcon>
                   <ListItemText
                     primaryTypographyProps={{ fontSize: "1.9vh" }}
                     className="-mx-5"

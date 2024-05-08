@@ -5,7 +5,7 @@ function TopDeliveryman({ imageUrl, name, phoneNumber, orders, link }) {
   return (
     <Link 
       href={link}
-      className="flex bg-[#F8F9FB] rounded-lg shadow-md hover:shadow-lg overflow-hidden px-2 mt-4 h-12"
+      className="flex items-center bg-[#F8F9FB] rounded-lg shadow-md hover:shadow-lg overflow-hidden px-2 mt-4 h-17"
     >
       <div className="relative overflow-hidden w-10 h-10">
         <img src={imageUrl} alt={name} className="object-cover w-full h-full" />
