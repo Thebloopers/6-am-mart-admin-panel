@@ -357,7 +357,7 @@ function List() {
                 name="search"
                 value=""
                 type="search"
-                className="form-input h-10 pr-10 pl-4 rounded-lg focus:outline-none focus:ring focus:border-[#24BAC3]"
+                className="form-input h-10  pr-10 pl-4 rounded-lg focus:outline-none focus:ring focus:border-[#24BAC3]"
                 placeholder="Search item by name"
                 aria-label="Search here"
               />
@@ -385,7 +385,7 @@ function List() {
         </div>
         {/* Delete This <ItemListTable /> */}
 
-        <div className="overflow-x-auto max-w-[350px] md:max-w-full mt-4 shadow-sm ">
+        <div className="overflow-x-auto max-w-[345px] md:max-w-full mt-4 shadow-sm ">
           <table className="table-auto min-w-full border-collapse  border border-gray-200">
             <thead className="bg-gray-100">
               <tr className=" text-sm">
@@ -418,7 +418,7 @@ function List() {
                       <span className="ml-5">{index + 1}</span>
                     </td>
                     <td>
-                      <div className="flex items-center gap-3 ml-5">
+                      <div className="flex items-center whitespace-nowrap gap-3 ml-5">
                         <div>
                           <img
                             className="circle w-10"
@@ -436,11 +436,11 @@ function List() {
                       </div>
                     </td>
 
-                    <td className="text-center text-sm font-light">
+                    <td className="text-center   text-sm font-light">
                       {item?.category?.name ? item?.category?.name : "-"}
                     </td>
 
-                    <td className="text-center text-sm font-light">
+                    <td className="text-center text-sm font-light whitespace-nowrap">
                       {item?.subCategory?.name ? item?.subCategory?.name : "-"}
                     </td>
 
@@ -469,14 +469,14 @@ function List() {
                       </i>
                     </td>
                    
-                    <td className="py-3 px-2  text-center   ">
+                    <td className="py-3 px-2  text-center whitespace-nowrap     ">
                   <button className="bg-orange-300 border border-orange-500 text-[#ff7500] text-center font-semibold py-1 px-3 rounded md:mr-2"
                   
                   >
                   
                     <IoEyeSharp />
                   </button>
-                  <button className="bg-[#00c9db1a] border border-[#00c9db99] hover:text-[#00c9db99] text-[#00c9db] text-center font-semibold py-1 px-3 rounded md:mr-2"
+                  <button className="bg-[#00c9db1a] ml-1 border border-[#00c9db99] hover:text-[#00c9db99] text-[#00c9db] text-center font-semibold py-1 px-3 rounded md:mr-2"
                   onClick={() => handleDelete(item)}
                   >
                   <MdDelete />

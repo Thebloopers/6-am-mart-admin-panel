@@ -1,12 +1,39 @@
-import React from "react";
-import SearchExportForm from "../Components/SearchExportForm";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+// import Pagination from '../Components/Sandeep/Pagination'
+import { useState } from "react";
+import { IoFilterOutline } from "react-icons/io5";
+import { FaColumns, FaSearch } from "react-icons/fa";
 import withAuth from "../HOC/withAuth";
 import { IoEyeSharp } from "react-icons/io5";
 import { IoMdPrint } from "react-icons/io";
+import { useNavigate } from "react-router-dom";
+import { MdExpandMore } from "react-icons/md";
+import { AiOutlineDownload, AiOutlineSearch } from "react-icons/ai";
+
 
 function OfflinePayments() {
   const navigate=useNavigate()
+  const [searchInput, setSearchInput] = useState("");
+
+  const handleInputChange = (event) => {
+    setSearchInput(event.target.value);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // Add your search logic here
+  };
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+  const handleExport = (type) => {
+    // Implement export functionality here based on the selected type (e.g., Excel or CSV)
+    console.log("Exporting as", type);
+    // Close the dropdown after exporting
+    setIsDropdownOpen(false);
+  };
   const tableData = [
     {
       sl: 1,
@@ -81,11 +108,94 @@ function OfflinePayments() {
         </Link>
       </nav>
 
-      <SearchExportForm />
-      <div className='overflow-x-auto '>
-       <div className="max-w-screen">
-          <table className="table-auto border-collapse border min-w-[500px] w-full border-gray-200">
-            <thead className="bg-gray-100">
+      <div>
+          <div className="md:flex  items-center justify-between md:gap-3 mt-4 border  ">
+            <form className="search-form  sm:min-w-0" onSubmit={handleSubmit}>
+              <div className="relative flex items-center gap-0  "></div>
+            </form>
+
+            <div class="card-header  border-b-0 mr-3 mx-2  md:flex md:flex-wrap md:items-center md:justify-between">
+              <form class="flex items-center ">
+                <div class="relative border rounded-md w-full mx-4 my-3 rounded-r-lg">
+                  <input
+                    id="datatableSearch_"
+                    type="search"
+                    name="search"
+                    class="form-control py-2  px-8     rounded-lg   flex items-center   focus:outline-none focus:ring-2 border-[#24bac3] focus:ring-primary"
+                    placeholder="Ex:Search store name"
+                    aria-label="Search"
+                  />
+                  <button
+                    type="submit"
+                    class="absolute right-0 top-0 bottom-0 flex items-center justify-center  text-white  bg-[#24bac3] h-10 w-10 rounded-r-lg"
+                  >
+                    <AiOutlineSearch size={20} />
+                  </button>
+                </div>
+              </form>
+
+              <div class="flex items-center  ml-3 m-1   ">
+                <div className="relative ">
+                  <button
+                    className="btn  flex items-center mr-2  border border-[#24bac3]"
+                    onClick={toggleDropdown}
+                  >
+                    <AiOutlineDownload size={20} className="  " /> Export
+                    
+                  </button>
+
+                  <div
+                    className={`dropdown-unfold dropdown-menu dropdown-menu-right ${
+                      isDropdownOpen ? "" : "hidden"
+                    } mt-1 absolute z-10  bg-white rounded-lg shadow-md`}
+                  >
+                    <span className="dropdown-head text-center px-7  bg-gray-200 text-nowrap rounded-t-lg">
+                      Download options
+                    </span>
+                    <Link
+                      className="dropdown-item flex items-center py-2 px-3 hover:bg-gray-100"
+                      onClick={() => handleExport("Excel")}
+                    >
+                      <img
+                        className=" w-2 h-2 mr-2"
+                        src="https://6ammart-admin.6amtech.com/public/assets/admin/svg/components/excel.svg"
+                        alt="Excel"
+                      />
+                      Excel
+                    </Link>
+                    <Link
+                      className="dropdown-item flex items-center py-2 px-3 hover:bg-gray-100"
+                      onClick={() => handleExport("CSV")}
+                    >
+                      <img
+                        className="avatar w-2 h-2  mr-2"
+                        src="https://6ammart-admin.6amtech.com/public/assets/admin/svg/components/placeholder-csv-format.svg"
+                        alt="CSV"
+                      />
+                      .CSV
+                    </Link>
+                  </div>
+                </div>
+         <div className="flex gap-1 mr-2  ">
+          <div className='flex  btn items-center border border-[#24bac3]  '>
+              <i><IoFilterOutline /> </i>
+                <span> Filter</span>
+                </div>
+
+                <div className='flex  btn items-center border border-[#24bac3]  '>
+              <i><FaColumns /> </i>
+                <span> Columns</span>
+                </div>
+           </div>
+              
+              </div>
+            </div>
+          </div>
+        </div> 
+      <div className='overflow-x-auto max-w-[340px] mt-2 md:max-w-full'>
+       <div className="table-auto min-w-full border-collapse border border-gray-200">
+          <table className="table-auto border-collapse  border min-w-[500px] w-full border-gray-200">
+            <thead className="bg-gray-100 text-sm">
               <tr>
                 <th className="px-4 py-2 text-left">SL</th>
                 <th className="px-4 py-2 text-left">Order ID</th>
