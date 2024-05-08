@@ -92,16 +92,14 @@ function OrderAll() {
                 </div>
               </form>
 
-              <div class="flex items-center   ">
+              <div class="flex items-center  m  ">
                 <div className="relative ">
                   <button
-                    className="btn  flex items-center m m-2 border border-[#24bac3]"
+                    className="btn  flex items-center  m-2 border border-[#24bac3]"
                     onClick={toggleDropdown}
                   >
                     <AiOutlineDownload size={20} className="  " /> Export
-                    <span className=""> 
-                      {/* <MdExpandMore /> */}
-                    </span>
+                   
                   </button>
 
                   <div
@@ -109,7 +107,7 @@ function OrderAll() {
                       isDropdownOpen ? "" : "hidden"
                     } mt-1 absolute z-10  bg-white rounded-lg shadow-md`}
                   >
-                    <span className="dropdown-header bg-gray-200 text-gray-700 py-2 px-3 rounded-t-lg">
+                    <span className="dropdown-header bg-gray-200 text-gray-700 py-2 text-center px-7  text-nowrap rounded-t-lg">
                       Download options
                     </span>
                     <Link
@@ -268,7 +266,7 @@ function OrderAll() {
                   </span>
                 </td>
                 <td className="px-4 py-2">
-                  <span className="inline-block bg-green-200 text-green-800 px-2 py-1 rounded">
+                  <span className="inline-block bg-green-200 text-green-800 px-2 py-1 text-nowrap rounded">
                     {data?.orderType}
                   </span>
                 </td>

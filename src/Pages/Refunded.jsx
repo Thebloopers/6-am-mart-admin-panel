@@ -8,7 +8,7 @@ import { FaColumns } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { AiOutlineDownload, AiOutlineSearch } from "react-icons/ai";
-import { MdExpandMore } from "react-icons/md";
+
 
 function Refunded() {
   const navigate=useNavigate()
@@ -100,16 +100,14 @@ function Refunded() {
                 </div>
               </form>
 
-              <div class="flex items-center   ">
+              <div class="flex items-center  ml-3 m-1   ">
                 <div className="relative ">
                   <button
                     className="btn  flex items-center mr-2  border border-[#24bac3]"
                     onClick={toggleDropdown}
                   >
                     <AiOutlineDownload size={20} className="  " /> Export
-                    <span className=""> 
-                      <MdExpandMore />
-                    </span>
+                    
                   </button>
 
                   <div
@@ -117,7 +115,7 @@ function Refunded() {
                       isDropdownOpen ? "" : "hidden"
                     } mt-1 absolute z-10  bg-white rounded-lg shadow-md`}
                   >
-                    <span className="dropdown-header bg-gray-200 text-gray-700 py-2 px-3 rounded-t-lg">
+                    <span className="dropdown-head text-center px-7  bg-gray-200 text-nowrap rounded-t-lg">
                       Download options
                     </span>
                     <Link
@@ -144,7 +142,7 @@ function Refunded() {
                     </Link>
                   </div>
                 </div>
-         <div className="flex gap-1 mr-9 m-1 ">
+         <div className="flex gap-1 mr-2  ">
           <div className='flex  btn items-center border border-[#24bac3]  '>
               <i><IoFilterOutline /> </i>
                 <span> Filter</span>
@@ -152,7 +150,7 @@ function Refunded() {
 
                 <div className='flex  btn items-center border border-[#24bac3]  '>
               <i><FaColumns /> </i>
-                <span> Columns</span> 
+                <span> Columns</span>
                 </div>
            </div>
               

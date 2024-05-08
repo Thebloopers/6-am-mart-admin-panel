@@ -113,7 +113,7 @@ const OrderOnTheWay = () => {
                       isDropdownOpen ? "" : "hidden"
                     } mt-1 absolute z-10  bg-white rounded-lg shadow-md`}
                   >
-                    <span className="dropdown-header bg-gray-200 text-gray-700 py-2 px-3 rounded-t-lg">
+                    <span className="dropdown-header bg-gray-200 text-nowrap text-gray-700 py-2 px-3 rounded-t-lg">
                       Download options
                     </span>
                     <Link

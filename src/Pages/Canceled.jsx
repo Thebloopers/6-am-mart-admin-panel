@@ -67,34 +67,14 @@ function Canceled() {
               <div className="relative flex items-center gap-0  "></div>
             </form>
 
-            <div class="card-header  border-b-0 md:flex md:flex-wrap md:items-center md:justify-between">
-              <form class="flex items-center">
-                <div class="relative border rounded-md w-full mx-1 my-3 rounded-r-lg">
-                  <input
-                    id="datatableSearch_"
-                    type="search"
-                    name="search"
-                    class="form-control py-2  px-8     rounded-lg   flex items-center   focus:outline-none focus:ring-2 border-[#24bac3] focus:ring-primary"
-                    placeholder="Ex:Search store name"
-                    aria-label="Search"
-                  />
-                  <button
-                    type="submit"
-                    class="absolute right-0 top-0 bottom-0 flex items-center justify-center  text-white  bg-[#24bac3] h-10 w-10 rounded-r-lg"
-                  >
-                    <AiOutlineSearch size={20} />
-                  </button>
-                </div>
-              </form>
-
-              <div class="flex items-center m-2  ">
+            <div class="flex items-center  ml-3 m-1   ">
                 <div className="relative ">
                   <button
                     className="btn  flex items-center mr-2  border border-[#24bac3]"
                     onClick={toggleDropdown}
                   >
                     <AiOutlineDownload size={20} className="  " /> Export
-                   
+                    
                   </button>
 
                   <div
@@ -102,7 +82,7 @@ function Canceled() {
                       isDropdownOpen ? "" : "hidden"
                     } mt-1 absolute z-10  bg-white rounded-lg shadow-md`}
                   >
-                    <span className="dropdown-header bg-gray-200 text-gray-700 py-2 px-3 rounded-t-lg">
+                    <span className="dropdown-head text-center px-7  bg-gray-200 text-nowrap rounded-t-lg">
                       Download options
                     </span>
                     <Link
@@ -129,7 +109,7 @@ function Canceled() {
                     </Link>
                   </div>
                 </div>
-         <div className="flex gap-1 mr-9 ">
+         <div className="flex gap-1 mr-2  ">
           <div className='flex  btn items-center border border-[#24bac3]  '>
               <i><IoFilterOutline /> </i>
                 <span> Filter</span>
@@ -142,7 +122,6 @@ function Canceled() {
            </div>
               
               </div>
-            </div>
           </div>
         </div>  
 
@@ -209,7 +188,7 @@ function Canceled() {
                   </span>
                 </td>
                 <td className="px-4 py-2">
-                  <span className="inline-block bg-green-200 text-green-800 px-2 py-1 rounded">
+                  <span className="inline-block text-nowrap bg-green-200 text-green-800 px-2 py-1 rounded">
                     {data?.orderType}
                   </span>
                 </td>

@@ -100,16 +100,14 @@ function Pending() {
                 </div>
               </form>
 
-              <div class="flex items-center  m-1   ">
+              <div class="flex items-center  ml-5 m-1   ">
                 <div className="relative ">
                   <button
                     className="btn  flex items-center mr-2  border border-[#24bac3]"
                     onClick={toggleDropdown}
                   >
                     <AiOutlineDownload size={20} className="  " /> Export
-                    <span className=""> 
-                      {/* <MdExpandMore /> */}
-                    </span>
+                    
                   </button>
 
                   <div
@@ -117,7 +115,7 @@ function Pending() {
                       isDropdownOpen ? "" : "hidden"
                     } mt-1 absolute z-10  bg-white rounded-lg shadow-md`}
                   >
-                    <span className="dropdown-header bg-gray-200 text-gray-700 py-2 px-3 rounded-t-lg">
+                    <span className="dropdown-header text-center px-7 text-nowrap bg-gray-200 text-gray-700 py-2 rounded-t-lg">
                       Download options
                     </span>
                     <Link
@@ -189,7 +187,7 @@ function Pending() {
                   </a>
                 </td>
                 <td className="px-2 py-2">
-                  <div>{data.deliveryDate}</div>
+                  <div className="text-nowrap" >{data.deliveryDate}</div>
                   <div>{data.deliveryTime}</div>
                 </td>
                 <td className="px-2 py-2">

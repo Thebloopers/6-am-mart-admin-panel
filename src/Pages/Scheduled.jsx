@@ -99,13 +99,11 @@ function Scheduled() {
               <div class="flex items-center ml-4  ">
                 <div className="relative ">
                   <button
-                    className="btn  flex items-center mr-2  border border-[#24bac3]"
+                    className="btn  flex items-center mx-7  border border-[#24bac3]"
                     onClick={toggleDropdown}
                   >
                     <AiOutlineDownload size={20} className="flex  " /> Export
-                    <span className=""> 
-                      <MdExpandMore />
-                    </span>
+                   
                   </button>
 
                   <div
