@@ -1,3 +1,5 @@
+import { FaHeart } from "react-icons/fa";
+
 export const StoreListItem = ({ imageUrl, storeName, storeUrl, rating }) => {
     return (
       <li className="flex items-center justify-between py-3">
@@ -10,9 +12,9 @@ export const StoreListItem = ({ imageUrl, storeName, storeUrl, rating }) => {
           />
           <span className="text-gray-800 font-semibold">{storeName}</span>
         </a>
-        <div className="flex items-center space-x-2">
-          <span className="text-primary font-semibold">{rating}</span>
-          <i className="text-primary tio-star"></i>
+        <div className="flex items-center space-x-2 text-red-500">
+          <span className=" font-semibold">{rating}</span>
+          <FaHeart/>
         </div>
       </li>
     );

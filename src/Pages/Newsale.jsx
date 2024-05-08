@@ -117,7 +117,7 @@ function Newsale() {
       <div className="order--pos-right bg-white rounded-lg shadow-lg p-6">
         <h2 className="text-xl font-semibold mb-4">Billing Section</h2>
         <form>
-          <div className="flex flex-col md:flex-row items-center justify-between p-3 rounded-lg">
+          <div className="flex flex-col md:flex-row  justify-between p-3 rounded-lg">
             <div className="relative flex-1 w-full md:mx-2 mb-2 md:mb-0">
               <Autocomplete
                 disablePortal

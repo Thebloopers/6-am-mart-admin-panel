@@ -28,9 +28,41 @@ const Dashboard = () => {
       orders: 15,
       link: "",
     },
+    {
+      imageUrl:
+        "https://6ammart-admin.6amtech.com/storage/app/public/delivery-man/2022-09-29-63351bf73345f.png",
+      name: "Jhon",
+      phoneNumber: "+8**********",
+      orders: 15,
+      link: "",
+    },
+     {
+      imageUrl:
+        "https://6ammart-admin.6amtech.com/storage/app/public/delivery-man/2022-09-29-63351bf73345f.png",
+      name: "Jhon",
+      phoneNumber: "+8**********",
+      orders: 15,
+      link: "",
+    },
     // Add more card data objects as needed
   ];
   const cardsData3 = [
+    {
+      imageUrl:
+        "https://6ammart-admin.6amtech.com/storage/app/public/delivery-man/2022-09-29-63351bf73345f.png",
+      name: "Sandeep",
+      phoneNumber: "+8**********",
+      orders: 2,
+      link: "",
+    },
+    {
+      imageUrl:
+        "https://6ammart-admin.6amtech.com/storage/app/public/delivery-man/2022-09-29-63351bf73345f.png",
+      name: "Sandeep",
+      phoneNumber: "+8**********",
+      orders: 2,
+      link: "",
+    },
     {
       imageUrl:
         "https://6ammart-admin.6amtech.com/storage/app/public/delivery-man/2022-09-29-63351bf73345f.png",
@@ -218,7 +250,7 @@ const Dashboard = () => {
       {/* dashboard card */}
       <div className="container my-8 border p-5 rounded-md shadow-xl ">
         <div className="card mb-3 ">
-          <div className="card-body pt-0">
+          <div className="">
             <div className="flex flex-wrap justify-end">
               <div className="statistics-btn-grp">
                 <label className="mr-4">
@@ -250,9 +282,9 @@ const Dashboard = () => {
                     value="this_week"
                     className="order_stats_update hidden"
                   />
-                  <span className="btn text-gray-600 cursor-pointer transition duration-300 hover:text-blue-500">
+                  <button className="btn text-gray-600 cursor-pointer transition duration-300 hover:text-blue-500">
                      Week
-                  </span>
+                  </button>
                 </label>
               </div>
             </div>
@@ -328,7 +360,7 @@ const Dashboard = () => {
         {/* order card end */}
       </div>
 
-      {/* <Card className="grid md:grid-cols-2 grid-cols-1 gap-4">
+    {/* <Card className="grid md:grid-cols-2 grid-cols-1 gap-4">
         <div className="md:col-span-1 bg-[#FFFFFF] p-2 shadow-md">
           <Cart />
         </div>
@@ -339,9 +371,10 @@ const Dashboard = () => {
           </div>
           <UserStatistics />
         </div>
-      </Card> */}
-      <div className="flex flex-col md:flex-row justify-between items-start my-5 gap-x-3 w-full gap-y-5">
-          <div className=" max-w-[400px] overflow-x-auto p-4 md:max-w-full shadow-lg rounded-lg">
+      </Card>  */}
+      
+       <div className="flex flex-col md:flex-row justify-between items-start my-5 gap-x-3 w-full gap-y-5">
+          <div className="max-w-[400px] overflow-x-auto p-4 md:max-w-full shadow-lg rounded-lg">
             <div className="flex justify-around items-center mt-3">
               <div>
                 <h1 className="text-gray-700 text-xl ">$ 858.40</h1>
@@ -393,7 +426,10 @@ const Dashboard = () => {
               </h1>
             </div>
           </div>
-        </div>
+        </div> 
+        
+
+         
 
 
 
@@ -460,23 +496,25 @@ const Dashboard = () => {
                 {gridItems.map((item, index) => (
                   <Link
                     key={index}
-                    className="grid-card flex justify-between items-center rounded-lg overflow-hidden border border-gray-200 hover:shadow-lg transition duration-300"
+                    className="grid-card flex justify-between items-center rounded-lg overflow-hidden border-b border-gray-200 hover:shadow-lg transition duration-300"
                   >
                     <img
                       src={item.imgSrc}
                       alt={item.alt}
                       className="w-8"
                     />
-                    <div className="p-4 flex">
-                      <div className="cont" title={item.title}>
+                    <div className="p-4 flex items-center">
+                      <div className="truncate..." title={item.title}>
                         <span className="text-base font-medium text-gray-800">
                           {item.title}
                         </span>
                       </div>
-                      <div className="flex  justify-between items-center mt-2">
-                        <span className="text-sm text-gray-600 ">
-                          Sold: {item.sold}
-                        </span>
+                      <div className="flex items-center justify-between gap-2 ">
+                      <div>   Sold:</div>
+                   
+                        <div className=" text-gray-600  ">
+                         {item.sold}
+                        </div>
                       </div>
                     </div>
                   </Link>
@@ -490,7 +528,7 @@ const Dashboard = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-5">
         <div className="col-span-1 md:col-span-2 lg:col-span-1 my-4">
           <div className="bg-white shadow-md rounded-lg overflow-hidden">
-            <div className="px-4 py-3">
+            <div className="px-4 ">
               <div className="flex justify-between items-center mb-2">
                 <h5 className="text-lg font-semibold text-gray-800">
                   Top Rated Items

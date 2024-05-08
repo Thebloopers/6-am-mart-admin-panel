@@ -1,4 +1,5 @@
 import React from 'react'
+import { FaHeart } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
 function TopRatedItems({ imageUrl, productName }) {
@@ -19,12 +20,16 @@ function TopRatedItems({ imageUrl, productName }) {
       >
        {productName}
       </span>
-      <div>
-        <span className="text-red-600 text-lg font-bold">
-          0 <i class="fa-solid fa-heart"></i>
-
+      <div className='flex items-center gap-2 text-red-500'>
+        <div className="text-red-500 text-lg font-bold">
+          0 
  
-        </span>
+        </div>
+        <div>
+        <FaHeart/>
+        </div>
+        
+
       </div>
     </div>
   </Link>

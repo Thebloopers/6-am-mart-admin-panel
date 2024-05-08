@@ -83,7 +83,7 @@ const data = [
 ];
 export default function Chart() {
   return (
-    <AreaChart
+    <AreaChart className=""
       width={800}
       height={400}
       data={data}
