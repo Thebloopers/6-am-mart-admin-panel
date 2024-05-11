@@ -35,6 +35,7 @@ import TransactionsReportSideBaar from "./TransactionsReportSideBaar";
 import DispatchSidebaar from "./DispatchSidebaar";
 import withAuth from "../HOC/withAuth";
 import { IoClose } from "react-icons/io5";
+import { useMediaQuery } from "@mui/material";
 
 //searchbaar
 const Search = styled("div")(({ theme }) => ({
@@ -85,6 +86,8 @@ function Layout(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [isClosing, setIsClosing] = React.useState(false);
+
+  const isXsOrSm = useMediaQuery((theme) => theme.breakpoints.down("sm"));
 
   const handleDrawerClose = () => {
     setIsClosing(true);
@@ -228,14 +231,14 @@ function Layout(props) {
         <Drawer
           container={container}
           variant="temporary"
-          open={mobileOpen}
+          open={isXsOrSm ? mobileOpen : false}
           onTransitionEnd={handleDrawerTransitionEnd}
           onClose={handleDrawerClose}
           ModalProps={{
             keepMounted: true, // Better open performance on mobile.
           }}
           sx={{
-            display: { xs: "block", sm: "none" },
+            display: { xs: "block", sm: "block", md: "none", lg: "none" },
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
               width: drawerWidth,

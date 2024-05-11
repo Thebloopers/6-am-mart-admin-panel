@@ -47,10 +47,7 @@ export const signout = (removeCookie, next) => {
 // To remain signed in even browser automatically remove user details
 export const authenticate = (data, next, setCookie) => {
   if (typeof window !== "undefined") {
-    const cookieExpireTime = parseInt(
-      import.meta.env.VITE_COOKIE_EXPIRE_TIME,
-      
-    ); // Read the expiration time from env
+    const cookieExpireTime = parseInt(import.meta.env.VITE_COOKIE_EXPIRE_TIME); // Read the expiration time from env
     const expiresInCustomTime = new Date();
     expiresInCustomTime.setTime(
       expiresInCustomTime.getTime() + cookieExpireTime

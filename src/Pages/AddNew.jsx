@@ -28,8 +28,6 @@ function AddNew() {
   const [images, setImages] = useState([]);
   const [thumbnail, setThumbnail] = useState([]);
   const [attributeArray, setattributeArray] = useState([]);
-  const [values, setValues] = useState([]);
-  const [currValue, setCurrValue] = useState("");
   const [zoneId, setZoneId] = useState(null);
 
   //GET ALL CATEGORIES
@@ -95,6 +93,10 @@ function AddNew() {
     variants: [],
     discounttype: "",
   });
+
+  const [inputValues, setInputValues] = useState(
+    Array(autoComplete.variants.length).fill("")
+  );
 
   const handleAutocompleteChange = (name) => (event, newValue) => {
     // Using name attribute to identify the field
@@ -200,7 +202,11 @@ function AddNew() {
     autoComplete.subCategory != "" &&
       formData.append("subCategory", autoComplete.subCategory);
     formData.append("unit", autoComplete.unit);
-    formData.append("variant", autoComplete.attribute);
+    // formData.append("totalUnit", autoComplete.unit);
+    // formData.append("variant", autoComplete.attribute);
+    if (attributeArray.length > 0) {
+      formData.append("variant", JSON.stringify(attributeArray));
+    }
     productMutation.mutate({ formData: formData, cookies: cookies });
   };
 
@@ -225,7 +231,6 @@ function AddNew() {
     const selectedThumbnail = Array.from(files).map((file) =>
       URL.createObjectURL(file)
     );
-    console.log(selectedThumbnail[0]);
     setThumbnail([...selectedThumbnail]);
   };
 
@@ -233,39 +238,95 @@ function AddNew() {
     setImages(images.filter((_, index) => index !== indexToRemove));
   };
 
-  // console.log(autoComplete.variants[0]?.label)
+  const [attributeCombinations, setAttributeCombinations] = useState([]);
 
-  const attributeTable = (e) => {
-    let newItem = [e.target.value];
-    setattributeArray([...attributeArray, ...newItem]);
-  };
-
-  console.log(attributeArray);
-
-  const handleKeyUp = (e) => {
-    console.log(e.keyCode);
-
-    if (e.target.value.length <= 0) {
+  // function to generate variant combinations
+  function generateCombinations(
+    variantsArray,
+    currentIndex,
+    currentCombination,
+    combinations
+  ) {
+    // Base case: if currentIndex is equal to the length of variantsArray, we have completed one combination
+    if (currentIndex === variantsArray.length) {
+      combinations.push(currentCombination.join("-"));
       return;
-    } else {
-      setValues((oldState) => [...oldState, e.target.value]);
-      setCurrValue("");
     }
-  };
 
+    // Iterate over the variants at the current index if variants exist
+    if (variantsArray[currentIndex].variants) {
+      for (let i = 0; i < variantsArray[currentIndex].variants.length; i++) {
+        // Add the current variant to the current combination
+        currentCombination[currentIndex] =
+          variantsArray[currentIndex].variants[i];
+        // Recur for the next index
+        generateCombinations(
+          variantsArray,
+          currentIndex + 1,
+          [...currentCombination],
+          combinations
+        );
+      }
+    } else {
+      // If variants don't exist, move to the next index
+      generateCombinations(
+        variantsArray,
+        currentIndex + 1,
+        [...currentCombination],
+        combinations
+      );
+    }
+  }
+
+  // generate variant combinations
   useEffect(() => {
-    console.log(values);
-  }, [values]);
+    const combinations = [];
+    generateCombinations(autoComplete.variants, 0, [], combinations);
+    setAttributeCombinations(combinations);
+  }, [autoComplete.variants]);
 
-  const handleChange = (e) => {
-    setCurrValue(e.target.value);
+  // Function to add a new parameter to the object in the variants array with a specific label
+  const addValueToVariant = async (label, value, index) => {
+    setAutoComplete((prevState) => {
+      const updatedVariants = prevState.variants.map((variant) => {
+        // If the label of the current variant matches the provided label
+        if (variant.label === label) {
+          // Update the variant object with the new value inside variants field
+          return {
+            ...variant,
+            variants: variant.variants ? [...variant.variants, value] : [value],
+          };
+        }
+        // If the label doesn't match, return the variant object as is
+        return variant;
+      });
+
+      // Update the state with the updated variants array
+      return { ...prevState, variants: updatedVariants };
+    });
+
+    // Empty input field
+    setInputValues((prevState) => {
+      const updatedValues = [...prevState];
+      updatedValues[index] = ""; // Clear the input value
+      return updatedValues;
+    });
   };
 
   const handleDelete = (item, index) => {
-    let arr = [...values];
-    arr.splice(index, 1);
-    console.log(item);
-    setValues(arr);
+    setAutoComplete((prevState) => {
+      const updatedVariants = prevState.variants.map((variant, i) => {
+        if (variant.label === item.label) {
+          const updatedVariant = {
+            ...variant,
+            variants: variant.variants.filter((_, i) => i !== index),
+          };
+          return updatedVariant;
+        }
+        return variant;
+      });
+      return { ...prevState, variants: updatedVariants };
+    });
   };
 
   return (
@@ -431,7 +492,7 @@ function AddNew() {
                         <input
                           id="uploadInput"
                           type="file"
-                          name="itemImage"
+                          name="itemThumbnail"
                           className="hidden"
                           accept="image/*"
                           multiple
@@ -609,6 +670,12 @@ function AddNew() {
                           name="totalUnit"
                           variant="outlined"
                           className="w-full"
+                          disabled={
+                            attributeCombinations.length > 0 &&
+                            attributeCombinations != ""
+                              ? true
+                              : false
+                          }
                           required
                         />
                       </div>
@@ -694,86 +761,166 @@ function AddNew() {
                         />
                       </div>
 
-                      {autoComplete.variants.length > 0 ? (
+                      {autoComplete.variants.length > 0 && (
                         <div className="flex flex-col gap-2 p-2 w-full">
                           <div className="flex justify-between items-center">
                             {autoComplete.variants.map((item, index) => (
-                              <form>
-                                <div key={index}>
-                                  <h1>{item.label}</h1>
-                                  {/* <input onBlur={(e) => attributeTable(e)} className="border rounded p-1" type="text" placeholder="Enter choices value" /> */}
-                                  <FormControl>
-                                    <div className={"container"}>
-                                      {values.map((item, index) => (
-                                        <Chip
-                                          size="small"
-                                          onDelete={() =>
-                                            handleDelete(item, index)
-                                          }
-                                          label={item}
-                                        />
-                                      ))}
-                                    </div>
-                                    <Input
-                                      value={currValue}
-                                      onChange={handleChange}
-                                      onBlur={handleKeyUp}
-                                      className="w-60"
+                              <div key={index}>
+                                <h1>{item.label}</h1>
+                                <div className={"container"}>
+                                  {item?.variants?.map((doc, docindex) => (
+                                    <Chip
+                                      key={docindex}
+                                      size="small"
+                                      onDelete={() => {
+                                        return (
+                                          handleDelete(item, docindex),
+                                          setattributeArray([])
+                                        );
+                                      }}
+                                      label={doc}
                                     />
-                                  </FormControl>
+                                  ))}
                                 </div>
-                              </form>
+                                <Input
+                                  type="text"
+                                  value={inputValues[index]} // Use individual state variable for each input field
+                                  onBlur={async (e) => {
+                                    e.target.value != "" &&
+                                      (await addValueToVariant(
+                                        item?.label,
+                                        e.target.value,
+                                        index
+                                      ));
+                                  }}
+                                  onChange={(e) => {
+                                    setInputValues((prevState) => {
+                                      const updatedValues = [...prevState];
+                                      updatedValues[index] = e.target.value;
+                                      return updatedValues;
+                                    });
+                                  }}
+                                  onKeyDown={async (e) => {
+                                    if (e.key === "Enter") {
+                                      e.target.value != "" &&
+                                        (await addValueToVariant(
+                                          item?.label,
+                                          e.target.value,
+                                          index
+                                        ));
+                                    }
+                                  }}
+                                  className="w-60"
+                                />
+                              </div>
                             ))}
                           </div>
-                          {values.length >= 0 ? (
-                            <div className="w-full py-2 px-2 h-fit">
-                              <table className="w-full">
-                                <thead className="w-full bg-teal-100 h-11 text-[1.8vh]">
-                                  <tr>
-                                    <th className="text-center">
-                                      <span>Variant</span>
-                                    </th>
-                                    <th className="text-center">
-                                      <span>Variant Price</span>
-                                    </th>
-                                    <th className="text-center">
-                                      <span>Stock</span>
-                                    </th>
-                                  </tr>
-                                </thead>
-                                <tbody className="">
-                                  {values.map((item, index) => (
-                                    <tr key={index} className="">
-                                      <td className="w-20 text-center py-5">
+                          <div className="w-full py-2 h-fit">
+                            <table className="w-full table table-responsive">
+                              <thead className="w-full bg-teal-100 h-11 text-[1.8vh]">
+                                <tr>
+                                  <th className="text-center">
+                                    <span>Variant</span>
+                                  </th>
+                                  <th className="text-center">
+                                    <span>Variant Price</span>
+                                  </th>
+                                  <th className="text-center">
+                                    <span>Stock</span>
+                                  </th>
+                                  <th className="text-center">
+                                    <span>Actions</span>
+                                  </th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {attributeCombinations.length > 0 &&
+                                  attributeCombinations?.map((item, index) => (
+                                    <tr key={index}>
+                                      <td className="text-center py-5">
                                         <label htmlFor="">{item}</label>
                                       </td>
-                                      <td className="w-56 px-3">
+                                      <td className="px-3">
                                         <input
                                           className="w-full border h-11 rounded px-3"
                                           type="text"
+                                          onChange={(e) => {
+                                            const updatedArray = [
+                                              ...attributeArray,
+                                            ];
+                                            updatedArray[index] = {
+                                              ...updatedArray[index],
+                                              variantPrice: e.target.value,
+                                            };
+                                            setattributeArray(updatedArray);
+                                          }}
+                                          value={
+                                            attributeArray[index]?.variantPrice
+                                          }
                                         />
                                       </td>
-                                      <td className="w-56 px-3">
+                                      <td className="px-3">
                                         <input
                                           className="w-full border h-11 rounded px-3"
                                           type="text"
+                                          onChange={(e) => {
+                                            const updatedArray = [
+                                              ...attributeArray,
+                                            ];
+                                            updatedArray[index] = {
+                                              ...updatedArray[index],
+                                              variantStock: e.target.value,
+                                              variantSold: 0,
+                                            };
+                                            setattributeArray(updatedArray);
+                                          }}
+                                          value={
+                                            attributeArray[index]?.variantStock
+                                          }
                                         />
+                                      </td>
+                                      <td className="px-3 text-center">
+                                        <button
+                                          type="button"
+                                          className="px-8 p-2 bg-[#24BAC3] hover:bg-[#20A7AF] text-white rounded-md"
+                                          onClick={() => {
+                                            const updatedArray = [
+                                              ...attributeArray,
+                                            ];
+                                            if (
+                                              updatedArray[index]?.variantName
+                                            ) {
+                                              const filteredArray =
+                                                updatedArray.filter(
+                                                  (doc) =>
+                                                    doc.variantName !==
+                                                    updatedArray[index]
+                                                      ?.variantName
+                                                );
+                                              setattributeArray(filteredArray);
+                                            } else {
+                                              updatedArray[index] = {
+                                                ...updatedArray[index],
+                                                variantName: item,
+                                              };
+                                              setattributeArray(updatedArray);
+                                            }
+                                          }}
+                                        >
+                                          {attributeArray[index]
+                                            ?.variantName ? (
+                                            <span>❌ Remove</span>
+                                          ) : (
+                                            "✔️ Add"
+                                          )}
+                                        </button>
                                       </td>
                                     </tr>
                                   ))}
-                                </tbody>
-                              </table>
-                            </div>
-                          ) : (
-                            <h1>value is greater than 1</h1>
-                          )}
+                              </tbody>
+                            </table>
+                          </div>
                         </div>
-                      ) : (
-                        //  <div className="flex flex-col gap-2 p-2">
-                        //   <h1>{autoComplete.variants[0].label}</h1>
-                        //   <input className="border rounded p-1" type="text" placeholder="Enter choices value" />
-                        // </div>
-                        <h1>Insert a attribute</h1>
                       )}
 
                       {/* Maximum Purchase Quantity */}
@@ -802,7 +949,6 @@ function AddNew() {
                       variant="outlined"
                       placeholder="Search tags"
                       sx={{ minWidth: { xs: 10, md: 990 } }}
-                      // className="w-full"
                       required
                     />
                   </div>

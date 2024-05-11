@@ -88,6 +88,8 @@ function StoreList() {
     () => getAdminStores(zoneId ? zoneId : null, cookies) // Pass a function that returns a promise
   );
 
+  console.log(data1, "1");
+
   const statusChangeMutation = useMutation(handleVisibilityChange, {
     onSuccess: (data) => {
       if (data.success === true) {
@@ -513,7 +515,9 @@ function StoreList() {
                   <td className="py-3 px-2 m-2 flex items-center justify-center">
                     <button
                       className="bg-[#ff7500] hover:bg-orange-300 hover:text-[#ff7500] text-white text-center font-semibold py-1 px-3 rounded md:mr-2"
-                      onClick={() => navigate("/store/view")}
+                      onClick={() =>
+                        navigate("/store/view", { state: { store: item } })
+                      }
                     >
                       <IoEyeSharp />
                     </button>

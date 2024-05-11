@@ -294,10 +294,7 @@ function AddStore() {
                     </div>
                   </div>
                   <div className="mb-0">
-                    <label
-                      htmlFor="exampleFormControlInput1"
-                      className=""
-                    >
+                    <label htmlFor="exampleFormControlInput1" className="">
                       Address (Default)
                     </label>
                     <div>
@@ -343,34 +340,32 @@ function AddStore() {
                 </label>
               </div> */}
               <label className="font-semibold block mb-1">
-                  Logo <span className="text-primary">(1:1)</span>
-                </label>
-              <div className="w-full h-44 relative rounded-md overflow-hidden bg-gray-200">
-              
-              <img
-                className="object-cover w-full h-full"
-                src="https://6ammart-admin.6amtech.com/public/assets/admin/img/upload-img.png"
-                alt="Thumbnail"
-              />
-              <img
-                className="absolute top-0 rounded object-cover w-full h-full "
-                src={thumbnail[0]}
-              />
-              <label className="absolute inset-0 flex justify-center items-center cursor-pointer bg-black bg-opacity-50 text-white text-sm font-semibold rounded-md opacity-0 hover:opacity-100 transition duration-300 ease-in-out">
-                <input
-                  id="uploadInput"
-                  type="file"
-                  name="itemImage"
-                  className="hidden"
-                  accept="image/*"
-                  multiple
-                  onChange={handleThumbnailChange}
-                  required
-                />
-                <i className="fas fa-upload mr-2"></i>Upload Image
+                Logo <span className="text-primary">(1:1)</span>
               </label>
-            </div>
-
+              <div className="w-full h-44 relative rounded-md overflow-hidden bg-gray-200">
+                <img
+                  className="object-cover w-full h-full"
+                  src="https://6ammart-admin.6amtech.com/public/assets/admin/img/upload-img.png"
+                  alt="Thumbnail"
+                />
+                <img
+                  className="absolute top-0 rounded object-cover w-full h-full "
+                  src={thumbnail[0]}
+                />
+                <label className="absolute inset-0 flex justify-center items-center cursor-pointer bg-black bg-opacity-50 text-white text-sm font-semibold rounded-md opacity-0 hover:opacity-100 transition duration-300 ease-in-out">
+                  <input
+                    id="uploadInput"
+                    type="file"
+                    name="storeLogo"
+                    className="hidden"
+                    accept="image/*"
+                    multiple
+                    onChange={handleThumbnailChange}
+                    required
+                  />
+                  <i className="fas fa-upload mr-2"></i>Upload Image
+                </label>
+              </div>
 
               {/* Store Cover Section */}
               {/* <div>
@@ -398,36 +393,32 @@ function AddStore() {
                 </label>
               </div> */}
               <label className="font-semibold block mb-1">
-                  Store Cover <span className="text-primary">(2:1)</span>
-                </label>
+                Store Cover <span className="text-primary">(2:1)</span>
+              </label>
               <div className="w-full h-44 relative rounded-md overflow-hidden bg-gray-200">
-              
-                      <img
-                        className="object-cover w-full h-full"
-                        src="https://6ammart-admin.6amtech.com/public/assets/admin/img/upload-img.png"
-                        alt="Thumbnail"
-                      />
-                      <img
-                        className="absolute top-0 rounded object-cover w-full h-full "
-                        src={storelogo[0]}
-                      />
-                      <label className="absolute inset-0 flex justify-center items-center cursor-pointer bg-black bg-opacity-50 text-white text-sm font-semibold rounded-md opacity-0 hover:opacity-100 transition duration-300 ease-in-out">
-                        <input
-                          id="uploadInput"
-                          type="file"
-                          name="itemImage"
-                          className="hidden"
-                          accept="image/*"
-                          multiple
-                          onChange={handleStoreLogo}
-                          required
-                        />
-                        <i className="fas fa-upload mr-2"></i>Upload Image
-                      </label>
-                    </div>
-
-
-              
+                <img
+                  className="object-cover w-full h-full"
+                  src="https://6ammart-admin.6amtech.com/public/assets/admin/img/upload-img.png"
+                  alt="Thumbnail"
+                />
+                <img
+                  className="absolute top-0 rounded object-cover w-full h-full "
+                  src={storelogo[0]}
+                />
+                <label className="absolute inset-0 flex justify-center items-center cursor-pointer bg-black bg-opacity-50 text-white text-sm font-semibold rounded-md opacity-0 hover:opacity-100 transition duration-300 ease-in-out">
+                  <input
+                    id="uploadInput"
+                    type="file"
+                    name="storeCover"
+                    className="hidden"
+                    accept="image/*"
+                    multiple
+                    onChange={handleStoreLogo}
+                    required
+                  />
+                  <i className="fas fa-upload mr-2"></i>Upload Image
+                </label>
+              </div>
             </div>
           </div>
         </div>
@@ -503,11 +494,8 @@ function AddStore() {
                       <div className="floating-date-inner ">
                         <div className="item">
                           <div className="my-2">
-                            <label
-                              className=""
-                              htmlFor="minimum_delivery_time"
-                            >
-                            Latitude
+                            <label className="" htmlFor="minimum_delivery_time">
+                              Minimum Delivery Time
                             </label>
                           </div>
                           <div>
@@ -530,7 +518,7 @@ function AddStore() {
                               className="input-label"
                               htmlFor="maximum_delivery_time"
                             >
-                           Longitude
+                              Maximun Delivery Time
                             </label>
                           </div>
                           <div>
